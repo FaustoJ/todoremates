@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todoremates.com - Especialistas en Cubiertas</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -36,9 +37,13 @@
     <!-- Cabecera Principal (Blanca) -->
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-gray-900 cursor-pointer" onclick="mostrarCategorias()">
-                Todo<span class="text-brand-accent">remates</span>.com
-            </h1>
+            <!-- Logo y Título -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
+                <img src="logo.jpg" alt="Logo Todoremates" class="h-10 md:h-12 w-auto object-contain">
+                <h1 class="text-3xl font-extrabold text-gray-900">
+                    Todo<span class="text-brand-accent">remates</span>.com
+                </h1>
+            </div>
             <nav class="flex items-center gap-6">
                 <button onclick="document.getElementById('modal-contacto').classList.remove('hidden')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm">
                     Pide presupuesto
@@ -55,14 +60,12 @@
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
             <div class="max-w-6xl mx-auto px-4 py-3 flex gap-6 text-gray-900 font-bold text-sm md:text-base overflow-x-auto">
                 <span class="cursor-pointer hover:text-white transition" onclick="mostrarCategorias()">Inicio</span>
-                <span class="cursor-pointer hover:text-white transition" onclick="cargarProductos('teja')">Panel Teja</span>
-                <span class="cursor-pointer hover:text-white transition" onclick="cargarProductos('industrial')">Panel Industrial</span>
+                <span class="cursor-pointer hover:text-white transition" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
             </div>
         </div>
     </header>
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
-        
         <div id="vista-categorias" class="block">
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Todoremates presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
@@ -94,7 +97,7 @@
         </div>
     </main>
 
-    <!-- Modales y Scripts (Sin cambios en lógica) -->
+    <!-- Modales de Producto y Carrito... -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
@@ -129,7 +132,6 @@
         </div>
     </div>
 
-    <!-- Panel Lateral Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -144,35 +146,45 @@
         </div>
     </div>
 
-    <!-- Modal Checkout -->
+    <!-- Modal Checkout B2B (DETALLADO) -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
+        <div class="bg-brand-dark rounded max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Finalizar Pedido</h2>
+            
             <form onsubmit="confirmarPedido(event)" class="space-y-6">
                 <div class="bg-brand-darker p-6 rounded border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="envio-empresa" placeholder="Empresa (Opcional)" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="envio-nombre" placeholder="Persona de contacto" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-nombre" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-apellidos" placeholder="Apellidos" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                         <input type="email" name="envio-email" placeholder="Email" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                         <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="envio-direccion" placeholder="Dirección de entrega completa" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-direccion" placeholder="Domicilio completo" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-cp" placeholder="Código Postal" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-localidad" placeholder="Localidad" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-provincia" placeholder="Provincia" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
+
                 <label class="flex items-center space-x-3 cursor-pointer">
                     <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded">
                     <span class="text-gray-300 font-semibold">Mis datos de facturación son los mismos</span>
                 </label>
+
                 <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" name="fact-cif" placeholder="CIF / NIF" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="fact-empresa" placeholder="Razón Social" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="fact-direccion" placeholder="Dirección de Facturación" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-empresa" placeholder="Razón Social / Nombre" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-direccion" placeholder="Domicilio Fiscal" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-cp" placeholder="Código Postal" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-localidad" placeholder="Localidad" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-provincia" placeholder="Provincia" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar y Pagar</button>
+
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar, Descargar Proforma y Enviar</button>
             </form>
         </div>
     </div>
@@ -204,8 +216,7 @@
             { id: 8, cat: 'industrial', nombre: "Forjado Colaborante", precio: 22.00, ud: "m2", img: "forjado-colaborante-1.png", desc: "Perfil de chapa para la ejecución de forjados mixtos de hormigón." }
         ];
 
-        let carrito = [];
-        let productoSeleccionado = null;
+        let carrito = []; let productoSeleccionado = null;
 
         function mostrarCategorias() {
             document.getElementById('vista-productos').classList.add('hidden');
@@ -219,7 +230,6 @@
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
-
             productosDB.filter(p => p.cat === categoria).forEach(p => {
                 grid.innerHTML += `
                     <div class="bg-brand-darker rounded border border-gray-700 flex flex-col hover:border-brand-accent transition">
@@ -231,8 +241,7 @@
                             <p class="text-brand-accent text-2xl font-extrabold my-3">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
                             <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded border border-gray-600 transition">Ver Detalles</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -250,148 +259,133 @@
                 const fab = document.getElementById('modal-fabricante').value;
                 const espSelect = document.getElementById('modal-espesor');
                 const esp = espSelect.value;
-                const qty = parseInt(document.getElementById('modal-cantidad').value);
-                if(!fab || !esp) {
-                    const formContainer = document.getElementById('modal-fabricante').parentElement.parentElement;
-                    formContainer.classList.remove('shake');
-                    void formContainer.offsetWidth;
-                    formContainer.classList.add('shake');
-                    return;
-                }
+                if(!fab || !esp) return;
                 const mult = parseFloat(espSelect.options[espSelect.selectedIndex].getAttribute('data-mult'));
-                agregarAlCarrito(productoSeleccionado, qty, fab, esp, mult);
+                agregarAlCarrito(productoSeleccionado, parseInt(document.getElementById('modal-cantidad').value), fab, esp, mult);
                 cerrarModalProducto();
             };
         }
-
         function cerrarModalProducto() { document.getElementById('modal-producto').classList.add('hidden'); }
         function toggleCarrito() { document.getElementById('carrito-panel').classList.toggle('translate-x-full'); }
 
         function agregarAlCarrito(prod, cantidad, fab, esp, mult) {
-            const idCompuesto = `${prod.id}-${fab}-${esp}`;
-            const existe = carrito.find(i => i.idCompuesto === idCompuesto);
-            if (existe) existe.cantidad += cantidad;
-            else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
-            
-            const btn = document.querySelector('header button:last-child');
-            btn.classList.add('shake');
-            setTimeout(() => btn.classList.remove('shake'), 400);
+            const id = `${prod.id}-${fab}-${esp}`;
+            const ex = carrito.find(i => i.idCompuesto === id);
+            if (ex) ex.cantidad += cantidad; else carrito.push({ ...prod, idCompuesto: id, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
             actualizarCarrito();
         }
-
-        function eliminarDelCarrito(idCompuesto) { carrito = carrito.filter(i => i.idCompuesto !== idCompuesto); actualizarCarrito(); }
-
-        function cambiarCantidad(idCompuesto, delta) {
-            const item = carrito.find(i => i.idCompuesto === idCompuesto);
-            if (item) {
-                item.cantidad += delta;
-                if (item.cantidad <= 0) eliminarDelCarrito(idCompuesto);
-                else actualizarCarrito();
-            }
-        }
-
-        function calcularSubtotal() { return carrito.reduce((sum, item) => sum + (item.precio * item.multiplicador * item.cantidad), 0); }
+        function eliminarDelCarrito(id) { carrito = carrito.filter(i => i.idCompuesto !== id); actualizarCarrito(); }
+        function cambiarCantidad(id, delta) { const i = carrito.find(i => i.idCompuesto === id); if (i) { i.cantidad += delta; if (i.cantidad <= 0) eliminarDelCarrito(id); else actualizarCarrito(); } }
+        function calcularSubtotal() { return carrito.reduce((s, i) => s + (i.precio * i.multiplicador * i.cantidad), 0); }
 
         function actualizarCarrito() {
-            document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            const list = document.getElementById('cart-items');
-            list.innerHTML = '';
-            
-            carrito.forEach(item => {
-                const precioFinal = item.precio * item.multiplicador;
-                list.innerHTML += `
-                    <div class="flex gap-4 border-b border-gray-700 pb-4">
-                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded">
-                            <img src="${item.img}" class="max-h-full object-contain">
-                        </div>
-                        <div class="flex-grow">
-                            <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
-                            <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
-                            <div class="flex justify-between items-center mt-2">
-                                <div class="flex items-center bg-gray-800 rounded border border-gray-600">
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 py-1 text-gray-400 hover:text-white">-</button>
-                                    <span class="px-2 text-sm text-white font-bold">${item.cantidad}</span>
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 py-1 text-gray-400 hover:text-white">+</button>
-                                </div>
-                                <span class="font-bold text-white">${(precioFinal * item.cantidad).toFixed(2)}€</span>
+            document.getElementById('cart-count').innerText = carrito.reduce((s, i) => s + i.cantidad, 0);
+            document.getElementById('cart-items').innerHTML = carrito.map(item => `
+                <div class="flex gap-4 border-b border-gray-700 pb-4">
+                    <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" class="max-h-full object-contain"></div>
+                    <div class="flex-grow">
+                        <h4 class="text-sm font-bold text-white">${item.nombre}</h4><p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
+                        <div class="flex justify-between mt-2">
+                            <div class="flex items-center bg-gray-800 rounded border border-gray-600">
+                                <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 text-gray-400 hover:text-white">-</button>
+                                <span class="px-2 text-white font-bold">${item.cantidad}</span>
+                                <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 text-gray-400 hover:text-white">+</button>
                             </div>
+                            <span class="font-bold text-white">${(item.precio * item.multiplicador * item.cantidad).toFixed(2)}€</span>
                         </div>
-                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
                     </div>
-                `;
-            });
-
-            const subtotal = calcularSubtotal();
-            const iva = subtotal * 0.21;
-            document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
-            document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €';
-            document.getElementById('cart-total').innerText = (subtotal + iva).toFixed(2) + ' €';
+                    <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
+                </div>`).join('');
+            const sub = calcularSubtotal(); const iva = sub * 0.21;
+            document.getElementById('cart-subtotal').innerText = sub.toFixed(2) + ' €'; document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €'; document.getElementById('cart-total').innerText = (sub + iva).toFixed(2) + ' €';
         }
 
-        function abrirCheckout() {
-            if (carrito.length === 0) return alert("El carrito está vacío");
-            toggleCarrito();
-            document.getElementById('modal-checkout').classList.remove('hidden');
-        }
-
+        function abrirCheckout() { if (carrito.length === 0) return alert("Carrito vacío"); toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden'); }
         function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
-
-        function toggleFacturacion() {
-            const isChecked = document.getElementById('facturacion-igual').checked;
-            const seccion = document.getElementById('seccion-facturacion');
-            if (isChecked) seccion.classList.add('hidden');
-            else seccion.classList.remove('hidden');
-        }
+        function toggleFacturacion() { document.getElementById('seccion-facturacion').classList.toggle('hidden', document.getElementById('facturacion-igual').checked); }
 
         function confirmarPedido(e) {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
-            btn.innerText = "Procesando...";
-            btn.disabled = true;
+            btn.innerText = "Generando Proforma..."; btn.disabled = true;
 
-            const form = e.target;
-            const isFacturacionIgual = document.getElementById('facturacion-igual').checked;
-            const referencia = `TR-${Math.floor(Math.random()*10000)}`;
+            const f = e.target; const sub = calcularSubtotal(); const iva = sub * 0.21; const tot = sub + iva;
+            const ref = `TR-${Math.floor(Math.random()*10000)}`;
             
-            let emailText = `REFERENCIA DE PEDIDO: ${referencia}\n\nDATOS DE ENVÍO:\nEmpresa: ${form['envio-empresa'].value}\nNombre: ${form['envio-nombre'].value}\nEmail: ${form['envio-email'].value}\nTeléfono: ${form['envio-telefono'].value}\nDirección: ${form['envio-direccion'].value}\n\n`;
+            // GENERAR PDF
+            const pdfContainer = document.createElement('div');
+            pdfContainer.style.padding = '40px'; pdfContainer.style.fontFamily = 'Helvetica, Arial, sans-serif'; pdfContainer.style.color = '#333';
+            let pdfHTML = `
+                <div style="border-bottom: 3px solid #F6B64E; padding-bottom: 10px; margin-bottom: 20px;">
+                    <h1 style="font-size: 28px; margin:0; color: #1A1A1A;">Todo<span style="color: #F6B64E;">remates</span>.com</h1>
+                    <h3 style="margin:0; color: #666;">Factura Proforma - ${ref}</h3>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+                    <div style="width:48%;">
+                        <strong style="color: #F6B64E; font-size:14px; text-transform:uppercase;">Datos de Envío</strong><br>
+                        ${f['envio-nombre'].value} ${f['envio-apellidos'].value}<br>
+                        ${f['envio-direccion'].value}<br>
+                        ${f['envio-cp'].value} ${f['envio-localidad'].value} (${f['envio-provincia'].value})<br>
+                        Telf: ${f['envio-telefono'].value}
+                    </div>
+                    <div style="width:48%;">
+                        <strong style="color: #F6B64E; font-size:14px; text-transform:uppercase;">Datos de Facturación</strong><br>`;
             
-            if(!isFacturacionIgual) {
-                emailText += `DATOS DE FACTURACIÓN:\nCIF: ${form['fact-cif'].value}\nEmpresa: ${form['fact-empresa'].value}\nDirección: ${form['fact-direccion'].value}\n\n`;
+            if(document.getElementById('facturacion-igual').checked) {
+                pdfHTML += `Mismos que envío.`;
             } else {
-                emailText += `DATOS DE FACTURACIÓN: Iguales a los de envío.\n\n`;
+                pdfHTML += `${f['fact-empresa'].value} (CIF: ${f['fact-cif'].value})<br>
+                            ${f['fact-direccion'].value}<br>
+                            ${f['fact-cp'].value} ${f['fact-localidad'].value} (${f['fact-provincia'].value})`;
             }
 
-            emailText += `PRODUCTOS:\n`;
+            pdfHTML += `</div></div>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:30px; font-size:14px;">
+                    <tr style="background-color:#1A1A1A; color:#fff;">
+                        <th style="padding:10px; text-align:left;">Producto</th><th style="padding:10px;">Cant.</th><th style="padding:10px;">Precio/ud</th><th style="padding:10px; text-align:right;">Total</th>
+                    </tr>`;
+            
             carrito.forEach(item => {
-                const totalItem = (item.precio * item.multiplicador * item.cantidad).toFixed(2);
-                emailText += `- ${item.cantidad}x ${item.nombre} (${item.fabricante}, ${item.espesor}) -> ${totalItem}€\n`;
+                const finalP = item.precio * item.multiplicador;
+                pdfHTML += `<tr style="border-bottom:1px solid #ddd;">
+                    <td style="padding:10px;">${item.nombre} (${item.fabricante}, ${item.espesor})</td>
+                    <td style="padding:10px; text-align:center;">${item.cantidad}</td>
+                    <td style="padding:10px; text-align:center;">${finalP.toFixed(2)}€</td>
+                    <td style="padding:10px; text-align:right;">${(finalP * item.cantidad).toFixed(2)}€</td>
+                </tr>`;
             });
 
-            const subtotal = calcularSubtotal();
-            const iva = subtotal * 0.21;
-            emailText += `\n-----------------------\nSubtotal: ${subtotal.toFixed(2)}€\nIVA (21%): ${iva.toFixed(2)}€\nTOTAL A PAGAR: ${(subtotal + iva).toFixed(2)}€\n`;
+            pdfHTML += `</table>
+                <div style="text-align:right; font-size:16px;">
+                    <p>Subtotal: <strong>${sub.toFixed(2)}€</strong></p>
+                    <p>IVA (21%): <strong>${iva.toFixed(2)}€</strong></p>
+                    <p style="font-size:20px; color:#F6B64E; font-weight:bold;">TOTAL: ${tot.toFixed(2)}€</p>
+                </div>
+            `;
+            pdfContainer.innerHTML = pdfHTML;
 
-            fetch("https://formsubmit.co/ajax/faustomoyacastells@gmail.com", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ _subject: `Nuevo Pedido B2B: ${referencia}`, Detalles_Pedido: emailText })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(`¡Pedido ${referencia} completado con éxito! Se han enviado los detalles a tu correo.`);
-                carrito = [];
-                actualizarCarrito();
-                cerrarCheckout();
-                form.reset();
-                document.getElementById('facturacion-igual').checked = true;
-                toggleFacturacion();
-                btn.innerText = "Confirmar y Pagar";
-                btn.disabled = false;
-            })
-            .catch(error => {
-                alert("Hubo un error de conexión al procesar el pedido.");
-                btn.innerText = "Confirmar y Pagar";
-                btn.disabled = false;
+            // ENVÍO EMAIL ESTRUCTURADO
+            const formPayload = {
+                _subject: `Nuevo Pedido ${ref} - Todoremates`,
+                "01_Referencia": ref,
+                "02_Cliente": `${f['envio-nombre'].value} ${f['envio-apellidos'].value}`,
+                "03_Email": f['envio-email'].value,
+                "04_Telefono": f['envio-telefono'].value,
+                "05_Direccion_Envio": `${f['envio-direccion'].value}, ${f['envio-cp'].value} ${f['envio-localidad'].value} (${f['envio-provincia'].value})`,
+                "06_Facturacion": document.getElementById('facturacion-igual').checked ? "Igual al envío" : `${f['fact-empresa'].value} | CIF: ${f['fact-cif'].value} | Dir: ${f['fact-direccion'].value}, ${f['fact-cp'].value} ${f['fact-localidad'].value}`,
+                "07_Productos": carrito.map(i => `${i.cantidad}x ${i.nombre} (${i.fabricante} ${i.espesor})`).join(" | "),
+                "08_Total": `${tot.toFixed(2)}€`
+            };
+
+            // Descargar PDF y enviar correo
+            html2pdf().from(pdfContainer).save(`Proforma_${ref}.pdf`).then(() => {
+                btn.innerText = "Enviando correo...";
+                fetch("https://formsubmit.co/ajax/faustomoyacastells@gmail.com", {
+                    method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formPayload)
+                }).then(r => r.json()).then(() => {
+                    alert(`¡Pedido ${ref} completado! Se ha descargado tu proforma en PDF y enviado a tu correo.`);
+                    carrito = []; actualizarCarrito(); cerrarCheckout(); f.reset(); btn.innerText = "Confirmar, Descargar Proforma y Enviar"; btn.disabled = false;
+                });
             });
         }
     </script>
