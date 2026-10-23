@@ -21,7 +21,11 @@
     </script>
     <style>
         .shake { animation: shake 0.4s; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+        }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
@@ -29,15 +33,18 @@
 </head>
 <body class="bg-brand-darker text-gray-200 font-sans min-h-screen flex flex-col">
 
-    <!-- Cabecera -->
     <header class="bg-brand-dark shadow-md sticky top-0 z-40 border-b border-gray-700">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="mostrarCategorias()">Todo<span class="text-brand-accent">remates</span>.com</h1>
+            <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="mostrarCategorias()">
+                Todo<span class="text-brand-accent">remates</span>.com
+            </h1>
             <nav class="flex items-center gap-6">
                 <a href="#" onclick="mostrarCategorias()" class="hover:text-brand-accent transition hidden md:block">Inicio</a>
                 <a href="#" onclick="document.getElementById('modal-contacto').classList.remove('hidden')" class="hover:text-brand-accent transition hidden md:block">Contacto</a>
                 <button onclick="toggleCarrito()" class="relative bg-brand-accent text-brand-darker p-2 rounded-full hover:bg-brand-accent-hover transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
                     <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
             </nav>
@@ -45,160 +52,352 @@
     </header>
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8">
-        <!-- VISTA: Categorías -->
+        
         <div id="vista-categorias" class="block">
             <h2 class="text-3xl font-bold text-center mb-10 text-white">Selecciona una categoría</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div onclick="cargarProductos('teja')" class="bg-brand-dark rounded-xl overflow-hidden cursor-pointer hover:ring-4 ring-brand-accent transition transform hover:-translate-y-1">
-                    <img src="panel-sandwich-teja-roja-9-2048x1152.png" class="w-full h-64 object-cover">
-                    <div class="p-6 text-center"><h3 class="text-2xl font-bold text-brand-accent">Panel Teja</h3></div>
+                    <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Panel Teja" class="w-full h-64 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-brand-accent">Panel Teja</h3>
+                        <p class="text-gray-400 mt-2">Remates, paneles y accesorios para acabados residenciales.</p>
+                    </div>
                 </div>
                 <div onclick="cargarProductos('industrial')" class="bg-brand-dark rounded-xl overflow-hidden cursor-pointer hover:ring-4 ring-brand-accent transition transform hover:-translate-y-1">
-                    <img src="panel-5-grecas-6-2048x1152.png" class="w-full h-64 object-cover">
-                    <div class="p-6 text-center"><h3 class="text-2xl font-bold text-brand-accent">Panel Industrial</h3></div>
+                    <img src="panel-5-grecas-6-2048x1152.png" alt="Panel Industrial" class="w-full h-64 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-brand-accent">Panel Industrial</h3>
+                        <p class="text-gray-400 mt-2">Chapas, tapajuntas y complementos para naves y fachadas.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- VISTA: Productos -->
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">← Volver</button>
+                <button onclick="mostrarCategorias()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-bold text-brand-accent"></h2>
             </div>
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
+
     </main>
 
-    <!-- Modal Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-2xl">×</button>
-            <div class="w-full md:w-1/2 h-64 md:h-auto"><img id="modal-img" class="w-full h-full object-cover"></div>
-            <div class="w-full md:w-1/2 p-6 flex flex-col">
+            <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-800">
+                <img id="modal-img" src="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col">
                 <h3 id="modal-titulo" class="text-2xl font-bold text-brand-accent mb-2"></h3>
                 <p id="modal-desc" class="text-gray-400 text-sm mb-4 flex-grow"></p>
+                
                 <div class="space-y-4 bg-brand-darker p-4 rounded-lg border border-gray-700">
                     <div>
-                        <label class="block text-sm text-gray-300">Fabricante</label>
-                        <select id="modal-fabricante" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                            <option value="">Seleccione...</option><option value="Huurre">Huurre</option><option value="Isopan">Isopan</option><option value="Kingspan">Kingspan</option>
+                        <label class="block text-sm text-gray-300 mb-1">Fabricante (Obligatorio)</label>
+                        <select id="modal-fabricante" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white focus:outline-none focus:border-brand-accent">
+                            <option value="">Seleccione fabricante...</option>
+                            <option value="Huurre">Huurre</option>
+                            <option value="Isopan">Isopan</option>
+                            <option value="Kingspan">Kingspan</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-300">Espesor</label>
-                        <select id="modal-espesor" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                            <option value="">Seleccione...</option><option value="30mm" data-mult="1">30 mm</option><option value="40mm" data-mult="1.1">40 mm</option>
+                        <label class="block text-sm text-gray-300 mb-1">Espesor del Panel (Obligatorio)</label>
+                        <select id="modal-espesor" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white focus:outline-none focus:border-brand-accent">
+                            <option value="">Seleccione espesor...</option>
+                            <option value="30mm" data-mult="1">30 mm (Precio base)</option>
+                            <option value="40mm" data-mult="1.1">40 mm (+10%)</option>
+                            <option value="50mm" data-mult="1.25">50 mm (+25%)</option>
                         </select>
                     </div>
-                    <div class="flex gap-4 pt-2">
-                        <input type="number" id="modal-cantidad" min="1" value="1" class="w-1/3 p-2 bg-brand-dark border border-gray-600 rounded text-white text-center">
-                        <button id="btn-add-modal" class="w-2/3 bg-brand-accent text-brand-darker font-bold rounded">Añadir</button>
+                    <div class="flex items-end gap-4 pt-2">
+                        <div class="w-1/3">
+                            <label class="block text-sm text-gray-300 mb-1">Cant.</label>
+                            <input type="number" id="modal-cantidad" min="1" value="1" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white text-center">
+                        </div>
+                        <button id="btn-add-modal" class="w-2/3 bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-2 rounded transition">
+                            Añadir
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Carrito -->
-    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-96 bg-brand-dark shadow-2xl transform translate-x-full transition-transform z-50 flex flex-col">
-        <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between"><h2 class="text-xl font-bold text-white">Tu Pedido</h2><button onclick="toggleCarrito()" class="text-2xl text-gray-400">×</button></div>
+    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-96 bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
+        <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
+            <button onclick="toggleCarrito()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+        </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-brand-darker border-t border-gray-700">
+            <div class="flex justify-between text-gray-400 mb-2"><span>Subtotal</span><span id="cart-subtotal">0.00 €</span></div>
+            <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
             <div class="flex justify-between text-white text-xl font-bold mb-6"><span>Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button onclick="abrirCheckout()" class="w-full bg-brand-accent text-brand-darker font-bold py-3 rounded">Tramitar Pedido</button>
+            <button onclick="abrirCheckout()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-3 rounded text-lg transition">
+                Tramitar Pedido
+            </button>
         </div>
     </div>
 
-    <!-- Checkout B2B -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-6 relative">
-            <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 text-2xl">×</button>
+            <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">×</button>
             <h2 class="text-2xl font-bold text-brand-accent mb-6">Finalizar Pedido</h2>
+            
             <form onsubmit="confirmarPedido(event)" class="space-y-6">
                 <div class="bg-brand-darker p-4 rounded border border-gray-700">
-                    <input type="text" name="envio-nombre" placeholder="Nombre completo" required class="w-full p-2 mb-2 bg-brand-dark border border-gray-600 rounded text-white">
-                    <input type="email" name="envio-email" placeholder="Email" required class="w-full p-2 mb-2 bg-brand-dark border border-gray-600 rounded text-white">
-                    <input type="text" name="envio-direccion" placeholder="Dirección completa" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                    <h3 class="text-lg font-semibold text-white mb-4">Datos de Envío</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="envio-empresa" placeholder="Empresa (Opcional)" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-nombre" placeholder="Persona de contacto" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="email" name="envio-email" placeholder="Email" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-direccion" placeholder="Dirección de entrega completa" required class="col-span-1 md:col-span-2 w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                    </div>
                 </div>
-                <button type="submit" class="w-full bg-brand-accent text-brand-darker font-bold py-3 rounded text-lg">Confirmar y Pagar</button>
+
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 text-brand-accent bg-gray-700 border-gray-600 rounded focus:ring-brand-accent">
+                    <span class="text-gray-300">Mis datos de facturación son los mismos</span>
+                </label>
+
+                <div id="seccion-facturacion" class="hidden bg-brand-darker p-4 rounded border border-gray-700">
+                    <h3 class="text-lg font-semibold text-white mb-4">Datos de Facturación</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="fact-cif" placeholder="CIF / NIF" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-empresa" placeholder="Razón Social" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-direccion" placeholder="Dirección de Facturación" class="col-span-1 md:col-span-2 w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-3 rounded text-lg transition shadow-lg">
+                    Confirmar y Pagar
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Contacto Directo (Para activar la cuenta la primera vez) -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-xl max-w-md w-full p-6 relative">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 text-xl">×</button>
+            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">×</button>
             <h2 class="text-2xl font-bold text-brand-accent mb-4">Contacto</h2>
             <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-4">
-                <input type="hidden" name="_subject" value="Activacion de FormSubmit">
+                <input type="hidden" name="_subject" value="Nuevo mensaje desde Todoremates">
+                <input type="text" name="name" placeholder="Nombre" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white">
                 <input type="email" name="email" placeholder="Email" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white">
-                <button type="submit" class="w-full bg-brand-accent text-brand-darker font-bold py-2 rounded">Activar Correo</button>
+                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
+                <button type="submit" class="w-full bg-brand-accent text-brand-darker font-bold py-2 rounded">Enviar</button>
             </form>
         </div>
     </div>
 
     <script>
         const productosDB = [
-            { id: 1, cat: 'teja', nombre: "Panel Teja Roja", precio: 25.50, img: "panel-sandwich-teja-roja-9-2048x1152.png" },
-            { id: 5, cat: 'industrial', nombre: "Panel 5 Grecas", precio: 21.00, img: "panel-5-grecas-6-2048x1152.png" }
+            { id: 1, cat: 'teja', nombre: "Panel Teja Roja", precio: 25.50, ud: "m2", img: "panel-sandwich-teja-roja-9-2048x1152.png", desc: "Panel sándwich imitación teja roja clásica. Excelente aislamiento térmico." },
+            { id: 2, cat: 'teja', nombre: "Panel Teja Albero", precio: 27.00, ud: "m2", img: "panel-teja-albero-envejecido-1.png", desc: "Panel teja con acabado albero envejecido para integraciones rústicas." },
+            { id: 3, cat: 'teja', nombre: "Aglomerado Hidrófugo", precio: 15.00, ud: "m2", img: "render-aglomerado-hidrofugo.png", desc: "Tablero aglomerado hidrófugo ideal para soporte de cubiertas." },
+            { id: 4, cat: 'teja', nombre: "Tablero OSB", precio: 18.50, ud: "m2", img: "renderosb.jpg", desc: "Tablero OSB estructural de alta resistencia." },
+            { id: 5, cat: 'industrial', nombre: "Panel 5 Grecas", precio: 21.00, ud: "m2", img: "panel-5-grecas-6-2048x1152.png", desc: "Panel de cubierta industrial con 5 grecas para máxima resistencia." },
+            { id: 6, cat: 'industrial', nombre: "Panel 3 Grecas", precio: 19.50, ud: "m2", img: "panel-sandwich-3-grecas-tapajuntas-5-2048x1152.png", desc: "Panel sándwich estándar de 3 grecas con tapajuntas." },
+            { id: 7, cat: 'industrial', nombre: "Chapa Grecada", precio: 12.00, ud: "m2", img: "chapa-grecada-1-2048x1152.png", desc: "Chapa simple grecada sin aislamiento. Ligera y económica." },
+            { id: 8, cat: 'industrial', nombre: "Forjado Colaborante", precio: 22.00, ud: "m2", img: "forjado-colaborante-1.png", desc: "Perfil de chapa para la ejecución de forjados mixtos de hormigón." }
         ];
-        let carrito = []; let productoSeleccionado = null;
 
-        function mostrarCategorias() { document.getElementById('vista-productos').classList.add('hidden'); document.getElementById('vista-categorias').classList.remove('hidden'); }
-        
+        let carrito = [];
+        let productoSeleccionado = null;
+
+        function mostrarCategorias() {
+            document.getElementById('vista-productos').classList.add('hidden');
+            document.getElementById('vista-categorias').classList.remove('hidden');
+        }
+
         function cargarProductos(categoria) {
-            document.getElementById('vista-categorias').classList.add('hidden'); document.getElementById('vista-productos').classList.remove('hidden');
-            document.getElementById('grid-productos').innerHTML = productosDB.filter(p => p.cat === categoria).map(p => `
-                <div class="bg-brand-dark rounded border border-gray-700 p-4">
-                    <img src="${p.img}" class="w-full h-40 object-cover cursor-pointer mb-2" onclick="abrirModal(${p.id})">
-                    <h3 class="text-white font-bold">${p.nombre}</h3><p class="text-brand-accent mb-2">${p.precio}€</p>
-                    <button onclick="abrirModal(${p.id})" class="w-full bg-gray-700 text-white py-1 rounded">Ver Detalles</button>
-                </div>`).join('');
+            document.getElementById('vista-categorias').classList.add('hidden');
+            document.getElementById('vista-productos').classList.remove('hidden');
+            document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Catálogo: Panel Teja' : 'Catálogo: Panel Industrial';
+
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = '';
+
+            productosDB.filter(p => p.cat === categoria).forEach(p => {
+                grid.innerHTML += `
+                    <div class="bg-brand-dark rounded-xl overflow-hidden border border-gray-700 flex flex-col">
+                        <img src="${p.img}" alt="${p.nombre}" class="w-full h-48 object-cover cursor-pointer hover:opacity-80 transition" onclick="abrirModal(${p.id})">
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-white">${p.nombre}</h3>
+                            <p class="text-brand-accent text-xl font-bold my-2">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Ver Detalles</button>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
         function abrirModal(id) {
             productoSeleccionado = productosDB.find(p => p.id === id);
             document.getElementById('modal-img').src = productoSeleccionado.img;
             document.getElementById('modal-titulo').innerText = productoSeleccionado.nombre;
+            document.getElementById('modal-desc').innerText = productoSeleccionado.desc;
+            
+            document.getElementById('modal-fabricante').value = '';
+            document.getElementById('modal-espesor').value = '';
+            document.getElementById('modal-cantidad').value = '1';
+            
             document.getElementById('modal-producto').classList.remove('hidden');
+            
             document.getElementById('btn-add-modal').onclick = () => {
-                const fab = document.getElementById('modal-fabricante').value; const espSelect = document.getElementById('modal-espesor');
-                if(!fab || !espSelect.value) return alert("Selecciona fabricante y espesor");
-                carrito.push({ ...productoSeleccionado, cantidad: parseInt(document.getElementById('modal-cantidad').value), fabricante: fab, espesor: espSelect.value, multiplicador: parseFloat(espSelect.options[espSelect.selectedIndex].dataset.mult) });
-                actualizarCarrito(); cerrarModalProducto();
+                const fab = document.getElementById('modal-fabricante').value;
+                const espSelect = document.getElementById('modal-espesor');
+                const esp = espSelect.value;
+                const qty = parseInt(document.getElementById('modal-cantidad').value);
+
+                if(!fab || !esp) {
+                    const formContainer = document.getElementById('modal-fabricante').parentElement.parentElement;
+                    formContainer.classList.remove('shake');
+                    void formContainer.offsetWidth;
+                    formContainer.classList.add('shake');
+                    return;
+                }
+
+                const mult = parseFloat(espSelect.options[espSelect.selectedIndex].getAttribute('data-mult'));
+                agregarAlCarrito(productoSeleccionado, qty, fab, esp, mult);
+                cerrarModalProducto();
             };
         }
+
         function cerrarModalProducto() { document.getElementById('modal-producto').classList.add('hidden'); }
+
         function toggleCarrito() { document.getElementById('carrito-panel').classList.toggle('translate-x-full'); }
-        function abrirCheckout() { toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden'); }
-        function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
-        
+
+        function agregarAlCarrito(prod, cantidad, fab, esp, mult) {
+            const idCompuesto = `${prod.id}-${fab}-${esp}`;
+            const existe = carrito.find(i => i.idCompuesto === idCompuesto);
+            if (existe) existe.cantidad += cantidad;
+            else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
+            
+            const btn = document.querySelector('header button');
+            btn.classList.add('shake');
+            setTimeout(() => btn.classList.remove('shake'), 400);
+            actualizarCarrito();
+        }
+
+        function eliminarDelCarrito(idCompuesto) {
+            carrito = carrito.filter(i => i.idCompuesto !== idCompuesto);
+            actualizarCarrito();
+        }
+
+        function cambiarCantidad(idCompuesto, delta) {
+            const item = carrito.find(i => i.idCompuesto === idCompuesto);
+            if (item) {
+                item.cantidad += delta;
+                if (item.cantidad <= 0) eliminarDelCarrito(idCompuesto);
+                else actualizarCarrito();
+            }
+        }
+
+        function calcularSubtotal() { return carrito.reduce((sum, item) => sum + (item.precio * item.multiplicador * item.cantidad), 0); }
+
         function actualizarCarrito() {
-            document.getElementById('cart-count').innerText = carrito.length;
-            let total = 0;
-            document.getElementById('cart-items').innerHTML = carrito.map(item => {
-                total += item.precio * item.multiplicador * item.cantidad;
-                return `<div class="text-white border-b border-gray-700 pb-2">${item.cantidad}x ${item.nombre} - ${item.fabricante}</div>`;
-            }).join('');
-            document.getElementById('cart-total').innerText = (total * 1.21).toFixed(2) + ' €';
+            document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            const list = document.getElementById('cart-items');
+            list.innerHTML = '';
+            
+            carrito.forEach(item => {
+                const precioFinal = item.precio * item.multiplicador;
+                list.innerHTML += `
+                    <div class="flex gap-4 border-b border-gray-700 pb-4">
+                        <img src="${item.img}" class="w-16 h-16 object-cover rounded">
+                        <div class="flex-grow">
+                            <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
+                            <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex items-center bg-gray-800 rounded">
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 text-gray-400 hover:text-white">-</button>
+                                    <span class="px-2 text-sm text-white">${item.cantidad}</span>
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 text-gray-400 hover:text-white">+</button>
+                                </div>
+                                <span class="font-bold text-white">${(precioFinal * item.cantidad).toFixed(2)}€</span>
+                            </div>
+                        </div>
+                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500">×</button>
+                    </div>
+                `;
+            });
+
+            const subtotal = calcularSubtotal();
+            const iva = subtotal * 0.21;
+            document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
+            document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €';
+            document.getElementById('cart-total').innerText = (subtotal + iva).toFixed(2) + ' €';
+        }
+
+        function abrirCheckout() {
+            if (carrito.length === 0) return alert("El carrito está vacío");
+            toggleCarrito();
+            document.getElementById('modal-checkout').classList.remove('hidden');
+        }
+
+        function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
+
+        function toggleFacturacion() {
+            const isChecked = document.getElementById('facturacion-igual').checked;
+            const seccion = document.getElementById('seccion-facturacion');
+            if (isChecked) seccion.classList.add('hidden');
+            else seccion.classList.remove('hidden');
         }
 
         function confirmarPedido(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button'); btn.innerText = "Enviando..."; btn.disabled = true;
-            const ref = `TR-${Math.floor(Math.random()*1000)}`;
-            let data = `PEDIDO ${ref}\nNombre: ${e.target['envio-nombre'].value}\nEmail: ${e.target['envio-email'].value}\nProductos:\n` + carrito.map(i => `${i.cantidad}x ${i.nombre} (${i.fabricante})`).join('\n');
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerText = "Procesando...";
+            btn.disabled = true;
+
+            const form = e.target;
+            const isFacturacionIgual = document.getElementById('facturacion-igual').checked;
+            const referencia = `TR-${Math.floor(Math.random()*10000)}`;
+            
+            let emailText = `REFERENCIA DE PEDIDO: ${referencia}\n\nDATOS DE ENVÍO:\nEmpresa: ${form['envio-empresa'].value}\nNombre: ${form['envio-nombre'].value}\nEmail: ${form['envio-email'].value}\nTeléfono: ${form['envio-telefono'].value}\nDirección: ${form['envio-direccion'].value}\n\n`;
+            
+            if(!isFacturacionIgual) {
+                emailText += `DATOS DE FACTURACIÓN:\nCIF: ${form['fact-cif'].value}\nEmpresa: ${form['fact-empresa'].value}\nDirección: ${form['fact-direccion'].value}\n\n`;
+            } else {
+                emailText += `DATOS DE FACTURACIÓN: Iguales a los de envío.\n\n`;
+            }
+
+            emailText += `PRODUCTOS:\n`;
+            carrito.forEach(item => {
+                const totalItem = (item.precio * item.multiplicador * item.cantidad).toFixed(2);
+                emailText += `- ${item.cantidad}x ${item.nombre} (${item.fabricante}, ${item.espesor}) -> ${totalItem}€\n`;
+            });
+
+            const subtotal = calcularSubtotal();
+            const iva = subtotal * 0.21;
+            emailText += `\n-----------------------\nSubtotal: ${subtotal.toFixed(2)}€\nIVA (21%): ${iva.toFixed(2)}€\nTOTAL A PAGAR: ${(subtotal + iva).toFixed(2)}€\n`;
 
             fetch("https://formsubmit.co/ajax/faustomoyacastells@gmail.com", {
-                method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ _subject: `Nuevo Pedido ${ref}`, Resumen: data })
-            }).then(r => r.json()).then(() => {
-                alert("¡Pedido enviado por email correctamente!");
-                carrito = []; actualizarCarrito(); cerrarCheckout(); e.target.reset(); btn.innerText = "Confirmar y Pagar"; btn.disabled = false;
-            }).catch(() => {
-                alert("Error de conexión. Asegúrate de activar FormSubmit primero desde la sección Contacto."); btn.innerText = "Confirmar y Pagar"; btn.disabled = false;
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ _subject: `Nuevo Pedido B2B: ${referencia}`, Detalles_Pedido: emailText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`¡Pedido ${referencia} completado con éxito! Se han enviado los detalles a tu correo.`);
+                carrito = [];
+                actualizarCarrito();
+                cerrarCheckout();
+                form.reset();
+                document.getElementById('facturacion-igual').checked = true;
+                toggleFacturacion();
+                btn.innerText = "Confirmar y Pagar";
+                btn.disabled = false;
+            })
+            .catch(error => {
+                alert("Hubo un error de conexión al procesar el pedido.");
+                btn.innerText = "Confirmar y Pagar";
+                btn.disabled = false;
             });
         }
     </script>
