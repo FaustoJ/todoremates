@@ -31,43 +31,55 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-brand-darker text-gray-200 font-sans min-h-screen flex flex-col">
+<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col">
 
-    <header class="bg-brand-dark shadow-md sticky top-0 z-40 border-b border-gray-700">
+    <!-- Cabecera Principal (Blanca) -->
+    <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="mostrarCategorias()">
+            <h1 class="text-3xl font-extrabold text-gray-900 cursor-pointer" onclick="mostrarCategorias()">
                 Todo<span class="text-brand-accent">remates</span>.com
             </h1>
             <nav class="flex items-center gap-6">
-                <a href="#" onclick="mostrarCategorias()" class="hover:text-brand-accent transition hidden md:block">Inicio</a>
-                <a href="#" onclick="document.getElementById('modal-contacto').classList.remove('hidden')" class="hover:text-brand-accent transition hidden md:block">Contacto</a>
-                <button onclick="toggleCarrito()" class="relative bg-brand-accent text-brand-darker p-2 rounded-full hover:bg-brand-accent-hover transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="document.getElementById('modal-contacto').classList.remove('hidden')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm">
+                    Pide presupuesto
+                </button>
+                <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
                 </button>
             </nav>
         </div>
+        <!-- Barra Secundaria (Naranja/Mostaza) -->
+        <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex gap-6 text-gray-900 font-bold text-sm md:text-base overflow-x-auto">
+                <span class="cursor-pointer hover:text-white transition" onclick="mostrarCategorias()">Inicio</span>
+                <span class="cursor-pointer hover:text-white transition" onclick="cargarProductos('teja')">Panel Teja</span>
+                <span class="cursor-pointer hover:text-white transition" onclick="cargarProductos('industrial')">Panel Industrial</span>
+            </div>
+        </div>
     </header>
 
-    <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8">
+    <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
         <div id="vista-categorias" class="block">
-            <h2 class="text-3xl font-bold text-center mb-10 text-white">Selecciona una categoría</h2>
+            <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
+            <p class="text-gray-300 mb-10 max-w-3xl">En Todoremates presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div onclick="cargarProductos('teja')" class="bg-brand-dark rounded-xl overflow-hidden cursor-pointer hover:ring-4 ring-brand-accent transition transform hover:-translate-y-1">
-                    <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Panel Teja" class="w-full h-64 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-brand-accent">Panel Teja</h3>
-                        <p class="text-gray-400 mt-2">Remates, paneles y accesorios para acabados residenciales.</p>
+                <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
+                    <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Panel Teja" class="w-full h-72 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-3xl font-bold text-white mb-2">Panel Teja</h3>
+                        <p class="text-gray-400">Remates, paneles y accesorios para acabados residenciales.</p>
                     </div>
                 </div>
-                <div onclick="cargarProductos('industrial')" class="bg-brand-dark rounded-xl overflow-hidden cursor-pointer hover:ring-4 ring-brand-accent transition transform hover:-translate-y-1">
-                    <img src="panel-5-grecas-6-2048x1152.png" alt="Panel Industrial" class="w-full h-64 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-brand-accent">Panel Industrial</h3>
-                        <p class="text-gray-400 mt-2">Chapas, tapajuntas y complementos para naves y fachadas.</p>
+                <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
+                    <img src="panel-5-grecas-6-2048x1152.png" alt="Panel Industrial" class="w-full h-72 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-3xl font-bold text-white mb-2">Panel Industrial</h3>
+                        <p class="text-gray-400">Chapas, tapajuntas y complementos para naves y fachadas.</p>
                     </div>
                 </div>
             </div>
@@ -75,121 +87,107 @@
 
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">← Volver</button>
-                <h2 id="titulo-categoria" class="text-3xl font-bold text-brand-accent"></h2>
+                <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver al catálogo</button>
+                <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
-
     </main>
 
+    <!-- Modales y Scripts (Sin cambios en lógica) -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative">
-            <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-2xl">×</button>
-            <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-800">
-                <img id="modal-img" src="" class="w-full h-full object-cover">
+        <div class="bg-brand-darker rounded max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700">
+            <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
+            <div class="w-full md:w-1/2 bg-white flex items-center justify-center p-4">
+                <img id="modal-img" src="" class="max-h-64 object-contain">
             </div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col">
-                <h3 id="modal-titulo" class="text-2xl font-bold text-brand-accent mb-2"></h3>
-                <p id="modal-desc" class="text-gray-400 text-sm mb-4 flex-grow"></p>
-                
-                <div class="space-y-4 bg-brand-darker p-4 rounded-lg border border-gray-700">
+                <h3 id="modal-titulo" class="text-3xl font-bold text-white mb-2"></h3>
+                <p id="modal-desc" class="text-gray-400 text-sm mb-6 flex-grow"></p>
+                <div class="space-y-4">
                     <div>
-                        <label class="block text-sm text-gray-300 mb-1">Fabricante (Obligatorio)</label>
-                        <select id="modal-fabricante" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white focus:outline-none focus:border-brand-accent">
-                            <option value="">Seleccione fabricante...</option>
-                            <option value="Huurre">Huurre</option>
-                            <option value="Isopan">Isopan</option>
-                            <option value="Kingspan">Kingspan</option>
+                        <label class="block text-sm font-bold text-gray-300 mb-1">Fabricante</label>
+                        <select id="modal-fabricante" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                            <option value="">Seleccione fabricante...</option><option value="Huurre">Huurre</option><option value="Isopan">Isopan</option><option value="Kingspan">Kingspan</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-300 mb-1">Espesor del Panel (Obligatorio)</label>
-                        <select id="modal-espesor" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white focus:outline-none focus:border-brand-accent">
-                            <option value="">Seleccione espesor...</option>
-                            <option value="30mm" data-mult="1">30 mm (Precio base)</option>
-                            <option value="40mm" data-mult="1.1">40 mm (+10%)</option>
-                            <option value="50mm" data-mult="1.25">50 mm (+25%)</option>
+                        <label class="block text-sm font-bold text-gray-300 mb-1">Espesor</label>
+                        <select id="modal-espesor" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                            <option value="">Seleccione espesor...</option><option value="30mm" data-mult="1">30 mm</option><option value="40mm" data-mult="1.1">40 mm (+10%)</option><option value="50mm" data-mult="1.25">50 mm (+25%)</option>
                         </select>
                     </div>
-                    <div class="flex items-end gap-4 pt-2">
+                    <div class="flex items-end gap-4 pt-4">
                         <div class="w-1/3">
-                            <label class="block text-sm text-gray-300 mb-1">Cant.</label>
-                            <input type="number" id="modal-cantidad" min="1" value="1" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white text-center">
+                            <label class="block text-sm font-bold text-gray-300 mb-1">Cant.</label>
+                            <input type="number" id="modal-cantidad" min="1" value="1" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white text-center font-bold">
                         </div>
-                        <button id="btn-add-modal" class="w-2/3 bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-2 rounded transition">
-                            Añadir
-                        </button>
+                        <button id="btn-add-modal" class="w-2/3 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded transition shadow">Añadir al carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-96 bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
+    <!-- Panel Lateral Carrito -->
+    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
-            <button onclick="toggleCarrito()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            <button onclick="toggleCarrito()" class="text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-brand-darker border-t border-gray-700">
             <div class="flex justify-between text-gray-400 mb-2"><span>Subtotal</span><span id="cart-subtotal">0.00 €</span></div>
             <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
-            <div class="flex justify-between text-white text-xl font-bold mb-6"><span>Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button onclick="abrirCheckout()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-3 rounded text-lg transition">
-                Tramitar Pedido
-            </button>
+            <div class="flex justify-between text-white text-2xl font-bold mb-6"><span>Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
+            <button onclick="abrirCheckout()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-lg transition">Tramitar Pedido</button>
         </div>
     </div>
 
-    <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-6 relative">
-            <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">×</button>
-            <h2 class="text-2xl font-bold text-brand-accent mb-6">Finalizar Pedido</h2>
-            
+    <!-- Modal Checkout -->
+    <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
+            <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Finalizar Pedido</h2>
             <form onsubmit="confirmarPedido(event)" class="space-y-6">
-                <div class="bg-brand-darker p-4 rounded border border-gray-700">
-                    <h3 class="text-lg font-semibold text-white mb-4">Datos de Envío</h3>
+                <div class="bg-brand-darker p-6 rounded border border-gray-700">
+                    <h3 class="text-xl font-bold text-white mb-4">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="envio-empresa" placeholder="Empresa (Opcional)" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="envio-nombre" placeholder="Persona de contacto" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="email" name="envio-email" placeholder="Email" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="envio-direccion" placeholder="Dirección de entrega completa" required class="col-span-1 md:col-span-2 w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-empresa" placeholder="Empresa (Opcional)" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-nombre" placeholder="Persona de contacto" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="email" name="envio-email" placeholder="Email" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="envio-direccion" placeholder="Dirección de entrega completa" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 text-brand-accent bg-gray-700 border-gray-600 rounded focus:ring-brand-accent">
-                    <span class="text-gray-300">Mis datos de facturación son los mismos</span>
+                <label class="flex items-center space-x-3 cursor-pointer">
+                    <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded">
+                    <span class="text-gray-300 font-semibold">Mis datos de facturación son los mismos</span>
                 </label>
-
-                <div id="seccion-facturacion" class="hidden bg-brand-darker p-4 rounded border border-gray-700">
-                    <h3 class="text-lg font-semibold text-white mb-4">Datos de Facturación</h3>
+                <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded border border-gray-700">
+                    <h3 class="text-xl font-bold text-white mb-4">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="fact-cif" placeholder="CIF / NIF" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="fact-empresa" placeholder="Razón Social" class="w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="text" name="fact-direccion" placeholder="Dirección de Facturación" class="col-span-1 md:col-span-2 w-full p-2 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-cif" placeholder="CIF / NIF" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-empresa" placeholder="Razón Social" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
+                        <input type="text" name="fact-direccion" placeholder="Dirección de Facturación" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-brand-darker font-bold py-3 rounded text-lg transition shadow-lg">
-                    Confirmar y Pagar
-                </button>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar y Pagar</button>
             </form>
         </div>
     </div>
 
-    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-xl max-w-md w-full p-6 relative">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">×</button>
-            <h2 class="text-2xl font-bold text-brand-accent mb-4">Contacto</h2>
+    <!-- Modal Contacto -->
+    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded max-w-md w-full p-8 relative border border-gray-700">
+            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-4">Contacto</h2>
             <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-4">
                 <input type="hidden" name="_subject" value="Nuevo mensaje desde Todoremates">
-                <input type="text" name="name" placeholder="Nombre" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white">
-                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-2 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
-                <button type="submit" class="w-full bg-brand-accent text-brand-darker font-bold py-2 rounded">Enviar</button>
+                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
+                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded transition">Enviar Mensaje</button>
             </form>
         </div>
     </div>
@@ -217,19 +215,21 @@
         function cargarProductos(categoria) {
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
-            document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Catálogo: Panel Teja' : 'Catálogo: Panel Industrial';
+            document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Panel Teja' : 'Panel Industrial';
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
 
             productosDB.filter(p => p.cat === categoria).forEach(p => {
                 grid.innerHTML += `
-                    <div class="bg-brand-dark rounded-xl overflow-hidden border border-gray-700 flex flex-col">
-                        <img src="${p.img}" alt="${p.nombre}" class="w-full h-48 object-cover cursor-pointer hover:opacity-80 transition" onclick="abrirModal(${p.id})">
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg font-bold text-white">${p.nombre}</h3>
-                            <p class="text-brand-accent text-xl font-bold my-2">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Ver Detalles</button>
+                    <div class="bg-brand-darker rounded border border-gray-700 flex flex-col hover:border-brand-accent transition">
+                        <div class="bg-white flex items-center justify-center p-2 cursor-pointer h-48" onclick="abrirModal(${p.id})">
+                            <img src="${p.img}" alt="${p.nombre}" class="max-h-full object-contain">
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white">${p.nombre}</h3>
+                            <p class="text-brand-accent text-2xl font-extrabold my-3">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded border border-gray-600 transition">Ver Detalles</button>
                         </div>
                     </div>
                 `;
@@ -241,11 +241,9 @@
             document.getElementById('modal-img').src = productoSeleccionado.img;
             document.getElementById('modal-titulo').innerText = productoSeleccionado.nombre;
             document.getElementById('modal-desc').innerText = productoSeleccionado.desc;
-            
             document.getElementById('modal-fabricante').value = '';
             document.getElementById('modal-espesor').value = '';
             document.getElementById('modal-cantidad').value = '1';
-            
             document.getElementById('modal-producto').classList.remove('hidden');
             
             document.getElementById('btn-add-modal').onclick = () => {
@@ -253,7 +251,6 @@
                 const espSelect = document.getElementById('modal-espesor');
                 const esp = espSelect.value;
                 const qty = parseInt(document.getElementById('modal-cantidad').value);
-
                 if(!fab || !esp) {
                     const formContainer = document.getElementById('modal-fabricante').parentElement.parentElement;
                     formContainer.classList.remove('shake');
@@ -261,7 +258,6 @@
                     formContainer.classList.add('shake');
                     return;
                 }
-
                 const mult = parseFloat(espSelect.options[espSelect.selectedIndex].getAttribute('data-mult'));
                 agregarAlCarrito(productoSeleccionado, qty, fab, esp, mult);
                 cerrarModalProducto();
@@ -269,7 +265,6 @@
         }
 
         function cerrarModalProducto() { document.getElementById('modal-producto').classList.add('hidden'); }
-
         function toggleCarrito() { document.getElementById('carrito-panel').classList.toggle('translate-x-full'); }
 
         function agregarAlCarrito(prod, cantidad, fab, esp, mult) {
@@ -278,16 +273,13 @@
             if (existe) existe.cantidad += cantidad;
             else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
             
-            const btn = document.querySelector('header button');
+            const btn = document.querySelector('header button:last-child');
             btn.classList.add('shake');
             setTimeout(() => btn.classList.remove('shake'), 400);
             actualizarCarrito();
         }
 
-        function eliminarDelCarrito(idCompuesto) {
-            carrito = carrito.filter(i => i.idCompuesto !== idCompuesto);
-            actualizarCarrito();
-        }
+        function eliminarDelCarrito(idCompuesto) { carrito = carrito.filter(i => i.idCompuesto !== idCompuesto); actualizarCarrito(); }
 
         function cambiarCantidad(idCompuesto, delta) {
             const item = carrito.find(i => i.idCompuesto === idCompuesto);
@@ -309,20 +301,22 @@
                 const precioFinal = item.precio * item.multiplicador;
                 list.innerHTML += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
-                        <img src="${item.img}" class="w-16 h-16 object-cover rounded">
+                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded">
+                            <img src="${item.img}" class="max-h-full object-contain">
+                        </div>
                         <div class="flex-grow">
                             <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
                             <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
                             <div class="flex justify-between items-center mt-2">
-                                <div class="flex items-center bg-gray-800 rounded">
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 text-gray-400 hover:text-white">-</button>
-                                    <span class="px-2 text-sm text-white">${item.cantidad}</span>
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 text-gray-400 hover:text-white">+</button>
+                                <div class="flex items-center bg-gray-800 rounded border border-gray-600">
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 py-1 text-gray-400 hover:text-white">-</button>
+                                    <span class="px-2 text-sm text-white font-bold">${item.cantidad}</span>
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 py-1 text-gray-400 hover:text-white">+</button>
                                 </div>
                                 <span class="font-bold text-white">${(precioFinal * item.cantidad).toFixed(2)}€</span>
                             </div>
                         </div>
-                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500">×</button>
+                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
                     </div>
                 `;
             });
