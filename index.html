@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todoremates.com | Paneles y Remates</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Configuración de Tailwind basada en la paleta corporativa -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#2a2a2a',      // Gris oscuro / Carbón de la web
+                            darker: '#1a1a1a',    // Gris casi negro para footer/cabeceras
+                            amber: '#f6b64d',     // Amarillo/Naranja cálido de los botones
+                            amberHover: '#e5a53c',
+                            light: '#f9f9f9',
+                            gray: '#e5e7eb'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones Personalizadas */
+        .slide-panel { transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slide-panel.open { transform: translateX(0); }
+        
+        .fade-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; }
+        .fade-overlay.open { opacity: 1; pointer-events: auto; }
+        
+        .error-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        .error-border { border-color: #ef4444 !important; box-shadow: 0 0 0 1px #ef4444 !important; }
+        
+        .cart-bounce { animation: pop 0.3s ease; }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        /* Estilos Tabla de Email */
+        .email-table th { background-color: #f3f4f6; color: #2a2a2a; text-transform: uppercase; font-size: 11px; padding: 10px; border-bottom: 2px solid #e5e7eb; }
+        .email-table td { padding: 10px; border-bottom: 1px solid #e5e7eb; font-size: 13px; color: #4b5563; }
+        
+        /* Ocultar Scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-brand-light text-brand-dark flex flex-col min-h-screen font-sans selection:bg-brand-amber selection:text-brand-dark">
+
+    <!-- CABECERA -->
+    <header class="bg-white text-brand-dark shadow-sm sticky top-0 z-40">
+        <!-- Barra superior blanca -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="showCategories()">
+                <div class="bg-brand-amber p-1.5 sm:p-2 rounded text-brand-dark">
+                    <i class="ph-bold ph-buildings text-xl sm:text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-extrabold tracking-tight leading-none text-brand-dark">Todoremates.com</h1>
+                    <span class="text-[9px] sm:text-[10px] text-gray-500 font-bold tracking-widest uppercase">B2B Solutions</span>
+                </div>
+            </div>
+
+            <!-- Menú -->
+            <nav class="hidden md:flex items-center gap-8 font-semibold text-sm">
+                <button onclick="showCategories()" class="hover:text-brand-amber transition-colors flex items-center gap-1">
+                    <i class="ph-bold ph-house"></i> Inicio
+                </button>
+                <button onclick="toggleModal('contactModal', true)" class="hover:text-brand-amber transition-colors flex items-center gap-1">
+                    <i class="ph-bold ph-envelope"></i> Contacto
+                </button>
+            </nav>
+            
+            <!-- Botones Acciones -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <button onclick="toggleModal('contactModal', true)" class="md:hidden text-brand-dark hover:text-brand-amber">
+                    <i class="ph-bold ph-envelope text-2xl"></i>
+                </button>
+                <button id="cartBtn" onclick="toggleCart(true)" class="relative p-2.5 bg-brand-amber hover:bg-brand-amberHover text-brand-dark font-bold rounded transition-colors group flex items-center gap-2 shadow-sm">
+                    <i class="ph-bold ph-shopping-cart text-xl"></i>
+                    <span class="hidden sm:inline-block text-sm">Carrito</span>
+                    <span id="cartBadge" class="absolute -top-2 -right-2 flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-black text-white bg-brand-dark rounded-full shadow-md hidden">0</span>
+                </button>
+            </div>
+        </div>
+        <!-- Sub-barra naranja decorativa -->
+        <div class="w-full bg-brand-amber h-1.5"></div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow w-full relative">
+        
+        <!-- VISTA: CATEGORÍAS -->
+        <div id="categoryView" class="block">
+            <!-- Hero oscuro -->
+            <div class="bg-brand-dark text-white py-12 sm:py-16 mb-8 sm:mb-12 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-4 tracking-tight">Catálogo de Paneles y Remates</h2>
+                    <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto">Selecciona la familia de producto para ver todas las soluciones constructivas disponibles para tu obra.</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Cat Teja -->
+                    <div onclick="showProducts('teja')" class="group relative rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all border border-gray-200 aspect-[4/3] md:aspect-auto md:h-80 bg-white">
+                        <div class="absolute inset-0 bg-brand-dark/60 group-hover:bg-brand-dark/40 transition-colors z-10"></div>
+                        <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Panel Teja" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 p-8">
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 text-center">
+                            <i class="ph-bold ph-house-line text-4xl text-brand-amber mb-3 drop-shadow-md"></i>
+                            <h3 class="text-2xl font-black text-white mb-2 shadow-sm">Panel Teja</h3>
+                            <span class="mt-4 bg-brand-amber text-brand-dark font-bold py-2 px-6 rounded opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 shadow-lg">Ver gama</span>
+                        </div>
+                    </div>
+
+                    <!-- Cat Industrial -->
+                    <div onclick="showProducts('industrial')" class="group relative rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all border border-gray-200 aspect-[4/3] md:aspect-auto md:h-80 bg-white">
+                        <div class="absolute inset-0 bg-brand-dark/60 group-hover:bg-brand-dark/40 transition-colors z-10"></div>
+                        <img src="panel-5-grecas-6-2048x1152.png" alt="Panel Industrial" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 p-8">
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 text-center">
+                            <i class="ph-bold ph-factory text-4xl text-brand-amber mb-3 drop-shadow-md"></i>
+                            <h3 class="text-2xl font-black text-white mb-2 shadow-sm">Panel Industrial</h3>
+                            <span class="mt-4 bg-brand-amber text-brand-dark font-bold py-2 px-6 rounded opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 shadow-lg">Ver gama</span>
+                        </div>
+                    </div>
+
+                    <!-- Cat Madera -->
+                    <div onclick="showProducts('madera')" class="group relative rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all border border-gray-200 aspect-[4/3] md:aspect-auto md:h-80 bg-white">
+                        <div class="absolute inset-0 bg-brand-dark/60 group-hover:bg-brand-dark/40 transition-colors z-10"></div>
+                        <img src="render-aglomerado-hidrofugo.png" alt="Panel Madera" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 p-8">
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 text-center">
+                            <i class="ph-bold ph-tree text-4xl text-brand-amber mb-3 drop-shadow-md"></i>
+                            <h3 class="text-2xl font-black text-white mb-2 shadow-sm">Panel Madera</h3>
+                            <span class="mt-4 bg-brand-amber text-brand-dark font-bold py-2 px-6 rounded opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 shadow-lg">Ver gama</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA: PRODUCTOS -->
+        <div id="productView" class="hidden pb-16 pt-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-6 sm:mb-8">
+                <button onclick="showCategories()" class="text-gray-500 hover:text-brand-amber font-semibold flex items-center gap-2 mb-4 transition-colors">
+                    <i class="ph-bold ph-arrow-left"></i> Volver a categorías
+                </button>
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-gray-200 pb-3">
+                    <h2 id="productCategoryTitle" class="text-2xl sm:text-3xl font-black text-brand-dark"></h2>
+                    <p class="text-sm font-medium text-gray-500 mt-1 sm:mt-0 bg-gray-100 px-3 py-1 rounded" id="productCountInfo"></p>
+                </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Se inyecta por JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-darker text-gray-400 py-8 text-center text-xs sm:text-sm font-medium border-t-4 border-brand-amber">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 text-white">
+                <i class="ph-fill ph-buildings text-brand-amber text-xl"></i>
+                <span class="font-bold tracking-wide text-base">Todoremates.com</span>
+            </div>
+            <p>&copy; 2026. Soluciones Constructivas B2B.</p>
+        </div>
+    </footer>
+
+    <!-- ================= MODALES Y OVERLAYS ================= -->
+
+    <!-- OVERLAY GLOBAL -->
+    <div id="globalOverlay" class="fixed inset-0 bg-brand-darker/80 z-50 fade-overlay backdrop-blur-sm" onclick="closeAllModals()"></div>
+
+    <!-- PANEL CARRITO (Slide Right) -->
+    <div id="cartPanel" class="fixed inset-y-0 right-0 w-full sm:w-[400px] md:w-[450px] bg-white shadow-2xl z-[60] slide-panel flex flex-col border-l-4 border-brand-amber">
+        <div class="px-4 sm:px-6 py-4 bg-brand-dark text-white flex justify-between items-center shadow-md">
+            <h2 class="text-base sm:text-lg font-bold flex items-center gap-2">
+                <i class="ph-bold ph-shopping-cart text-brand-amber text-xl"></i> Tu Pedido
+            </h2>
+            <button onclick="toggleCart(false)" class="text-gray-400 hover:text-white p-1.5 rounded transition-colors">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+            <!-- Items del carrito JS -->
+            <div id="emptyCartMsg" class="h-full flex flex-col items-center justify-center text-gray-400">
+                <i class="ph-bold ph-package text-5xl mb-2 text-gray-300"></i>
+                <p class="font-bold text-brand-dark text-lg">Carrito vacío</p>
+                <p class="text-sm mt-1">Añade productos para continuar.</p>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200 p-4 sm:p-6 bg-white shadow-[0_-4px_15px_-3px_rgba(0,0,0,0.05)]">
+            <div class="space-y-2 mb-4 text-xs sm:text-sm font-medium text-gray-600">
+                <div class="flex justify-between"><span>Subtotal</span><span id="cartSubtotal" class="font-bold text-brand-dark">0.00 €</span></div>
+                <div class="flex justify-between"><span>IVA (21%)</span><span id="cartTaxes" class="font-bold text-brand-dark">0.00 €</span></div>
+            </div>
+            <div class="flex justify-between items-end border-t border-gray-200 pt-3 mb-4 sm:mb-6">
+                <p class="text-xs font-bold text-gray-500 uppercase">Total</p>
+                <p id="cartTotal" class="text-xl sm:text-2xl font-black text-brand-amber">0.00 €</p>
+            </div>
+            
+            <button id="checkoutBtn" onclick="openCheckout()" class="w-full bg-brand-amber hover:bg-brand-amberHover text-brand-dark font-black py-3 sm:py-4 px-4 rounded shadow-md transition-all flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group" disabled>
+                Proceder al Pago <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DETALLES PRODUCTO -->
+    <div id="productModal" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded shadow-2xl relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto no-scrollbar flex flex-col transform scale-95 transition-transform duration-300 border-t-4 border-brand-amber" id="productModalContent">
+            <button onclick="toggleModal('productModal', false)" class="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 bg-white hover:bg-gray-100 text-brand-dark p-2 rounded shadow-md transition-colors border border-gray-200">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+            
+            <!-- Imagen -->
+            <div class="w-full bg-gray-50 p-4 sm:p-8 flex items-center justify-center h-48 sm:h-64 border-b border-gray-200">
+                <img id="modalMainImg" src="" alt="Producto" class="max-w-full max-h-full object-contain drop-shadow-xl">
+            </div>
+            
+            <!-- Info -->
+            <div class="p-4 sm:p-6 flex flex-col">
+                <h3 id="modalProductName" class="text-xl sm:text-2xl font-black text-brand-dark mb-1"></h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span id="modalProductPrice" class="text-2xl sm:text-3xl font-black text-brand-amber drop-shadow-sm"></span>
+                    <span class="text-gray-500 font-medium mb-1 uppercase text-xs">/ ud</span>
+                </div>
+                
+                <!-- Configurador -->
+                <div class="bg-brand-light p-4 rounded border border-gray-200 mb-6">
+                    <h4 class="text-xs font-bold text-brand-dark uppercase tracking-wider mb-3 flex items-center gap-1"><i class="ph-bold ph-sliders"></i> Opciones obligatorias</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Fabricante <span class="text-red-500">*</span></label>
+                            <select id="modalFabricante" class="w-full border border-gray-300 rounded h-10 px-2 text-sm text-brand-dark font-medium focus:ring-2 focus:ring-brand-amber outline-none bg-white shadow-sm">
+                                <option value="">Seleccionar...</option>
+                                <option value="Isopan">Isopan</option>
+                                <option value="Hiansa">Hiansa</option>
+                                <option value="Europerfil">Europerfil</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Espesor <span class="text-red-500">*</span></label>
+                            <select id="modalEspesor" onchange="updateModalPrice()" class="w-full border border-gray-300 rounded h-10 px-2 text-sm text-brand-dark font-medium focus:ring-2 focus:ring-brand-amber outline-none bg-white shadow-sm">
+                                <option value="">Seleccionar...</option>
+                                <option value="30mm">30mm</option>
+                                <option value="40mm">40mm (+10%)</option>
+                                <option value="50mm">50mm (+20%)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add to cart -->
+                <div class="flex items-stretch gap-3 mt-auto">
+                    <div class="flex flex-col justify-end w-20">
+                        <label class="text-[10px] font-bold text-gray-500 mb-1 text-center">Cant.</label>
+                        <input type="number" id="modalQty" value="1" min="1" class="w-full h-12 border border-gray-300 rounded text-center font-bold text-lg text-brand-dark focus:border-brand-amber outline-none shadow-sm">
+                    </div>
+                    <button onclick="addToCartFromModal()" class="flex-1 bg-brand-dark hover:bg-black text-white font-bold h-12 rounded text-sm sm:text-base transition-colors flex items-center justify-center gap-2 shadow-md mt-auto">
+                        Añadir al carrito <i class="ph-bold ph-plus-circle text-brand-amber"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONTACTO -->
+    <div id="contactModal" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded p-6 sm:p-8 max-w-sm w-full relative z-10 shadow-2xl transform scale-95 transition-transform duration-300 border-t-4 border-brand-amber" id="contactModalContent">
+            <button onclick="toggleModal('contactModal', false)" class="absolute top-3 right-3 text-gray-400 hover:text-brand-dark"><i class="ph-bold ph-x text-xl"></i></button>
+            <h3 class="text-xl font-black text-brand-dark mb-2">Contacto</h3>
+            <p class="text-gray-500 text-xs sm:text-sm mb-4">¿Dudas con tu pedido? Escríbenos.</p>
+            <form onsubmit="event.preventDefault(); toggleModal('contactModal', false); alert('Mensaje enviado (simulación)');" class="space-y-3">
+                <input type="email" placeholder="Tu Email" required class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                <textarea placeholder="Mensaje" required class="w-full border border-gray-300 rounded p-3 h-24 text-sm resize-none focus:ring-1 focus:ring-brand-amber outline-none shadow-sm"></textarea>
+                <button type="submit" class="w-full bg-brand-amber text-brand-dark font-bold py-2.5 rounded text-sm hover:bg-brand-amberHover transition-colors shadow-sm">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CHECKOUT FORMULARIO B2B -->
+    <div id="checkoutFormModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded shadow-2xl relative z-10 w-full max-w-2xl max-h-[95vh] overflow-y-auto no-scrollbar flex flex-col transform scale-95 transition-transform duration-300 border-t-4 border-brand-amber" id="checkoutFormContent">
+            <div class="px-4 sm:px-6 py-4 bg-brand-dark text-white flex justify-between items-center sticky top-0 z-20">
+                <h2 class="text-base sm:text-lg font-bold flex items-center gap-2"><i class="ph-bold ph-truck text-brand-amber"></i> Finalizar Pedido B2B</h2>
+                <button onclick="toggleModal('checkoutFormModal', false)" class="text-gray-400 hover:text-white p-1.5"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+
+            <form id="billingShippingForm" onsubmit="submitCheckout(event)" class="p-4 sm:p-6 space-y-6">
+                <!-- Envío -->
+                <div>
+                    <h3 class="text-sm font-black text-brand-dark mb-3 border-b border-gray-200 pb-1">Datos de Envío</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="shipNombre" placeholder="Nombre completo" required class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                        <input type="tel" id="shipTel" placeholder="Teléfono" required class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                        <input type="text" id="shipDir" placeholder="Dirección de obra/entrega" required class="w-full sm:col-span-2 border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                        <input type="text" id="shipPob" placeholder="Población" required class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                        <input type="text" id="shipCP" placeholder="Código Postal" required class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                    </div>
+                </div>
+
+                <!-- Toggle Facturación -->
+                <div class="bg-brand-light p-3 rounded border border-gray-200 flex items-center gap-2">
+                    <input type="checkbox" id="sameAsShipping" checked onchange="toggleBillingFields()" class="w-4 h-4 text-brand-amber rounded border-gray-300 focus:ring-brand-amber">
+                    <label for="sameAsShipping" class="text-xs font-bold text-brand-dark cursor-pointer">Mis datos de facturación son los mismos</label>
+                </div>
+
+                <!-- Facturación (Oculto) -->
+                <div id="billingSection" class="hidden">
+                    <h3 class="text-sm font-black text-brand-dark mb-3 border-b border-gray-200 pb-1">Datos de Facturación</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="billEmpresa" placeholder="Razón Social / Empresa" class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                        <input type="text" id="billCif" placeholder="CIF / NIF" class="w-full border border-gray-300 rounded h-10 px-3 text-sm focus:ring-1 focus:ring-brand-amber outline-none shadow-sm">
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-brand-amber hover:bg-brand-amberHover text-brand-dark font-black py-3 rounded shadow-md transition-colors flex justify-center items-center gap-2 text-lg">
+                        Confirmar y Pagar <i class="ph-bold ph-check-circle"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL RECIBO EMAIL SIMULADO -->
+    <div id="emailSimulatorModal" class="fixed inset-0 z-[90] hidden items-center justify-center p-2 sm:p-4 opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-brand-darker/95 backdrop-blur-sm" onclick="closeReceipt()"></div>
+        <div class="bg-white rounded shadow-2xl relative z-10 w-full max-w-3xl max-h-[95vh] flex flex-col transform scale-95 transition-transform duration-300 border-t-4 border-brand-amber" id="emailSimulatorContent">
+            
+            <div class="bg-gray-100 px-4 py-3 rounded-t border-b border-gray-200 flex items-center gap-2">
+                <i class="ph-fill ph-envelope-open text-xl text-brand-dark"></i>
+                <h3 class="font-bold text-brand-dark text-sm">Simulador de Recibo (Bandeja de Entrada)</h3>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1 bg-white">
+                <div class="border border-gray-200 rounded p-4 sm:p-6 shadow-sm">
+                    <div class="flex justify-between items-start mb-4 border-b pb-3">
+                        <div>
+                            <h2 class="text-xl font-black text-brand-dark mb-1">Pedido Confirmado</h2>
+                            <p class="text-xs text-gray-600">Ref: <strong id="simOrderRef" class="text-brand-amber font-mono text-sm bg-gray-100 px-1 py-0.5 rounded"></strong></p>
+                        </div>
+                        <div class="text-right">
+                            <h1 class="text-sm font-extrabold uppercase text-brand-dark">Todoremates.com</h1>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-brand-light p-3 rounded border border-gray-100 text-xs" id="simCustomerDataBox">
+                        <!-- JS inject -->
+                    </div>
+                    
+                    <div class="overflow-x-auto rounded border border-gray-200 mb-4">
+                        <table class="w-full text-left border-collapse email-table">
+                            <thead>
+                                <tr><th>Producto</th><th>Detalles</th><th class="text-center">Cant</th><th class="text-right">Total</th></tr>
+                            </thead>
+                            <tbody id="simEmailTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <div class="w-full sm:w-64 space-y-1 text-xs text-gray-600 bg-brand-light p-3 rounded border border-gray-200">
+                            <div class="flex justify-between"><span>Subtotal:</span> <strong id="simSubtotal"></strong></div>
+                            <div class="flex justify-between"><span>IVA (21%):</span> <strong id="simIva"></strong></div>
+                            <div class="flex justify-between border-t border-gray-300 pt-1 mt-1 text-sm">
+                                <span class="font-bold text-brand-dark">TOTAL:</span> <strong id="simTotal" class="text-brand-amber font-black"></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-b border-t border-gray-200 text-right">
+                <button onclick="closeReceipt()" class="w-full sm:w-auto bg-brand-dark text-white font-bold py-2 px-6 rounded transition-colors text-sm hover:bg-black">
+                    Cerrar y Volver al Inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. BASE DE DATOS EXACTA CON IMÁGENES
+        const products = [
+            { id: 1, category: 'teja', name: "Panel Teja Roja", price: 24.50, img: "panel-sandwich-teja-roja-9-2048x1152.png" },
+            { id: 2, category: 'teja', name: "Panel Teja Albero", price: 26.00, img: "panel-teja-albero-envejecido-1.png" },
+            { id: 3, category: 'industrial', name: "Panel 5 Grecas", price: 18.20, img: "panel-5-grecas-6-2048x1152.png" },
+            { id: 4, category: 'industrial', name: "Panel 3 Grecas Tapajuntas", price: 19.50, img: "panel-sandwich-3-grecas-tapajuntas-5-2048x1152.png" },
+            { id: 5, category: 'industrial', name: "Chapa Grecada", price: 12.00, img: "chapa-grecada-1-2048x1152.png" },
+            { id: 6, category: 'industrial', name: "Forjado Colaborante", price: 15.30, img: "forjado-colaborante-1.png" },
+            { id: 7, category: 'madera', name: "Panel Aglomerado Hidrófugo", price: 30.00, img: "render-aglomerado-hidrofugo.png" },
+            { id: 8, category: 'madera', name: "Panel OSB", price: 28.50, img: "renderosb.jpg" }
+        ];
+        
+        const ESPESORES = { "30mm": 1.0, "40mm": 1.1, "50mm": 1.2 };
+        const IVA = 0.21;
+        let cart = [];
+        let currentModalProduct = null;
+
+        // 2. NAVEGACIÓN SPA
+        function showCategories() {
+            document.getElementById('productView').classList.add('hidden');
+            document.getElementById('categoryView').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function showProducts(cat) {
+            const titles = { 'teja': 'Panel Teja', 'industrial': 'Panel Industrial', 'madera': 'Panel Madera' };
+            document.getElementById('productCategoryTitle').textContent = titles[cat];
+
+            const filtered = products.filter(p => p.category === cat);
+            document.getElementById('productCountInfo').textContent = `${filtered.length} productos`;
+
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded shadow-sm hover:shadow-lg transition-all border border-gray-200 overflow-hidden flex flex-col group h-full">
+                    <div class="bg-white p-4 h-40 sm:h-48 flex items-center justify-center cursor-pointer border-b border-gray-100 relative" onclick="openProduct(${p.id})">
+                        <img src="${p.img}" alt="${p.name}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm">
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="text-sm sm:text-base font-bold text-brand-dark leading-tight mb-2 flex-grow">${p.name}</h3>
+                        
+                        <!-- Inputs directos en Grid -->
+                        <div class="grid grid-cols-2 gap-2 mb-4">
+                            <select id="fab-grid-${p.id}" class="text-[10px] sm:text-xs border border-gray-300 rounded p-1 outline-none focus:ring-1 focus:ring-brand-amber">
+                                <option value="">Fabricante...</option>
+                                <option value="Isopan">Isopan</option><option value="Hiansa">Hiansa</option>
+                            </select>
+                            <select id="esp-grid-${p.id}" class="text-[10px] sm:text-xs border border-gray-300 rounded p-1 outline-none focus:ring-1 focus:ring-brand-amber">
+                                <option value="">Espesor...</option>
+                                <option value="30mm">30mm</option><option value="40mm">40mm</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-end justify-between mt-auto border-t border-gray-100 pt-3">
+                            <span class="text-lg font-black text-brand-amber drop-shadow-sm">${p.price.toFixed(2)}€</span>
+                            <div class="flex items-center gap-1">
+                                <input type="number" id="qty-grid-${p.id}" value="1" min="1" class="w-10 h-8 border border-gray-300 rounded text-center text-xs outline-none font-bold text-brand-dark">
+                                <button onclick="addFromGrid(${p.id})" class="h-8 px-2 bg-brand-dark text-white rounded hover:bg-brand-amber hover:text-brand-dark transition-colors"><i class="ph-bold ph-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('categoryView').classList.add('hidden');
+            document.getElementById('productView').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // 3. FUNCIONES DE MODAL Y UTILIDADES
+        function toggleModal(id, show) {
+            const m = document.getElementById(id);
+            const c = document.getElementById(id + 'Content');
+            const o = document.getElementById('globalOverlay');
+            
+            if (show) {
+                if(id !== 'contactModal') toggleCart(false); // Cierra carrito si se abre otro
+                o.classList.add('open');
+                m.classList.remove('hidden'); m.classList.add('flex');
+                void m.offsetWidth;
+                m.classList.remove('opacity-0'); c.classList.remove('scale-95');
+                document.body.style.overflow = 'hidden';
+            } else {
+                if(!document.querySelector('.slide-panel.open')) o.classList.remove('open');
+                m.classList.add('opacity-0'); c.classList.add('scale-95');
+                setTimeout(() => { m.classList.add('hidden'); m.classList.remove('flex'); document.body.style.overflow = ''; }, 300);
+            }
+        }
+        function closeAllModals() {
+            toggleModal('productModal', false);
+            toggleModal('contactModal', false);
+            toggleModal('checkoutFormModal', false);
+            toggleCart(false);
+        }
+
+        // MODAL PRODUCTO
+        function openProduct(id) {
+            currentModalProduct = products.find(p => p.id === id);
+            if(!currentModalProduct) return;
+            
+            document.getElementById('modalMainImg').src = currentModalProduct.img;
+            document.getElementById('modalProductName').textContent = currentModalProduct.name;
+            document.getElementById('modalProductPrice').textContent = currentModalProduct.price.toFixed(2) + '€';
+            
+            document.getElementById('modalFabricante').value = '';
+            document.getElementById('modalEspesor').value = '';
+            document.getElementById('modalQty').value = 1;
+            document.getElementById('modalFabricante').classList.remove('error-border');
+            document.getElementById('modalEspesor').classList.remove('error-border');
+
+            toggleModal('productModal', true);
+        }
+
+        function updateModalPrice() {
+            if(!currentModalProduct) return;
+            const mult = ESPESORES[document.getElementById('modalEspesor').value] || 1.0;
+            document.getElementById('modalProductPrice').textContent = (currentModalProduct.price * mult).toFixed(2) + '€';
+        }
+
+        // 4. LÓGICA DE CARRITO
+        function validateSelects(fabEl, espEl) {
+            let valid = true;
+            [fabEl, espEl].forEach(el => {
+                if (!el.value) { el.classList.add('error-border', 'error-shake'); setTimeout(() => el.classList.remove('error-shake'), 400); valid = false; } 
+                else { el.classList.remove('error-border'); }
+            });
+            return valid;
+        }
+
+        function addCore(p, qty, fab, esp) {
+            const finalPrice = p.price * (ESPESORES[esp] || 1.0);
+            const cartItemId = `${p.id}-${fab}-${esp}`;
+            const existing = cart.find(i => i.cartItemId === cartItemId);
+            
+            existing ? existing.quantity += qty : cart.push({ ...p, cartItemId, quantity: qty, fabricante: fab, espesor: esp, finalPrice });
+            updateCartUI();
+            
+            // Animación botón carrito
+            const cBtn = document.getElementById('cartBtn');
+            cBtn.classList.add('cart-bounce'); setTimeout(() => cBtn.classList.remove('cart-bounce'), 300);
+        }
+
+        function addFromGrid(id) {
+            const fEl = document.getElementById(`fab-grid-${id}`);
+            const eEl = document.getElementById(`esp-grid-${id}`);
+            if(!validateSelects(fEl, eEl)) return;
+            const q = parseInt(document.getElementById(`qty-grid-${id}`).value) || 1;
+            addCore(products.find(p=>p.id===id), q, fEl.value, eEl.value);
+            fEl.value=''; eEl.value=''; document.getElementById(`qty-grid-${id}`).value=1; // Reset
+        }
+
+        function addToCartFromModal() {
+            const fEl = document.getElementById('modalFabricante');
+            const eEl = document.getElementById('modalEspesor');
+            if(!validateSelects(fEl, eEl)) return;
+            const q = parseInt(document.getElementById('modalQty').value) || 1;
+            addCore(currentModalProduct, q, fEl.value, eEl.value);
+            toggleModal('productModal', false);
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const badge = document.getElementById('cartBadge');
+            const btnCheck = document.getElementById('checkoutBtn');
+            
+            Array.from(container.children).forEach(c => { if(c.id !== 'emptyCartMsg') c.remove(); });
+            
+            let subtotal = 0, qTotal = 0;
+            if (cart.length === 0) {
+                document.getElementById('emptyCartMsg').style.display = 'flex';
+                badge.classList.add('hidden'); btnCheck.disabled = true;
+            } else {
+                document.getElementById('emptyCartMsg').style.display = 'none';
+                badge.classList.remove('hidden'); btnCheck.disabled = false;
+                
+                cart.forEach(item => {
+                    subtotal += (item.finalPrice * item.quantity); qTotal += item.quantity;
+                    const el = document.createElement('div');
+                    el.className = 'bg-white p-3 rounded shadow-sm border border-gray-200';
+                    el.innerHTML = `
+                        <div class="flex justify-between gap-1 mb-2">
+                            <div><h4 class="text-xs font-bold text-brand-dark">${item.name}</h4><p class="text-[10px] text-gray-500 uppercase">${item.fabricante} | ${item.espesor}</p></div>
+                            <button onclick="rmCart('${item.cartItemId}')" class="text-gray-400 hover:text-red-500 transition-colors"><i class="ph-bold ph-trash"></i></button>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex items-center bg-brand-light rounded border border-gray-300">
+                                <button onclick="chgQty('${item.cartItemId}', -1)" class="w-6 h-6 font-bold text-brand-dark hover:bg-gray-200">-</button>
+                                <span class="w-6 text-center text-xs font-bold">${item.quantity}</span>
+                                <button onclick="chgQty('${item.cartItemId}', 1)" class="w-6 h-6 font-bold text-brand-dark hover:bg-gray-200">+</button>
+                            </div>
+                            <p class="text-sm font-black text-brand-amber">${(item.finalPrice * item.quantity).toFixed(2)}€</p>
+                        </div>`;
+                    container.appendChild(el);
+                });
+            }
+            
+            const iva = subtotal * IVA; const total = subtotal + iva;
+            badge.textContent = qTotal;
+            document.getElementById('cartSubtotal').textContent = subtotal.toFixed(2) + '€';
+            document.getElementById('cartTaxes').textContent = iva.toFixed(2) + '€';
+            document.getElementById('cartTotal').textContent = total.toFixed(2) + '€';
+        }
+
+        function chgQty(id, d) { const i = cart.find(x => x.cartItemId === id); if(i) { i.quantity+=d; if(i.quantity<=0) cart=cart.filter(x=>x.cartItemId!==id); updateCartUI(); } }
+        function rmCart(id) { cart = cart.filter(x => x.cartItemId !== id); updateCartUI(); }
+
+        function toggleCart(show) {
+            const p = document.getElementById('cartPanel'); const o = document.getElementById('globalOverlay');
+            if (show) { p.classList.add('open'); o.classList.add('open'); document.body.style.overflow = 'hidden'; } 
+            else { p.classList.remove('open'); if(!document.querySelector('.fixed.flex:not(.hidden)')) o.classList.remove('open'); document.body.style.overflow = ''; }
+        }
+
+        // 5. CHECKOUT FLOW
+        function openCheckout() { toggleCart(false); toggleModal('checkoutFormModal', true); }
+        
+        function toggleBillingFields() {
+            const same = document.getElementById('sameAsShipping').checked;
+            document.getElementById('billingSection').classList.toggle('hidden', same);
+            ['billEmpresa', 'billCif'].forEach(id => {
+                if(same) document.getElementById(id).removeAttribute('required');
+                else document.getElementById(id).setAttribute('required', 'true');
+            });
+        }
+
+        function submitCheckout(e) {
+            e.preventDefault();
+            const shipNombre = document.getElementById('shipNombre').value;
+            const same = document.getElementById('sameAsShipping').checked;
+            
+            const data = {
+                ship: { n: shipNombre, d: document.getElementById('shipDir').value, p: document.getElementById('shipCP').value + " " + document.getElementById('shipPob').value, t: document.getElementById('shipTel').value },
+                bill: same ? { e: shipNombre, c: "Particular" } : { e: document.getElementById('billEmpresa').value, c: document.getElementById('billCif').value }
+            };
+            
+            toggleModal('checkoutFormModal', false);
+            setTimeout(() => showReceipt(data), 350);
+        }
+
+        function showReceipt(d) {
+            document.getElementById('simOrderRef').textContent = `#TR-${Math.floor(Math.random()*90000)+10000}`;
+            
+            document.getElementById('simCustomerDataBox').innerHTML = `
+                <div><p class="font-bold text-brand-dark mb-1">ENVÍO</p><p>${d.ship.n}</p><p>${d.ship.d}</p><p>${d.ship.p}</p><p>${d.ship.t}</p></div>
+                <div><p class="font-bold text-brand-dark mb-1">FACTURACIÓN</p><p>${d.bill.e}</p><p>CIF: ${d.bill.c}</p><p>${sameAsShipping.checked ? d.ship.d : "Según fiscal"}</p></div>
+            `;
+            
+            const tbody = document.getElementById('simEmailTableBody');
+            tbody.innerHTML = ''; let sub = 0;
+            cart.forEach(i => {
+                const tot = i.finalPrice * i.quantity; sub += tot;
+                tbody.innerHTML += `<tr><td class="font-bold text-brand-dark">${i.name}</td><td>${i.fabricante} / ${i.espesor}</td><td class="text-center">${i.quantity}</td><td class="text-right font-bold text-brand-dark">${tot.toFixed(2)}€</td></tr>`;
+            });
+            
+            const iva = sub * IVA; const total = sub + iva;
+            document.getElementById('simSubtotal').textContent = sub.toFixed(2) + '€';
+            document.getElementById('simIva').textContent = iva.toFixed(2) + '€';
+            document.getElementById('simTotal').textContent = total.toFixed(2) + '€';
+            
+            document.getElementById('emailSimulatorModal').classList.remove('hidden');
+            document.getElementById('emailSimulatorModal').classList.add('flex');
+            void document.getElementById('emailSimulatorModal').offsetWidth;
+            document.getElementById('emailSimulatorModal').classList.remove('opacity-0');
+            document.getElementById('emailSimulatorContent').classList.remove('scale-95');
+        }
+
+        function closeReceipt() {
+            document.getElementById('emailSimulatorModal').classList.add('opacity-0');
+            document.getElementById('emailSimulatorContent').classList.add('scale-95');
+            setTimeout(() => {
+                document.getElementById('emailSimulatorModal').classList.add('hidden');
+                document.getElementById('emailSimulatorModal').classList.remove('flex');
+                document.getElementById('billingShippingForm').reset();
+                document.getElementById('sameAsShipping').checked = true;
+                toggleBillingFields();
+                cart = []; updateCartUI(); showCategories();
+            }, 300);
+        }
+    </script>
+</body>
+</html>
