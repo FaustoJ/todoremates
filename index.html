@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todoremates.com - Especialistas en Cubiertas</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería para generar el PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
@@ -22,11 +23,7 @@
     </script>
     <style>
         .shake { animation: shake 0.4s; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25%, 75% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-        }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
@@ -37,10 +34,9 @@
     <!-- Cabecera Principal (Blanca) -->
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- Logo y Título -->
             <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
-                <img src="logo.jpg" alt="Logo Todoremates" class="h-10 md:h-12 w-auto object-contain">
-                <h1 class="text-3xl font-extrabold text-gray-900">
+                <img src="logo.jpg" alt="Logo" class="h-10 md:h-12 object-contain">
+                <h1 class="text-3xl font-extrabold text-gray-900 hidden sm:block">
                     Todo<span class="text-brand-accent">remates</span>.com
                 </h1>
             </div>
@@ -58,7 +54,7 @@
         </div>
         <!-- Barra Secundaria (Naranja/Mostaza) -->
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex gap-6 text-gray-900 font-bold text-sm md:text-base overflow-x-auto">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex gap-6 text-gray-900 font-bold text-sm md:text-base">
                 <span class="cursor-pointer hover:text-white transition" onclick="mostrarCategorias()">Inicio</span>
                 <span class="cursor-pointer hover:text-white transition" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
             </div>
@@ -66,6 +62,8 @@
     </header>
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
+        
+        <!-- Categorías -->
         <div id="vista-categorias" class="block">
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Todoremates presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
@@ -88,6 +86,7 @@
             </div>
         </div>
 
+        <!-- Productos -->
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver al catálogo</button>
@@ -97,7 +96,7 @@
         </div>
     </main>
 
-    <!-- Modales de Producto y Carrito... -->
+    <!-- Modal Detalles de Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
@@ -132,6 +131,7 @@
         </div>
     </div>
 
+    <!-- Panel Lateral Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -142,17 +142,17 @@
             <div class="flex justify-between text-gray-400 mb-2"><span>Subtotal</span><span id="cart-subtotal">0.00 €</span></div>
             <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
             <div class="flex justify-between text-white text-2xl font-bold mb-6"><span>Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button onclick="abrirCheckout()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-lg transition">Tramitar Pedido</button>
+            <button onclick="abrirCheckout()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-lg transition">Tramitar Factura</button>
         </div>
     </div>
 
-    <!-- Modal Checkout B2B (DETALLADO) -->
+    <!-- Modal Checkout Detallado -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Finalizar Pedido</h2>
-            
-            <form onsubmit="confirmarPedido(event)" class="space-y-6">
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Datos para la Factura</h2>
+            <form id="form-checkout" onsubmit="confirmarPedido(event)" class="space-y-6">
+                <!-- Datos de Envío -->
                 <div class="bg-brand-darker p-6 rounded border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -172,6 +172,7 @@
                     <span class="text-gray-300 font-semibold">Mis datos de facturación son los mismos</span>
                 </label>
 
+                <!-- Datos de Facturación -->
                 <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -184,8 +185,26 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar, Descargar Proforma y Enviar</button>
+                <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar y Generar Factura</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito Personalizado -->
+    <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-white mb-2">¡Pedido Completado!</h2>
+            <p class="text-gray-400 mb-6">Tu factura ha sido generada correctamente y la descarga comenzará en breve. También te hemos enviado una copia al correo.</p>
+            <div class="bg-brand-darker p-4 rounded mb-6">
+                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Factura</span>
+                <span id="ref-exito" class="text-2xl font-bold text-brand-accent">TR-0000</span>
+            </div>
+            <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
         </div>
     </div>
 
@@ -204,19 +223,23 @@
         </div>
     </div>
 
+    <!-- Div oculto para generar el HTML del PDF -->
+    <div id="pdf-template" style="display: none;"></div>
+
     <script>
         const productosDB = [
             { id: 1, cat: 'teja', nombre: "Panel Teja Roja", precio: 25.50, ud: "m2", img: "panel-sandwich-teja-roja-9-2048x1152.png", desc: "Panel sándwich imitación teja roja clásica. Excelente aislamiento térmico." },
             { id: 2, cat: 'teja', nombre: "Panel Teja Albero", precio: 27.00, ud: "m2", img: "panel-teja-albero-envejecido-1.png", desc: "Panel teja con acabado albero envejecido para integraciones rústicas." },
             { id: 3, cat: 'teja', nombre: "Aglomerado Hidrófugo", precio: 15.00, ud: "m2", img: "render-aglomerado-hidrofugo.png", desc: "Tablero aglomerado hidrófugo ideal para soporte de cubiertas." },
-            { id: 4, cat: 'teja', nombre: "Tablero OSB", precio: 18.50, ud: "m2", img: "renderosb.jpg", desc: "Tablero OSB estructural de alta resistencia." },
+            { id: 4, cat: 'teja', nombre: "Tablero OSB", precio: 18.50, ud: "m2", img: "renderosb.png", desc: "Tablero OSB estructural de alta resistencia." },
             { id: 5, cat: 'industrial', nombre: "Panel 5 Grecas", precio: 21.00, ud: "m2", img: "panel-5-grecas-6-2048x1152.png", desc: "Panel de cubierta industrial con 5 grecas para máxima resistencia." },
             { id: 6, cat: 'industrial', nombre: "Panel 3 Grecas", precio: 19.50, ud: "m2", img: "panel-sandwich-3-grecas-tapajuntas-5-2048x1152.png", desc: "Panel sándwich estándar de 3 grecas con tapajuntas." },
             { id: 7, cat: 'industrial', nombre: "Chapa Grecada", precio: 12.00, ud: "m2", img: "chapa-grecada-1-2048x1152.png", desc: "Chapa simple grecada sin aislamiento. Ligera y económica." },
             { id: 8, cat: 'industrial', nombre: "Forjado Colaborante", precio: 22.00, ud: "m2", img: "forjado-colaborante-1.png", desc: "Perfil de chapa para la ejecución de forjados mixtos de hormigón." }
         ];
 
-        let carrito = []; let productoSeleccionado = null;
+        let carrito = [];
+        let productoSeleccionado = null;
 
         function mostrarCategorias() {
             document.getElementById('vista-productos').classList.add('hidden');
@@ -230,6 +253,7 @@
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
+
             productosDB.filter(p => p.cat === categoria).forEach(p => {
                 grid.innerHTML += `
                     <div class="bg-brand-darker rounded border border-gray-700 flex flex-col hover:border-brand-accent transition">
@@ -241,7 +265,8 @@
                             <p class="text-brand-accent text-2xl font-extrabold my-3">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
                             <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded border border-gray-600 transition">Ver Detalles</button>
                         </div>
-                    </div>`;
+                    </div>
+                `;
             });
         }
 
@@ -259,134 +284,249 @@
                 const fab = document.getElementById('modal-fabricante').value;
                 const espSelect = document.getElementById('modal-espesor');
                 const esp = espSelect.value;
-                if(!fab || !esp) return;
+                const qty = parseInt(document.getElementById('modal-cantidad').value);
+                if(!fab || !esp) {
+                    const formContainer = document.getElementById('modal-fabricante').parentElement.parentElement;
+                    formContainer.classList.remove('shake');
+                    void formContainer.offsetWidth;
+                    formContainer.classList.add('shake');
+                    return;
+                }
                 const mult = parseFloat(espSelect.options[espSelect.selectedIndex].getAttribute('data-mult'));
-                agregarAlCarrito(productoSeleccionado, parseInt(document.getElementById('modal-cantidad').value), fab, esp, mult);
+                agregarAlCarrito(productoSeleccionado, qty, fab, esp, mult);
                 cerrarModalProducto();
             };
         }
+
         function cerrarModalProducto() { document.getElementById('modal-producto').classList.add('hidden'); }
         function toggleCarrito() { document.getElementById('carrito-panel').classList.toggle('translate-x-full'); }
 
         function agregarAlCarrito(prod, cantidad, fab, esp, mult) {
-            const id = `${prod.id}-${fab}-${esp}`;
-            const ex = carrito.find(i => i.idCompuesto === id);
-            if (ex) ex.cantidad += cantidad; else carrito.push({ ...prod, idCompuesto: id, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
+            const idCompuesto = `${prod.id}-${fab}-${esp}`;
+            const existe = carrito.find(i => i.idCompuesto === idCompuesto);
+            if (existe) existe.cantidad += cantidad;
+            else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, multiplicador: mult });
+            
+            const btn = document.querySelector('header button:last-child');
+            btn.classList.add('shake');
+            setTimeout(() => btn.classList.remove('shake'), 400);
             actualizarCarrito();
         }
-        function eliminarDelCarrito(id) { carrito = carrito.filter(i => i.idCompuesto !== id); actualizarCarrito(); }
-        function cambiarCantidad(id, delta) { const i = carrito.find(i => i.idCompuesto === id); if (i) { i.cantidad += delta; if (i.cantidad <= 0) eliminarDelCarrito(id); else actualizarCarrito(); } }
-        function calcularSubtotal() { return carrito.reduce((s, i) => s + (i.precio * i.multiplicador * i.cantidad), 0); }
 
-        function actualizarCarrito() {
-            document.getElementById('cart-count').innerText = carrito.reduce((s, i) => s + i.cantidad, 0);
-            document.getElementById('cart-items').innerHTML = carrito.map(item => `
-                <div class="flex gap-4 border-b border-gray-700 pb-4">
-                    <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" class="max-h-full object-contain"></div>
-                    <div class="flex-grow">
-                        <h4 class="text-sm font-bold text-white">${item.nombre}</h4><p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
-                        <div class="flex justify-between mt-2">
-                            <div class="flex items-center bg-gray-800 rounded border border-gray-600">
-                                <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 text-gray-400 hover:text-white">-</button>
-                                <span class="px-2 text-white font-bold">${item.cantidad}</span>
-                                <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 text-gray-400 hover:text-white">+</button>
-                            </div>
-                            <span class="font-bold text-white">${(item.precio * item.multiplicador * item.cantidad).toFixed(2)}€</span>
-                        </div>
-                    </div>
-                    <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
-                </div>`).join('');
-            const sub = calcularSubtotal(); const iva = sub * 0.21;
-            document.getElementById('cart-subtotal').innerText = sub.toFixed(2) + ' €'; document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €'; document.getElementById('cart-total').innerText = (sub + iva).toFixed(2) + ' €';
+        function eliminarDelCarrito(idCompuesto) { carrito = carrito.filter(i => i.idCompuesto !== idCompuesto); actualizarCarrito(); }
+
+        function cambiarCantidad(idCompuesto, delta) {
+            const item = carrito.find(i => i.idCompuesto === idCompuesto);
+            if (item) {
+                item.cantidad += delta;
+                if (item.cantidad <= 0) eliminarDelCarrito(idCompuesto);
+                else actualizarCarrito();
+            }
         }
 
-        function abrirCheckout() { if (carrito.length === 0) return alert("Carrito vacío"); toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden'); }
-        function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
-        function toggleFacturacion() { document.getElementById('seccion-facturacion').classList.toggle('hidden', document.getElementById('facturacion-igual').checked); }
+        function calcularSubtotal() { return carrito.reduce((sum, item) => sum + (item.precio * item.multiplicador * item.cantidad), 0); }
 
-        function confirmarPedido(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.innerText = "Generando Proforma..."; btn.disabled = true;
-
-            const f = e.target; const sub = calcularSubtotal(); const iva = sub * 0.21; const tot = sub + iva;
-            const ref = `TR-${Math.floor(Math.random()*10000)}`;
-            
-            // GENERAR PDF
-            const pdfContainer = document.createElement('div');
-            pdfContainer.style.padding = '40px'; pdfContainer.style.fontFamily = 'Helvetica, Arial, sans-serif'; pdfContainer.style.color = '#333';
-            let pdfHTML = `
-                <div style="border-bottom: 3px solid #F6B64E; padding-bottom: 10px; margin-bottom: 20px;">
-                    <h1 style="font-size: 28px; margin:0; color: #1A1A1A;">Todo<span style="color: #F6B64E;">remates</span>.com</h1>
-                    <h3 style="margin:0; color: #666;">Factura Proforma - ${ref}</h3>
-                </div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
-                    <div style="width:48%;">
-                        <strong style="color: #F6B64E; font-size:14px; text-transform:uppercase;">Datos de Envío</strong><br>
-                        ${f['envio-nombre'].value} ${f['envio-apellidos'].value}<br>
-                        ${f['envio-direccion'].value}<br>
-                        ${f['envio-cp'].value} ${f['envio-localidad'].value} (${f['envio-provincia'].value})<br>
-                        Telf: ${f['envio-telefono'].value}
-                    </div>
-                    <div style="width:48%;">
-                        <strong style="color: #F6B64E; font-size:14px; text-transform:uppercase;">Datos de Facturación</strong><br>`;
-            
-            if(document.getElementById('facturacion-igual').checked) {
-                pdfHTML += `Mismos que envío.`;
-            } else {
-                pdfHTML += `${f['fact-empresa'].value} (CIF: ${f['fact-cif'].value})<br>
-                            ${f['fact-direccion'].value}<br>
-                            ${f['fact-cp'].value} ${f['fact-localidad'].value} (${f['fact-provincia'].value})`;
-            }
-
-            pdfHTML += `</div></div>
-                <table style="width:100%; border-collapse:collapse; margin-bottom:30px; font-size:14px;">
-                    <tr style="background-color:#1A1A1A; color:#fff;">
-                        <th style="padding:10px; text-align:left;">Producto</th><th style="padding:10px;">Cant.</th><th style="padding:10px;">Precio/ud</th><th style="padding:10px; text-align:right;">Total</th>
-                    </tr>`;
+        function actualizarCarrito() {
+            document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            const list = document.getElementById('cart-items');
+            list.innerHTML = '';
             
             carrito.forEach(item => {
-                const finalP = item.precio * item.multiplicador;
-                pdfHTML += `<tr style="border-bottom:1px solid #ddd;">
-                    <td style="padding:10px;">${item.nombre} (${item.fabricante}, ${item.espesor})</td>
-                    <td style="padding:10px; text-align:center;">${item.cantidad}</td>
-                    <td style="padding:10px; text-align:center;">${finalP.toFixed(2)}€</td>
-                    <td style="padding:10px; text-align:right;">${(finalP * item.cantidad).toFixed(2)}€</td>
-                </tr>`;
+                const precioFinal = item.precio * item.multiplicador;
+                list.innerHTML += `
+                    <div class="flex gap-4 border-b border-gray-700 pb-4">
+                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded">
+                            <img src="${item.img}" class="max-h-full object-contain">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
+                            <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor}</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex items-center bg-gray-800 rounded border border-gray-600">
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 py-1 text-gray-400 hover:text-white">-</button>
+                                    <span class="px-2 text-sm text-white font-bold">${item.cantidad}</span>
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 py-1 text-gray-400 hover:text-white">+</button>
+                                </div>
+                                <span class="font-bold text-white">${(precioFinal * item.cantidad).toFixed(2)}€</span>
+                            </div>
+                        </div>
+                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
+                    </div>
+                `;
             });
 
-            pdfHTML += `</table>
-                <div style="text-align:right; font-size:16px;">
-                    <p>Subtotal: <strong>${sub.toFixed(2)}€</strong></p>
-                    <p>IVA (21%): <strong>${iva.toFixed(2)}€</strong></p>
-                    <p style="font-size:20px; color:#F6B64E; font-weight:bold;">TOTAL: ${tot.toFixed(2)}€</p>
+            const subtotal = calcularSubtotal();
+            const iva = subtotal * 0.21;
+            document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
+            document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €';
+            document.getElementById('cart-total').innerText = (subtotal + iva).toFixed(2) + ' €';
+        }
+
+        function abrirCheckout() {
+            if (carrito.length === 0) return alert("El carrito está vacío");
+            toggleCarrito();
+            document.getElementById('modal-checkout').classList.remove('hidden');
+        }
+
+        function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
+
+        function toggleFacturacion() {
+            const isChecked = document.getElementById('facturacion-igual').checked;
+            const seccion = document.getElementById('seccion-facturacion');
+            if (isChecked) {
+                seccion.classList.add('hidden');
+                // Quitar required si está oculto
+                document.querySelectorAll('#seccion-facturacion input').forEach(inp => inp.removeAttribute('required'));
+            } else {
+                seccion.classList.remove('hidden');
+                document.getElementsByName('fact-cif')[0].setAttribute('required', 'true');
+                document.getElementsByName('fact-empresa')[0].setAttribute('required', 'true');
+                document.getElementsByName('fact-direccion')[0].setAttribute('required', 'true');
+            }
+        }
+
+        function cerrarExito() {
+            document.getElementById('modal-exito').classList.add('hidden');
+            mostrarCategorias();
+        }
+
+        // LÓGICA DE PDF Y CORREO
+        async function confirmarPedido(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-pago');
+            btn.innerText = "Generando Factura y Enviando...";
+            btn.disabled = true;
+
+            const form = e.target;
+            const referencia = `TR-${Math.floor(Math.random()*10000)}`;
+            const isFacturacionIgual = document.getElementById('facturacion-igual').checked;
+
+            const subtotal = calcularSubtotal();
+            const iva = subtotal * 0.21;
+            const total = subtotal + iva;
+            
+            // Recoger datos
+            const nombreEnvio = `${form['envio-nombre'].value} ${form['envio-apellidos'].value}`;
+            const direccionEnvio = `${form['envio-direccion'].value}, ${form['envio-cp'].value} ${form['envio-localidad']} (${form['envio-provincia'].value})`;
+            
+            let nombreFactura, nifFactura, direccionFactura;
+            if (isFacturacionIgual) {
+                nombreFactura = nombreEnvio;
+                nifFactura = "No especificado (Particular)";
+                direccionFactura = direccionEnvio;
+            } else {
+                nombreFactura = form['fact-empresa'].value;
+                nifFactura = form['fact-cif'].value;
+                direccionFactura = `${form['fact-direccion'].value}, ${form['fact-cp'].value} ${form['fact-localidad']} (${form['fact-provincia'].value})`;
+            }
+
+            // HTML para el PDF corporativo
+            const facturaHTML = `
+                <div style="padding: 40px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
+                        <div>
+                            <h1 style="color: #2B2B2B; font-size: 28px; margin: 0; font-weight: 800;">Todo<span style="color: #F6B64E;">remates</span>.com</h1>
+                            <p style="color: #666; margin-top: 5px;">Factura Ref: <b>${referencia}</b></p>
+                        </div>
+                        <div style="text-align: right;">
+                            <h3 style="color: #2B2B2B; margin: 0 0 5px 0; font-size: 16px;">DATOS DE FACTURACIÓN</h3>
+                            <p style="margin: 0; font-size: 14px; color: #444;">${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>${direccionFactura}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: #2B2B2B; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 5px;">DATOS DE ENTREGA</h3>
+                        <p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">${nombreEnvio}<br>${direccionEnvio}<br>Tel: ${form['envio-telefono'].value}</p>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                        <thead>
+                            <tr style="background-color: #2B2B2B; color: white;">
+                                <th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th>
+                                <th style="padding: 12px; text-align: center; font-size: 14px;">Cant.</th>
+                                <th style="padding: 12px; text-align: right; font-size: 14px;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${carrito.map(item => `
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px; font-size: 14px;"><b>${item.nombre}</b><br><span style="color: #666; font-size: 12px;">Fabricante: ${item.fabricante} | Espesor: ${item.espesor}</span></td>
+                                <td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td>
+                                <td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precio * item.multiplicador * item.cantidad).toFixed(2)}€</b></td>
+                            </tr>`).join('')}
+                        </tbody>
+                    </table>
+
+                    <div style="text-align: right; border-top: 2px solid #eee; padding-top: 20px;">
+                        <p style="margin: 5px 0; color: #666; font-size: 14px;">Base Imponible: ${subtotal.toFixed(2)}€</p>
+                        <p style="margin: 5px 0; color: #666; font-size: 14px;">IVA (21%): ${iva.toFixed(2)}€</p>
+                        <h2 style="color: #2B2B2B; font-size: 24px; margin: 10px 0 0 0;">TOTAL A PAGAR: <span style="color: #F6B64E;">${total.toFixed(2)}€</span></h2>
+                    </div>
                 </div>
             `;
-            pdfContainer.innerHTML = pdfHTML;
 
-            // ENVÍO EMAIL ESTRUCTURADO
-            const formPayload = {
-                _subject: `Nuevo Pedido ${ref} - Todoremates`,
-                "01_Referencia": ref,
-                "02_Cliente": `${f['envio-nombre'].value} ${f['envio-apellidos'].value}`,
-                "03_Email": f['envio-email'].value,
-                "04_Telefono": f['envio-telefono'].value,
-                "05_Direccion_Envio": `${f['envio-direccion'].value}, ${f['envio-cp'].value} ${f['envio-localidad'].value} (${f['envio-provincia'].value})`,
-                "06_Facturacion": document.getElementById('facturacion-igual').checked ? "Igual al envío" : `${f['fact-empresa'].value} | CIF: ${f['fact-cif'].value} | Dir: ${f['fact-direccion'].value}, ${f['fact-cp'].value} ${f['fact-localidad'].value}`,
-                "07_Productos": carrito.map(i => `${i.cantidad}x ${i.nombre} (${i.fabricante} ${i.espesor})`).join(" | "),
-                "08_Total": `${tot.toFixed(2)}€`
+            // Configuración del PDF
+            const opt = {
+                margin:       0,
+                filename:     `Factura_${referencia}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            // Descargar PDF y enviar correo
-            html2pdf().from(pdfContainer).save(`Proforma_${ref}.pdf`).then(() => {
-                btn.innerText = "Enviando correo...";
-                fetch("https://formsubmit.co/ajax/faustomoyacastells@gmail.com", {
-                    method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formPayload)
-                }).then(r => r.json()).then(() => {
-                    alert(`¡Pedido ${ref} completado! Se ha descargado tu proforma en PDF y enviado a tu correo.`);
-                    carrito = []; actualizarCarrito(); cerrarCheckout(); f.reset(); btn.innerText = "Confirmar, Descargar Proforma y Enviar"; btn.disabled = false;
+            // Metemos el HTML en un contenedor oculto para que html2pdf pueda leerlo
+            const tempDiv = document.getElementById('pdf-template');
+            tempDiv.innerHTML = facturaHTML;
+
+            try {
+                // 1. Generar Base64 (Oculto)
+                const pdfBase64 = await html2pdf().set(opt).from(tempDiv).outputPdf('datauristring');
+                
+                // Extraemos solo los datos puros en Base64 sin el encabezado 'data:application/pdf...'
+                const base64Data = pdfBase64.split(',')[1];
+
+                // Texto plano para el cuerpo del email (FormSubmit lo pondrá en tabla)
+                const textoEmail = `Se ha generado una nueva factura en Todoremates.com.\nReferencia: ${referencia}\nCliente: ${nombreFactura}\nTotal: ${total.toFixed(2)}€\n\nEl PDF con los detalles exactos va adjunto en este correo.`;
+
+                // 2. Enviar a FormSubmit con Attachment
+                const response = await fetch("https://formsubmit.co/ajax/faustomoyacastells@gmail.com", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: `Nueva Factura B2B: ${referencia}`,
+                        Resumen: textoEmail,
+                        attachment: {
+                            name: `Factura_${referencia}.pdf`,
+                            data: base64Data,
+                            type: 'application/pdf'
+                        }
+                    })
                 });
-            });
+
+                if (!response.ok) throw new Error("Fallo en FormSubmit");
+
+                // 3. Si el correo se envió, descargar el PDF al cliente
+                html2pdf().set(opt).from(tempDiv).save();
+
+                // 4. Mostrar Popup de Éxito y Limpiar
+                document.getElementById('modal-exito').classList.remove('hidden');
+                document.getElementById('ref-exito').innerText = referencia;
+                
+                carrito = [];
+                actualizarCarrito();
+                cerrarCheckout();
+                form.reset();
+                document.getElementById('facturacion-igual').checked = true;
+                toggleFacturacion();
+
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un problema de red. Por favor, asegúrate de haber activado FormSubmit en tu correo.");
+            } finally {
+                btn.innerText = "Confirmar y Generar Factura";
+                btn.disabled = false;
+                tempDiv.innerHTML = ''; // limpiar
+            }
         }
     </script>
 </body>
