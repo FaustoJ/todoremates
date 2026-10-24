@@ -123,16 +123,16 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza -->
+            <!-- CRO: Logotipos de confianza (Más pequeños) -->
             <div class="pt-8 border-t border-gray-700 mt-12">
-                <p class="text-center text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con los principales fabricantes</p>
-                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-60 grayscale select-none">
-                    <span class="text-2xl font-black text-white font-serif">Huurre</span>
-                    <span class="text-xl font-bold text-white tracking-wider">ISOPAN</span>
-                    <span class="text-2xl font-extrabold text-white">Kingspan</span>
-                    <span class="text-xl font-bold text-white italic">Hiansa</span>
-                    <span class="text-2xl font-bold text-white tracking-widest">Arcelor</span>
-                    <span class="text-xl font-bold text-white uppercase">Panelais</span>
+                <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con los principales fabricantes</p>
+                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-60 grayscale select-none">
+                    <span class="text-lg font-black text-white font-serif">Huurre</span>
+                    <span class="text-base font-bold text-white tracking-wider">ISOPAN</span>
+                    <span class="text-lg font-extrabold text-white">Kingspan</span>
+                    <span class="text-base font-bold text-white italic">Hiansa</span>
+                    <span class="text-lg font-bold text-white tracking-widest">Arcelor</span>
+                    <span class="text-base font-bold text-white uppercase">Panelais</span>
                 </div>
             </div>
         </div>
@@ -298,7 +298,6 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <!-- CRO: Microcopias de confianza -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -346,7 +345,6 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        // SEGURIDAD: Función para evitar inyecciones de código (XSS)
         function limpiarTexto(str) {
             return (str || '').replace(/[&<>'"]/g, function(tag) {
                 const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' };
@@ -570,7 +568,6 @@
             }
         }
 
-        // Nueva función unificada para Contacto y A Medida hacia Google Script
         async function enviarFormularioGoogle(e, tipo) {
             e.preventDefault();
             const form = e.target;
@@ -596,12 +593,12 @@
                     body: JSON.stringify({
                         asunto: `Nueva solicitud desde la web: ${tipo} - ${name}`,
                         mensaje: mensajeHtml,
-                        pdfBase64: "", // Sin PDF
+                        pdfBase64: "", 
                         emailCliente: "",
                         nombreCliente: ""
                     })
                 });
-                if (!response.ok) throw new Error("Fallo en la comunicación con Google");
+                if (!response.ok) throw new Error("Fallo de comunicación con Google");
                 
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
@@ -610,11 +607,10 @@
             } catch (error) {
                 alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
-                btn.innerText = "Enviar"; btn.disabled = false;
+                btn.innerText = "Enviar Mensaje"; btn.disabled = false;
             }
         }
 
-        // Función del carrito adaptada a Google Script
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
@@ -629,7 +625,6 @@
             const iva = subtotal * 0.21;
             const total = subtotal + iva;
             
-            // Sanitización
             const dniEnvio = form['envio-dni'].value ? `DNI/NIF: ${limpiarTexto(form['envio-dni'].value)}<br>` : '';
             const nombreEnvio = `${limpiarTexto(form['envio-nombre'].value)} ${limpiarTexto(form['envio-apellidos'].value)}`;
             const direccionEnvio = `${limpiarTexto(form['envio-direccion'].value)}, ${limpiarTexto(form['envio-cp'].value)} ${limpiarTexto(form['envio-localidad'].value)} (${limpiarTexto(form['envio-provincia'].value)})`;
@@ -667,24 +662,47 @@
                 </div>
             `;
 
-            const opt = { margin: 0.2, filename: `Pedido_${referencia}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+            // CREACIÓN DE UN CONTENEDOR TEMPORAL PARA FORZAR EL RENDER EN MÓVILES (Evita el PDF en blanco)
+            const contenedorPDF = document.createElement('div');
+            contenedorPDF.innerHTML = pedidoHTML;
+            contenedorPDF.style.position = 'fixed';
+            contenedorPDF.style.top = '-10000px';
+            contenedorPDF.style.left = '0';
+            contenedorPDF.style.width = '800px';
+            contenedorPDF.style.background = 'white';
+            document.body.appendChild(contenedorPDF);
+
+            const opt = { 
+                margin: 0.2, 
+                filename: `Pedido_${referencia}.pdf`, 
+                image: { type: 'jpeg', quality: 0.98 }, 
+                html2canvas: { scale: 2, useCORS: true, windowWidth: 800 }, 
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+            };
 
             try {
-                const worker = html2pdf().set(opt).from(pedidoHTML);
-                const pdfDataUri = await worker.outputPdf('datauristring');
+                // Generar y capturar el Base64 directamente desde el contenedor DOM
+                const pdfDataUri = await html2pdf().set(opt).from(contenedorPDF).toPdf().output('datauristring');
                 const pdfBase64 = pdfDataUri.split(',')[1];
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
-                        referencia: referencia, asunto: `Nuevo Pedido B2B: ${referencia}`, mensaje: emailText,
-                        pdfBase64: pdfBase64, emailCliente: document.getElementById('correo-cliente-checkout').value, nombreCliente: nombreEnvio
+                        referencia: referencia, 
+                        asunto: `Nuevo Pedido B2B: ${referencia}`, 
+                        mensaje: emailText,
+                        pdfBase64: pdfBase64, 
+                        emailCliente: document.getElementById('correo-cliente-checkout').value, 
+                        nombreCliente: nombreEnvio
                     })
                 });
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
-                worker.save();
+                // Descargar el PDF al usuario y limpiar la pantalla
+                await html2pdf().set(opt).from(contenedorPDF).save();
+                document.body.removeChild(contenedorPDF);
+
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
@@ -693,6 +711,7 @@
             } catch (error) {
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
+                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
             } finally {
                 btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
