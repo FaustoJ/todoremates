@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
-    <!-- SEO: Etiquetas Open Graph -->
     <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
     <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
     <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
@@ -29,10 +28,11 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
         
-        /* ELIMINAR BARRA SUPERIOR Y ELEMENTOS NATIVOS DE GOOGLE TRANSLATE */
+        /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
         body { top: 0px !important; position: static !important; }
-        iframe.skiptranslate, .goog-te-banner-frame { display: none !important; }
-        .VIpgJd-ZVi9od-ORHb-OEVmcd, #goog-gt-tt { display: none !important; }
+        .goog-te-banner-frame { display: none !important; }
+        iframe.skiptranslate { display: none !important; }
+        #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-tooltip, .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
         #google_translate_element { display: none !important; }
@@ -59,7 +59,8 @@
                     <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
                 </div>
             </div>
-            <nav class="flex items-center gap-4 md:gap-6">
+            
+            <nav class="flex items-center gap-3 md:gap-6">
                 <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap">Pide presupuesto</button>
                 <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -134,7 +135,7 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza (Pequeños y elegantes) -->
+            <!-- CRO: Logotipos de confianza -->
             <div class="pt-8 border-t border-gray-700 mt-12">
                 <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
@@ -435,7 +436,7 @@
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
             const grid = document.getElementById('grid-productos');
-            grid.innerHTML = '';
+            
             const resultados = productosDB.filter(p => p.nombre.toLowerCase().includes(termino) || p.desc.toLowerCase().includes(termino));
             if (resultados.length === 0) { grid.innerHTML = '<p class="text-gray-400 col-span-full">No se han encontrado productos con ese nombre.</p>'; return; }
             dibujarGrid(resultados, grid);
@@ -449,15 +450,17 @@
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
+            
             const grid = document.getElementById('grid-productos');
-            grid.innerHTML = '';
             dibujarGrid(productosDB.filter(p => p.cat === categoria), grid);
         }
 
+        // Corrección anti-Google Translate: Construir el HTML primero y asignarlo de una sola vez
         function dibujarGrid(arrayProductos, gridElement) {
+            let htmlFinal = '';
             arrayProductos.forEach(p => {
                 const precioMinimo = Math.min(...Object.values(p.precios));
-                gridElement.innerHTML += `
+                htmlFinal += `
                     <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
                         <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
                             <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
@@ -470,6 +473,7 @@
                     </div>
                 `;
             });
+            gridElement.innerHTML = htmlFinal;
         }
 
         function toggleOtroFabricante() {
@@ -500,10 +504,12 @@
             document.getElementById('modal-cantidad').value = '1';
             
             const espSelect = document.getElementById('modal-espesor');
-            espSelect.innerHTML = '<option value="">Seleccione espesor...</option>';
+            let espHtml = '<option value="">Seleccione espesor...</option>';
             for (const [espesor, precio] of Object.entries(productoSeleccionado.precios)) {
-                espSelect.innerHTML += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
+                espHtml += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
             }
+            espSelect.innerHTML = espHtml;
+
             actualizarPrecioModal();
             document.getElementById('modal-producto').classList.remove('hidden');
             
@@ -548,9 +554,10 @@
         function actualizarCarrito() {
             document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
             const list = document.getElementById('cart-items');
-            list.innerHTML = '';
+            
+            let htmlCarrito = '';
             carrito.forEach(item => {
-                list.innerHTML += `
+                htmlCarrito += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
                         <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
@@ -569,6 +576,8 @@
                     </div>
                 `;
             });
+            list.innerHTML = htmlCarrito;
+
             const subtotal = calcularSubtotal();
             const iva = subtotal * 0.21;
             document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
@@ -638,7 +647,7 @@
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
-                        asunto: `Nueva solicitud desde la web: ${tipo} - ${name}`,
+                        asunto: `Nueva solicitud web: ${tipo} - ${name}`,
                         mensaje: mensajeHtml,
                         pdfBase64: "", 
                         emailCliente: "",
@@ -709,17 +718,33 @@
                 </div>
             `;
 
+            // PROTECCIÓN CONTRA TRADUCTOR Y RENDERIZADO EN iOS
+            const contenedorPDF = document.createElement('div');
+            contenedorPDF.className = "notranslate"; // Google Translate no tocará esto
+            contenedorPDF.innerHTML = pedidoHTML;
+            contenedorPDF.style.position = 'absolute'; 
+            contenedorPDF.style.left = '0';
+            contenedorPDF.style.top = '0';
+            contenedorPDF.style.width = '800px';
+            contenedorPDF.style.zIndex = '-9999'; 
+            contenedorPDF.style.backgroundColor = '#ffffff';
+            document.body.appendChild(contenedorPDF);
+
+            await new Promise(resolve => setTimeout(resolve, 400));
+
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2 }, 
+                html2canvas: { scale: 1.5, useCORS: true, windowWidth: 800 }, 
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
             try {
-                // VUELTA AL MÉTODO DIRECTO (SIN CONTENEDORES INVISIBLES)
-                const pdfBase64 = await html2pdf().set(opt).from(pedidoHTML).outputPdf('base64');
+                // Extracción base64 directa desde el contenedor inyectado
+                const worker = html2pdf().set(opt).from(contenedorPDF);
+                const pdfDataUri = await worker.outputPdf('datauristring');
+                const pdfBase64 = pdfDataUri.split(',')[1];
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
@@ -735,6 +760,8 @@
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
+                document.body.removeChild(contenedorPDF);
+
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
@@ -743,6 +770,7 @@
             } catch (error) {
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
+                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
             } finally {
                 btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
