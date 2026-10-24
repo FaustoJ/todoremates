@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
+    <!-- SEO: Etiquetas Open Graph para compartir en WhatsApp/Redes Sociales -->
+    <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
+    <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
+    <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
+    <meta property="og:type" content="website">
+    
     <title>Remates Panel Sandwich - Especialistas en Remates</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,14 +17,7 @@
     <script>
         tailwind.config = {
             theme: {
-                extend: {
-                    colors: {
-                        'brand-dark': '#2B2B2B',
-                        'brand-darker': '#1A1A1A',
-                        'brand-accent': '#F6B64E',
-                        'brand-accent-hover': '#E09F36'
-                    }
-                }
+                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
             }
         }
     </script>
@@ -28,66 +27,54 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
-        /* Mostrar dropdown en móvil al hacer click/focus */
-        .group:hover .dropdown-menu,
-        .group:focus-within .dropdown-menu { display: flex; }
+        .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
     </style>
 </head>
-<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col">
+<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col relative">
+
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 0C5.385 0 0 5.388 0 12.036c0 2.124.553 4.195 1.603 6.01L.523 24l6.113-1.603a11.966 11.966 0 005.395 1.28h.005c6.646 0 12.031-5.388 12.031-12.036 0-3.22-1.254-6.248-3.53-8.528A11.97 11.97 0 0012.031 0zm0 21.654h-.005a9.96 9.96 0 01-5.07-1.378l-.364-.216-3.774.99.998-3.682-.237-.377A9.972 9.972 0 012.015 12.04c0-5.518 4.49-10.007 10.016-10.007 2.675 0 5.187 1.042 7.078 2.935 1.892 1.89 2.934 4.404 2.934 7.08-.002 5.517-4.493 10.006-10.012 10.006zm5.495-7.513c-.301-.151-1.782-.88-2.057-.98-.276-.1-.476-.151-.676.15-.201.3-.776.98-.952 1.18-.175.201-.351.226-.652.076-.301-.151-1.272-.469-2.423-1.496-.895-.8-1.501-1.788-1.677-2.088-.175-.302-.019-.465.132-.616.136-.136.301-.351.451-.527.151-.176.201-.301.301-.502.101-.2.051-.376-.025-.526-.075-.152-.676-1.63-.926-2.23-.245-.589-.494-.509-.676-.518-.175-.008-.376-.008-.576-.008-.201 0-.527.075-.802.376-.276.3-1.053 1.03-1.053 2.51 0 1.48 1.078 2.912 1.228 3.113.15.2 2.124 3.242 5.143 4.544.718.309 1.28.494 1.716.632.72.23 1.376.197 1.895.12.584-.087 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.43-.076-.127-.276-.202-.577-.353z"/>
+        </svg>
+    </a>
 
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
-                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo de Remates Panel Sandwich" class="h-10 md:h-14 object-contain">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-14 object-contain">
                 <div class="flex flex-col">
-                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">
-                        Remates <span class="text-brand-accent">Panel Sandwich</span>
-                    </h1>
+                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
                     <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
                 </div>
             </div>
-            
             <nav class="flex items-center gap-4 md:gap-6">
-                <button onclick="document.getElementById('modal-contacto').classList.remove('hidden')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm">
-                    Pide presupuesto
-                </button>
+                <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm">Pide presupuesto</button>
                 <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
                 </button>
             </nav>
         </div>
-        
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
             <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-sm md:text-base">
                 <div class="flex items-center gap-2 md:gap-4 lg:gap-6">
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
-                    
                     <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
-
                     <div class="relative group cursor-pointer" tabindex="0">
-                        <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">
-                            Categorías
-                        </span>
+                        <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">Categorías</span>
                         <div class="dropdown-menu absolute left-0 top-full mt-0 hidden flex-col bg-brand-darker border border-gray-700 rounded-b shadow-xl z-50 min-w-[220px] overflow-hidden text-sm md:text-base">
                             <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('teja')">Remates Teja</span>
                             <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('industrial')">Remates Industrial</span>
                             <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer transition" onclick="mostrarAmedida()">Remates a Medida</span>
                         </div>
                     </div>
-
                     <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
-
-                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
+                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="abrirModalContacto('General')">Contacto</span>
                 </div>
-                
                 <div class="relative w-32 sm:w-48 md:w-64 ml-2">
                     <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
-                        <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
+                        <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
                     <input type="text" oninput="buscarProductos(event)" placeholder="Buscar..." class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
                 </div>
@@ -101,47 +88,51 @@
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tarjeta Teja -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" alt="Cubierta de panel sándwich imitación teja roja con remates integrados" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Teja</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Remates, canales y accesorios especializados para cubiertas de panel tipo teja.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                            </div>
+                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tarjeta Industrial -->
                 <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="Imagenes/industrial-panel-5-grecas.webp" alt="Cubierta de panel sándwich industrial de 5 grecas" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/industrial-panel-5-grecas.webp" loading="lazy" alt="Panel grecado industrial" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Industrial</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Canales, cumbreras y cierres diseñados para naves y fachadas industriales.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                            </div>
+                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tarjeta A Medida -->
                 <div onclick="mostrarAmedida()" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="Imagenes/remates-a-medida.webp" alt="Esquema técnico de piezas y remates de chapa plegada a medida" class="w-full h-56 object-contain p-4 bg-white">
+                    <img src="Imagenes/remates-a-medida.webp" loading="lazy" alt="Planos de remates" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates a Medida</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Piezas especiales y personalizadas según los requerimientos de tu proyecto.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                            </div>
+                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- CRO: Logotipos de confianza -->
+            <div class="pt-8 border-t border-gray-700 mt-12">
+                <p class="text-center text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con los principales fabricantes</p>
+                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-60 grayscale select-none">
+                    <span class="text-2xl font-black text-white font-serif">Huurre</span>
+                    <span class="text-xl font-bold text-white tracking-wider">ISOPAN</span>
+                    <span class="text-2xl font-extrabold text-white">Kingspan</span>
+                    <span class="text-xl font-bold text-white italic">Hiansa</span>
+                    <span class="text-2xl font-bold text-white tracking-widest">Arcelor</span>
+                    <span class="text-xl font-bold text-white uppercase">Panelais</span>
                 </div>
             </div>
         </div>
@@ -164,8 +155,7 @@
                 <p class="text-gray-300 mb-8 leading-relaxed text-lg border-l-4 border-brand-accent pl-4">
                     Describa la pieza que necesita. Lo estudiaremos con la máxima brevedad posible y nos pondremos en contacto con usted para ofrecerle un presupuesto y una solución a su medida.
                 </p>
-                <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-5">
-                    <input type="hidden" name="_subject" value="Solicitud de Presupuesto - Remates a Medida">
+                <form onsubmit="enviarFormularioGoogle(event, 'Presupuesto a Medida')" class="space-y-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-sm font-bold text-gray-400 mb-1">Nombre y Apellidos</label>
@@ -182,19 +172,19 @@
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-400 mb-1">Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)</label>
-                        <textarea name="detalles_pieza" rows="5" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></textarea>
+                        <textarea name="message" rows="5" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></textarea>
                     </div>
                     <div class="flex items-center gap-4">
                         <label class="text-sm font-bold text-gray-400 whitespace-nowrap">Cantidad estimada:</label>
                         <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none text-center">
                     </div>
-                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4">Solicitar Presupuesto</button>
+                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4 btn-enviar-generico">Solicitar Presupuesto</button>
                 </form>
             </div>
         </div>
     </main>
 
-    <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8">
+    <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
                 <a href="aviso-legal.html" class="hover:text-brand-accent transition">Aviso Legal</a>
@@ -205,11 +195,12 @@
         </div>
     </footer>
 
+    <!-- Modal Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
             <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gray-300">
-                <img id="modal-img" src="" alt="Vista previa del producto" class="max-h-64 object-contain drop-shadow-md">
+                <img id="modal-img" src="" alt="Producto" loading="lazy" class="max-h-64 object-contain drop-shadow-md">
                 <p id="modal-desc-img" class="text-gray-600 text-sm mt-6 text-center font-medium"></p>
             </div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
@@ -232,8 +223,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-300 mb-1">Espesor</label>
-                        <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                        </select>
+                        <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></select>
                     </div>
                     
                     <div class="flex items-end gap-4 pt-2">
@@ -252,6 +242,7 @@
         </div>
     </div>
 
+    <!-- Panel Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -266,6 +257,7 @@
         </div>
     </div>
 
+    <!-- Modal Checkout -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -300,35 +292,47 @@
                         <input type="text" name="fact-provincia" placeholder="Provincia" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-                <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow">Confirmar Pedido</button>
+                
+                <div class="pt-4">
+                    <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow flex justify-center items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Confirmar Pedido Seguro
+                    </button>
+                    <!-- CRO: Microcopias de confianza -->
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 
+    <!-- Modal Contacto General a Google Script -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-4">Contacto</h2>
-            <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-4">
-                <input type="hidden" name="_subject" value="Nuevo mensaje desde Remates Panel Sandwich">
-                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
-                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition">Enviar Mensaje</button>
+            <form onsubmit="enviarFormularioGoogle(event, 'Contacto General')" class="space-y-4">
+                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></textarea>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico">Enviar Mensaje</button>
             </form>
         </div>
     </div>
 
+    <!-- Modal Éxito Universal -->
     <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
                 <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
             </div>
-            <h2 class="text-3xl font-extrabold text-white mb-2">¡Pedido Completado!</h2>
-            <p class="text-gray-400 mb-6">Tu pedido ha sido procesado. Se ha descargado el resumen de tu pedido en PDF y hemos recibido tu solicitud.</p>
-            <div class="bg-brand-darker p-4 rounded mb-6">
+            <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
+            <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
+            <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
                 <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
-                <span id="ref-exito" class="text-2xl font-bold text-brand-accent">TR-0000</span>
+                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
             </div>
             <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
         </div>
@@ -337,16 +341,23 @@
     <script src="productos.js"></script>
 
     <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvBV88qZBso1LqIXlVs0lFwbABodYZZ1D7-n2MBv-330te3T5y5ROBWMSbIq29bG3L/exec";
+        
         let carrito = [];
         let productoSeleccionado = null;
+
+        // SEGURIDAD: Función para evitar inyecciones de código (XSS)
+        function limpiarTexto(str) {
+            return (str || '').replace(/[&<>'"]/g, function(tag) {
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' };
+                return map[tag] || tag;
+            });
+        }
 
         function forzarCierreMenu() {
             document.activeElement.blur();
             const menu = document.querySelector('.dropdown-menu');
-            if (menu) {
-                menu.style.display = 'none';
-                setTimeout(() => { menu.style.display = ''; }, 100);
-            }
+            if (menu) { menu.style.display = 'none'; setTimeout(() => { menu.style.display = ''; }, 100); }
         }
 
         function mostrarCategorias() {
@@ -364,47 +375,35 @@
             document.getElementById('vista-amedida').classList.remove('hidden');
             document.querySelector('input[placeholder="Buscar..."]').value = '';
         }
+        
+        function abrirModalContacto() {
+            forzarCierreMenu();
+            document.getElementById('modal-contacto').classList.remove('hidden');
+        }
 
         function buscarProductos(event) {
-            if (typeof productosDB === 'undefined') {
-                alert("Error: No se ha podido cargar productos.js");
-                return;
-            }
-            const termino = event.target.value.toLowerCase();
-            if (termino.length === 0) {
-                mostrarCategorias();
-                return;
-            }
-            
+            if (typeof productosDB === 'undefined') return;
+            const termino = limpiarTexto(event.target.value.toLowerCase());
+            if (termino.length === 0) { mostrarCategorias(); return; }
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
-            
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
-            
             const resultados = productosDB.filter(p => p.nombre.toLowerCase().includes(termino) || p.desc.toLowerCase().includes(termino));
-            
-            if (resultados.length === 0) {
-                grid.innerHTML = '<p class="text-gray-400 col-span-full">No se han encontrado productos con ese nombre.</p>';
-                return;
-            }
+            if (resultados.length === 0) { grid.innerHTML = '<p class="text-gray-400 col-span-full">No se han encontrado productos con ese nombre.</p>'; return; }
             dibujarGrid(resultados, grid);
         }
 
         function cargarProductos(categoria) {
             forzarCierreMenu();
-            if (typeof productosDB === 'undefined') {
-                alert("Error: No se ha podido cargar la base de datos (productos.js). Comprueba que el archivo esté en la misma carpeta.");
-                return;
-            }
+            if (typeof productosDB === 'undefined') return;
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
-
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
             dibujarGrid(productosDB.filter(p => p.cat === categoria), grid);
@@ -416,7 +415,7 @@
                 gridElement.innerHTML += `
                     <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
                         <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${p.nombre}" class="max-h-full object-contain drop-shadow-md">
+                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
@@ -431,28 +430,17 @@
         function toggleOtroFabricante() {
             const select = document.getElementById('modal-fabricante');
             const input = document.getElementById('modal-fabricante-otro');
-            if (select.value === 'Otros') {
-                input.classList.remove('hidden');
-            } else {
-                input.classList.add('hidden');
-                input.value = '';
-            }
+            if (select.value === 'Otros') { input.classList.remove('hidden'); } else { input.classList.add('hidden'); input.value = ''; }
         }
 
         function actualizarPrecioModal() {
             if(!productoSeleccionado) return;
             const espSelect = document.getElementById('modal-espesor');
             const qty = parseInt(document.getElementById('modal-cantidad').value) || 1;
-            
             let precioUnitario = 0;
-            if(espSelect.value && productoSeleccionado.precios[espSelect.value]) {
-                precioUnitario = productoSeleccionado.precios[espSelect.value];
-            } else {
-                precioUnitario = Math.min(...Object.values(productoSeleccionado.precios));
-            }
-            
-            const total = precioUnitario * qty;
-            document.getElementById('modal-precio-dinamico').innerText = total.toFixed(2) + '€';
+            if(espSelect.value && productoSeleccionado.precios[espSelect.value]) { precioUnitario = productoSeleccionado.precios[espSelect.value]; } 
+            else { precioUnitario = Math.min(...Object.values(productoSeleccionado.precios)); }
+            document.getElementById('modal-precio-dinamico').innerText = (precioUnitario * qty).toFixed(2) + '€';
         }
 
         function abrirModal(id) {
@@ -471,29 +459,20 @@
             for (const [espesor, precio] of Object.entries(productoSeleccionado.precios)) {
                 espSelect.innerHTML += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
             }
-
             actualizarPrecioModal();
             document.getElementById('modal-producto').classList.remove('hidden');
             
             document.getElementById('btn-add-modal').onclick = () => {
                 let fab = document.getElementById('modal-fabricante').value;
-                if (fab === 'Otros') {
-                    fab = document.getElementById('modal-fabricante-otro').value.trim();
-                }
-                
+                if (fab === 'Otros') { fab = limpiarTexto(document.getElementById('modal-fabricante-otro').value.trim()); }
                 const esp = espSelect.value;
                 const qty = parseInt(document.getElementById('modal-cantidad').value);
                 
                 if(!fab || !esp) {
                     const formContainer = document.getElementById('modal-fabricante').parentElement.parentElement;
-                    formContainer.classList.remove('shake');
-                    void formContainer.offsetWidth;
-                    formContainer.classList.add('shake');
-                    return;
+                    formContainer.classList.remove('shake'); void formContainer.offsetWidth; formContainer.classList.add('shake'); return;
                 }
-                
-                const precioUnidad = productoSeleccionado.precios[esp];
-                agregarAlCarrito(productoSeleccionado, qty, fab, esp, precioUnidad);
+                agregarAlCarrito(productoSeleccionado, qty, fab, esp, productoSeleccionado.precios[esp]);
                 cerrarModalProducto();
             };
         }
@@ -508,8 +487,7 @@
             else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, precioFinal: precioUnidad });
             
             const btn = document.querySelector('header button:last-child');
-            btn.classList.add('shake');
-            setTimeout(() => btn.classList.remove('shake'), 400);
+            btn.classList.add('shake'); setTimeout(() => btn.classList.remove('shake'), 400);
             actualizarCarrito();
         }
 
@@ -517,11 +495,7 @@
 
         function cambiarCantidad(idCompuesto, delta) {
             const item = carrito.find(i => i.idCompuesto === idCompuesto);
-            if (item) {
-                item.cantidad += delta;
-                if (item.cantidad <= 0) eliminarDelCarrito(idCompuesto);
-                else actualizarCarrito();
-            }
+            if (item) { item.cantidad += delta; if (item.cantidad <= 0) eliminarDelCarrito(idCompuesto); else actualizarCarrito(); }
         }
 
         function calcularSubtotal() { return carrito.reduce((sum, item) => sum + (item.precioFinal * item.cantidad), 0); }
@@ -530,13 +504,10 @@
             document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
             const list = document.getElementById('cart-items');
             list.innerHTML = '';
-            
             carrito.forEach(item => {
                 list.innerHTML += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
-                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded">
-                            <img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain">
-                        </div>
+                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
                             <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
                             <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor.replace('mm',' mm')}</p>
@@ -553,7 +524,6 @@
                     </div>
                 `;
             });
-
             const subtotal = calcularSubtotal();
             const iva = subtotal * 0.21;
             document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
@@ -563,8 +533,7 @@
 
         function abrirCheckout() {
             if (carrito.length === 0) return alert("El carrito está vacío");
-            toggleCarrito();
-            document.getElementById('modal-checkout').classList.remove('hidden');
+            toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden');
         }
 
         function cerrarCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
@@ -587,10 +556,69 @@
             mostrarCategorias();
         }
 
+        function mostrarExito(esPedido, ref) {
+            document.getElementById('modal-exito').classList.remove('hidden');
+            if(esPedido) {
+                document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
+                document.getElementById('texto-exito-desc').innerText = "Se ha descargado el resumen de tu pedido en PDF y lo revisaremos en breve.";
+                document.getElementById('div-ref-exito').classList.remove('hidden');
+                document.getElementById('ref-exito').innerText = ref;
+            } else {
+                document.getElementById('texto-exito-titulo').innerText = "¡Mensaje Enviado!";
+                document.getElementById('texto-exito-desc').innerText = "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.";
+                document.getElementById('div-ref-exito').classList.add('hidden');
+            }
+        }
+
+        // Nueva función unificada para Contacto y A Medida hacia Google Script
+        async function enviarFormularioGoogle(e, tipo) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]');
+            btn.innerText = "Enviando..."; btn.disabled = true;
+
+            const name = limpiarTexto(form['name'].value);
+            const email = limpiarTexto(form['email'].value);
+            const phone = form['phone'] ? limpiarTexto(form['phone'].value) : '';
+            const msg = limpiarTexto(form['message'].value);
+            const cant = form['cantidad'] ? form['cantidad'].value : '';
+
+            let mensajeHtml = `<div style="font-family:Arial; padding:20px; background:#f9f9f9; border:1px solid #ddd; border-radius:8px;">`;
+            mensajeHtml += `<h2 style="color:#2B2B2B;">Nueva solicitud: ${tipo}</h2>`;
+            mensajeHtml += `<p><b>Cliente:</b> ${name}</p><p><b>Email:</b> ${email}</p>`;
+            if(phone) mensajeHtml += `<p><b>Teléfono:</b> ${phone}</p>`;
+            if(cant)  mensajeHtml += `<p><b>Cantidad:</b> ${cant} unidades</p>`;
+            mensajeHtml += `<div style="margin-top:20px; padding:15px; background:white; border-left:4px solid #F6B64E;"><p><b>Detalles/Mensaje:</b><br>${msg.replace(/\n/g, '<br>')}</p></div></div>`;
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        asunto: `Nueva solicitud desde la web: ${tipo} - ${name}`,
+                        mensaje: mensajeHtml,
+                        pdfBase64: "", // Sin PDF
+                        emailCliente: "",
+                        nombreCliente: ""
+                    })
+                });
+                if (!response.ok) throw new Error("Fallo en la comunicación con Google");
+                
+                document.getElementById('modal-contacto').classList.add('hidden');
+                document.getElementById('vista-amedida').classList.add('hidden');
+                form.reset();
+                mostrarExito(false, null);
+            } catch (error) {
+                alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
+            } finally {
+                btn.innerText = "Enviar"; btn.disabled = false;
+            }
+        }
+
+        // Función del carrito adaptada a Google Script
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
-            btn.innerText = "Procesando Pedido...";
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
             const form = e.target;
@@ -601,61 +629,34 @@
             const iva = subtotal * 0.21;
             const total = subtotal + iva;
             
-            const dniEnvio = form['envio-dni'].value ? `DNI/NIF: ${form['envio-dni'].value}<br>` : '';
-            const nombreEnvio = `${form['envio-nombre'].value} ${form['envio-apellidos'].value}`;
-            const direccionEnvio = `${form['envio-direccion'].value}, ${form['envio-cp'].value} ${form['envio-localidad'].value} (${form['envio-provincia'].value})`;
+            // Sanitización
+            const dniEnvio = form['envio-dni'].value ? `DNI/NIF: ${limpiarTexto(form['envio-dni'].value)}<br>` : '';
+            const nombreEnvio = `${limpiarTexto(form['envio-nombre'].value)} ${limpiarTexto(form['envio-apellidos'].value)}`;
+            const direccionEnvio = `${limpiarTexto(form['envio-direccion'].value)}, ${limpiarTexto(form['envio-cp'].value)} ${limpiarTexto(form['envio-localidad'].value)} (${limpiarTexto(form['envio-provincia'].value)})`;
             
             let nombreFactura, nifFactura, direccionFactura;
             if (isFacturacionIgual) {
-                nombreFactura = nombreEnvio;
-                nifFactura = form['envio-dni'].value || "No especificado";
-                direccionFactura = direccionEnvio;
+                nombreFactura = nombreEnvio; nifFactura = limpiarTexto(form['envio-dni'].value) || "No especificado"; direccionFactura = direccionEnvio;
             } else {
-                nombreFactura = form['fact-empresa'].value;
-                nifFactura = form['fact-dni'].value || "No especificado";
-                direccionFactura = `${form['fact-direccion'].value}, ${form['fact-cp'].value} ${form['fact-localidad'].value} (${form['fact-provincia'].value})`;
+                nombreFactura = limpiarTexto(form['fact-empresa'].value); nifFactura = limpiarTexto(form['fact-dni'].value) || "No especificado";
+                direccionFactura = `${limpiarTexto(form['fact-direccion'].value)}, ${limpiarTexto(form['fact-cp'].value)} ${limpiarTexto(form['fact-localidad'].value)} (${limpiarTexto(form['fact-provincia'].value)})`;
             }
 
-            let emailText = `REFERENCIA DE PEDIDO: ${referencia}\n\n`;
-            emailText += `DATOS DE ENVÍO:\nCliente: ${nombreEnvio}\n${dniEnvio ? dniEnvio.replace('<br>','') + '\n' : ''}Teléfono: ${form['envio-telefono'].value}\nEmail: ${form['envio-email'].value}\nDirección: ${direccionEnvio}\n\n`;
-            emailText += `DATOS DE FACTURACIÓN:\nEmpresa: ${nombreFactura}\nCIF/NIF: ${nifFactura}\nDirección: ${direccionFactura}\n\n`;
-            emailText += `PRODUCTOS:\n`;
-            carrito.forEach(item => {
-                emailText += `- ${item.cantidad}x ${item.nombre} (${item.fabricante}, ${item.espesor}) -> ${(item.precioFinal * item.cantidad).toFixed(2)}€\n`;
-            });
-            emailText += `\nSubtotal: ${subtotal.toFixed(2)}€\nIVA (21%): ${iva.toFixed(2)}€\nTOTAL: ${total.toFixed(2)}€`;
-
+            let emailText = `REFERENCIA DE PEDIDO: ${referencia}<br><br>`;
+            emailText += `<b>DATOS DE ENVÍO:</b><br>Cliente: ${nombreEnvio}<br>${dniEnvio}Teléfono: ${limpiarTexto(form['envio-telefono'].value)}<br>Email: ${limpiarTexto(form['envio-email'].value)}<br>Dirección: ${direccionEnvio}<br><br>`;
+            emailText += `<b>DATOS DE FACTURACIÓN:</b><br>Empresa: ${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>Dirección: ${direccionFactura}<br><br>`;
+            
             const pedidoHTML = `
                 <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
                     <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
-                        <div>
-                            <h1 style="color: #2B2B2B; font-size: 28px; margin: 0; font-weight: 800;">Remates <span style="color: #F6B64E;">Panel Sandwich</span></h1>
-                            <p style="color: #666; margin-top: 5px;">Pedido Ref: <b>${referencia}</b></p>
-                        </div>
-                        <div style="text-align: right;">
-                            <h3 style="color: #2B2B2B; margin: 0 0 5px 0; font-size: 16px;">DATOS DEL CLIENTE / FACTURACIÓN</h3>
-                            <p style="margin: 0; font-size: 14px; color: #444;">${nombreFactura}<br>DNI/CIF: ${nifFactura}<br>${direccionFactura}</p>
-                        </div>
+                        <div><h1 style="color: #2B2B2B; font-size: 28px; margin: 0; font-weight: 800;">Remates <span style="color: #F6B64E;">Panel Sandwich</span></h1><p style="color: #666; margin-top: 5px;">Pedido Ref: <b>${referencia}</b></p></div>
+                        <div style="text-align: right;"><h3 style="color: #2B2B2B; margin: 0 0 5px 0; font-size: 16px;">DATOS DE FACTURACIÓN</h3><p style="margin: 0; font-size: 14px; color: #444;">${nombreFactura}<br>DNI/CIF: ${nifFactura}<br>${direccionFactura}</p></div>
                     </div>
-                    <div style="margin-bottom: 30px;">
-                        <h3 style="color: #2B2B2B; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 5px;">DATOS DE ENTREGA</h3>
-                        <p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">${nombreEnvio}<br>${dniEnvio}${direccionEnvio}<br>Tel: ${form['envio-telefono'].value}</p>
-                    </div>
+                    <div style="margin-bottom: 30px;"><h3 style="color: #2B2B2B; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 5px;">DATOS DE ENTREGA</h3><p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">${nombreEnvio}<br>${dniEnvio}${direccionEnvio}<br>Tel: ${limpiarTexto(form['envio-telefono'].value)}</p></div>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                        <thead>
-                            <tr style="background-color: #2B2B2B; color: white;">
-                                <th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th>
-                                <th style="padding: 12px; text-align: center; font-size: 14px;">Cant.</th>
-                                <th style="padding: 12px; text-align: right; font-size: 14px;">Total</th>
-                            </tr>
-                        </thead>
+                        <thead><tr style="background-color: #2B2B2B; color: white;"><th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th><th style="padding: 12px; text-align: center; font-size: 14px;">Cant.</th><th style="padding: 12px; text-align: right; font-size: 14px;">Total</th></tr></thead>
                         <tbody>
-                            ${carrito.map(item => `
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <td style="padding: 12px; font-size: 14px;"><b>${item.nombre}</b><br><span style="color: #666; font-size: 12px;">Fabricante: ${item.fabricante} | Espesor: ${item.espesor.replace('mm',' mm')}</span></td>
-                                <td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td>
-                                <td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td>
-                            </tr>`).join('')}
+                            ${carrito.map(item => `<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 12px; font-size: 14px;"><b>${item.nombre}</b><br><span style="color: #666; font-size: 12px;">Fabricante: ${item.fabricante} | Espesor: ${item.espesor.replace('mm',' mm')}</span></td><td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td><td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td></tr>`).join('')}
                         </tbody>
                     </table>
                     <div style="text-align: right; border-top: 2px solid #eee; padding-top: 20px;">
@@ -666,52 +667,34 @@
                 </div>
             `;
 
-            const opt = {
-                margin:       0.2,
-                filename:     `Pedido_${referencia}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
+            const opt = { margin: 0.2, filename: `Pedido_${referencia}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
 
             try {
                 const worker = html2pdf().set(opt).from(pedidoHTML);
                 const pdfDataUri = await worker.outputPdf('datauristring');
                 const pdfBase64 = pdfDataUri.split(',')[1];
-
-                const scriptURL = "https://script.google.com/macros/s/AKfycbxlycaIp2-kwzOXaE2US90INMvVUmyLLoH4Pf7inEjnULHVgQNSZMc8CRGhwPYMNhps/exec";
                 
-                const response = await fetch(scriptURL, {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
-                        referencia: referencia,
-                        asunto: `Nuevo Pedido B2B: ${referencia}`,
-                        mensaje: emailText,
-                        pdfBase64: pdfBase64,
-                        emailCliente: document.getElementById('correo-cliente-checkout').value,
-                        nombreCliente: nombreEnvio
+                        referencia: referencia, asunto: `Nuevo Pedido B2B: ${referencia}`, mensaje: emailText,
+                        pdfBase64: pdfBase64, emailCliente: document.getElementById('correo-cliente-checkout').value, nombreCliente: nombreEnvio
                     })
                 });
 
-                if (!response.ok) throw new Error("Fallo en la comunicación con Google");
+                if (!response.ok) throw new Error("Fallo en Google Script");
 
                 worker.save();
-
-                document.getElementById('modal-exito').classList.remove('hidden');
-                document.getElementById('ref-exito').innerText = referencia;
-                
-                carrito = [];
-                actualizarCarrito();
                 cerrarCheckout();
-                form.reset();
-                document.getElementById('facturacion-igual').checked = true;
-                toggleFacturacion();
+                carrito = []; actualizarCarrito(); form.reset();
+                document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
+                mostrarExito(true, referencia);
 
             } catch (error) {
                 console.error(error);
-                alert("Hubo un problema al procesar el pedido mediante Google Script. Inténtalo de nuevo más tarde.");
+                alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
             } finally {
-                btn.innerText = "Confirmar Pedido";
+                btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
             }
         }

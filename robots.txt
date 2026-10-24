@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://faustoj.github.io/todoremates/sitemap.xml
