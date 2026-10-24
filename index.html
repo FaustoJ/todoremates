@@ -26,9 +26,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
-        /* Mostrar dropdown en móvil al hacer click/focus */
-        .group:hover .dropdown-menu,
-        .group:focus-within .dropdown-menu { display: flex; }
+        .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col">
@@ -62,15 +60,10 @@
             <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-sm md:text-base">
                 <div class="flex items-center gap-2 md:gap-4 lg:gap-6">
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
-                    
-                    <!-- Separador vertical -->
                     <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
-
-                    <!-- Menú Desplegable Categorías -->
+                    
                     <div class="relative group cursor-pointer" tabindex="0">
-                        <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">
-                            Categorías
-                        </span>
+                        <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">Categorías</span>
                         <div class="dropdown-menu absolute left-0 top-full mt-0 hidden flex-col bg-brand-darker border border-gray-700 rounded-b shadow-xl z-50 min-w-[220px] overflow-hidden text-sm md:text-base">
                             <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('teja')">Remates Teja</span>
                             <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('industrial')">Remates Industrial</span>
@@ -78,13 +71,10 @@
                         </div>
                     </div>
 
-                    <!-- Separador vertical -->
                     <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
-
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
                 </div>
                 
-                <!-- Buscador -->
                 <div class="relative w-32 sm:w-48 md:w-64 ml-2">
                     <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
                         <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -99,13 +89,11 @@
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
-        <!-- VISTA CATEGORÍAS PRINCIPAL -->
         <div id="vista-categorias" class="block">
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tarjeta Teja -->
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
                     <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Remates Teja" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
@@ -119,7 +107,6 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta Industrial -->
                 <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
                     <img src="panel-5-grecas-6-2048x1152.png" alt="Remates Industrial" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
@@ -133,9 +120,9 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta A Medida -->
+                <!-- Modificación en Remates a Medida (object-contain p-4) -->
                 <div onclick="mostrarAmedida()" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="image_2.png" alt="Remates a Medida" class="w-full h-56 object-cover bg-white">
+                    <img src="image_2.png" alt="Remates a Medida" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates a Medida</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Piezas especiales y personalizadas según los requerimientos de tu proyecto.</p>
@@ -149,7 +136,6 @@
             </div>
         </div>
 
-        <!-- VISTA PRODUCTOS -->
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
@@ -158,7 +144,6 @@
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
-        <!-- VISTA A MEDIDA -->
         <div id="vista-amedida" class="hidden">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
@@ -197,22 +182,19 @@
                 </form>
             </div>
         </div>
-
     </main>
 
-    <!-- Footer Legal -->
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
-                <a href="#" class="hover:text-brand-accent transition">Aviso Legal</a>
-                <a href="#" class="hover:text-brand-accent transition">Política de Privacidad</a>
-                <a href="#" class="hover:text-brand-accent transition">Política de Cookies</a>
+                <a href="aviso-legal.html" class="hover:text-brand-accent transition">Aviso Legal</a>
+                <a href="politica-privacidad.html" class="hover:text-brand-accent transition">Política de Privacidad</a>
+                <a href="politica-cookies.html" class="hover:text-brand-accent transition">Política de Cookies</a>
             </div>
             <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Modal Producto ÚNICO -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
@@ -241,7 +223,6 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-300 mb-1">Espesor</label>
                         <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                            <!-- Se rellena dinámicamente -->
                         </select>
                     </div>
                     
@@ -261,7 +242,6 @@
         </div>
     </div>
 
-    <!-- Panel Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -276,13 +256,11 @@
         </div>
     </div>
 
-    <!-- Modal Checkout -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Finalizar Pedido</h2>
             <form id="form-checkout" onsubmit="confirmarPedido(event)" class="space-y-6">
-                
                 <div class="bg-brand-darker p-6 rounded-xl border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -297,12 +275,10 @@
                         <input type="text" name="envio-provincia" placeholder="Provincia" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-
                 <label class="flex items-center space-x-3 cursor-pointer">
                     <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded">
                     <span class="text-gray-300 font-semibold">Mis datos de facturación son los mismos</span>
                 </label>
-
                 <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded-xl border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -314,13 +290,11 @@
                         <input type="text" name="fact-provincia" placeholder="Provincia" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
                     </div>
                 </div>
-
                 <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow">Confirmar Pedido</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Contacto Genérico -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -335,7 +309,6 @@
         </div>
     </div>
 
-    <!-- Modal Éxito -->
     <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
@@ -362,9 +335,7 @@
             const menu = document.querySelector('.dropdown-menu');
             if (menu) {
                 menu.style.display = 'none';
-                setTimeout(() => {
-                    menu.style.display = '';
-                }, 100);
+                setTimeout(() => { menu.style.display = ''; }, 100);
             }
         }
 

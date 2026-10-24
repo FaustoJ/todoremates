@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso Legal - Remates Panel Sandwich</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white sticky top-0 z-40 shadow border-b-4 border-brand-accent">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.jpg" alt="Logo" class="h-10 md:h-14 object-contain">
+                <div class="flex flex-col">
+                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
+                    <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
+                </div>
+            </a>
+            <a href="index.html" class="bg-brand-dark hover:bg-gray-800 text-white font-bold py-2 px-6 rounded transition">Volver a la tienda</a>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-8 mt-4 bg-brand-darker rounded-2xl shadow-xl border border-gray-700 my-8">
+        <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Aviso Legal</h2>
+        <div class="text-gray-300 space-y-4 leading-relaxed text-sm">
+            <p><strong>1. DATOS IDENTIFICATIVOS</strong><br>
+            En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es Remates Panel Sandwich (en adelante la Empresa). Correo electrónico de contacto: [TU CORREO].</p>
+            
+            <p><strong>2. USUARIOS</strong><br>
+            El acceso y/o uso de este portal atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas.</p>
+            
+            <p><strong>3. USO DEL PORTAL</strong><br>
+            Remates Panel Sandwich proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a la Empresa o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal.</p>
+            
+            <p><strong>4. PROPIEDAD INTELECTUAL E INDUSTRIAL</strong><br>
+            La Empresa por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, etc.). Todos los derechos reservados.</p>
+        </div>
+    </main>
+
+    <footer class="bg-brand-darker border-t border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
+            <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

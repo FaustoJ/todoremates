@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Cookies - Remates Panel Sandwich</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white sticky top-0 z-40 shadow border-b-4 border-brand-accent">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.jpg" alt="Logo" class="h-10 md:h-14 object-contain">
+                <div class="flex flex-col">
+                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
+                    <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
+                </div>
+            </a>
+            <a href="index.html" class="bg-brand-dark hover:bg-gray-800 text-white font-bold py-2 px-6 rounded transition">Volver a la tienda</a>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-8 mt-4 bg-brand-darker rounded-2xl shadow-xl border border-gray-700 my-8">
+        <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Política de Cookies</h2>
+        <div class="text-gray-300 space-y-4 leading-relaxed text-sm">
+            <p><strong>1. ¿QUÉ SON LAS COOKIES?</strong><br>
+            Una cookie es un fichero que se descarga en su ordenador al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo.</p>
+            
+            <p><strong>2. TIPOS DE COOKIES UTILIZADAS</strong><br>
+            Este sitio web utiliza cookies técnicas indispensables para el funcionamiento del sistema (como la gestión del carrito de compras en la memoria local de su navegador). No utilizamos cookies de rastreo publicitario de terceros.</p>
+            
+            <p><strong>3. REVOCACIÓN Y ELIMINACIÓN DE COOKIES</strong><br>
+            Puede usted permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador.</p>
+        </div>
+    </main>
+
+    <footer class="bg-brand-darker border-t border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
+            <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
