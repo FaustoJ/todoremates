@@ -55,9 +55,11 @@
             <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-gray-900 font-bold text-sm md:text-base">
                 <div class="flex items-center gap-4 md:gap-6">
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
+                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarNosotros()">Nosotros</span>
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
                 </div>
                 
+                <!-- Buscador -->
                 <div class="relative w-36 md:w-64">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,19 +73,21 @@
     </header>
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
+        
+        <!-- VISTA CATEGORÍAS -->
         <div id="vista-categorias" class="block">
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
+                <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
                     <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Remates Teja" class="w-full h-72 object-cover">
                     <div class="p-6">
                         <h3 class="text-3xl font-bold text-white mb-2">Remates Teja</h3>
                         <p class="text-gray-400">Remates, canales y accesorios para cubiertas de panel teja.</p>
                     </div>
                 </div>
-                <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
+                <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:ring-2 ring-brand-accent transition shadow-lg">
                     <img src="panel-5-grecas-6-2048x1152.png" alt="Remates Industrial" class="w-full h-72 object-cover">
                     <div class="p-6">
                         <h3 class="text-3xl font-bold text-white mb-2">Remates Industrial</h3>
@@ -93,9 +97,21 @@
             </div>
         </div>
 
+        <!-- VISTA NOSOTROS -->
+        <div id="vista-nosotros" class="hidden">
+            <h2 class="text-4xl font-extrabold text-brand-accent mb-6">Sobre Nosotros</h2>
+            <div class="bg-brand-darker p-8 rounded-2xl border border-gray-700 text-gray-300 space-y-4 leading-relaxed max-w-3xl shadow-lg">
+                <p>En <strong class="text-white">Remates Panel Sandwich</strong> somos especialistas en ofrecer soluciones integrales para remates, canales y accesorios de cubiertas y fachadas.</p>
+                <p>Nuestra misión es complementar tus proyectos industriales y residenciales con piezas a medida que garantizan estanqueidad, durabilidad y un acabado estético inmejorable, eliminando cualquier punto débil en tu instalación.</p>
+                <p>Trabajamos con materiales compatibles con los principales fabricantes del sector (Huurre, Isopan, Kingspan, Hiansa, Arcelor, Panelais, ACH, entre otros) para asegurarnos de que cada remate encaje a la perfección con la geometría y el color de tu panel sándwich.</p>
+                <button onclick="mostrarCategorias()" class="mt-6 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded transition">Ver nuestro catálogo</button>
+            </div>
+        </div>
+
+        <!-- VISTA PRODUCTOS -->
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver al catálogo</button>
+                <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
@@ -103,11 +119,11 @@
     </main>
 
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-darker rounded max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700">
+        <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
-            <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6">
-                <img id="modal-img" src="" class="max-h-64 object-contain">
-                <p id="modal-desc-img" class="text-gray-600 text-sm mt-4 text-center font-medium"></p>
+            <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gray-300">
+                <img id="modal-img" src="" class="max-h-64 object-contain drop-shadow-md">
+                <p id="modal-desc-img" class="text-gray-600 text-sm mt-6 text-center font-medium"></p>
             </div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
                 <h3 id="modal-titulo" class="text-3xl font-bold text-white mb-6"></h3>
@@ -155,6 +171,7 @@
         </div>
     </div>
 
+    <!-- Panel Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -169,13 +186,14 @@
         </div>
     </div>
 
+    <!-- Modal Checkout -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
+        <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-6">Finalizar Pedido</h2>
             <form id="form-checkout" onsubmit="confirmarPedido(event)" class="space-y-6">
                 
-                <div class="bg-brand-darker p-6 rounded border border-gray-700">
+                <div class="bg-brand-darker p-6 rounded-xl border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" name="envio-nombre" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
@@ -195,7 +213,7 @@
                     <span class="text-gray-300 font-semibold">Mis datos de facturación son los mismos</span>
                 </label>
 
-                <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded border border-gray-700">
+                <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded-xl border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" name="fact-dni" placeholder="DNI / NIE / NIF (Opcional)" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
@@ -207,17 +225,31 @@
                     </div>
                 </div>
 
-                <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-xl transition shadow">Confirmar Pedido</button>
+                <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow">Confirmar Pedido</button>
             </form>
         </div>
     </div>
 
+    <!-- Modal Contacto -->
+    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
+            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-4">Contacto</h2>
+            <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-4">
+                <input type="hidden" name="_subject" value="Nuevo mensaje desde Remates Panel Sandwich">
+                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
+                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Éxito -->
     <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
+        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
-                <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
             </div>
             <h2 class="text-3xl font-extrabold text-white mb-2">¡Pedido Completado!</h2>
             <p class="text-gray-400 mb-6">Tu pedido ha sido procesado. Se ha descargado el resumen de tu pedido en PDF y hemos recibido tu solicitud.</p>
@@ -229,40 +261,24 @@
         </div>
     </div>
 
-    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded max-w-md w-full p-8 relative border border-gray-700">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-4">Contacto</h2>
-            <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-4">
-                <input type="hidden" name="_subject" value="Nuevo mensaje desde Remates Panel Sandwich">
-                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white">
-                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white"></textarea>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded transition">Enviar Mensaje</button>
-            </form>
-        </div>
-    </div>
+    <!-- Carga del catálogo desde archivo externo -->
+    <script src="productos.js"></script>
 
     <script>
-        const productosDB = [
-            { id: 1, cat: 'industrial', nombre: "Canal de desagüe", precio: 15.00, ud: "ud", img: "Industrial-canal-de-desague-1-2048x1152.png", desc: "Canal de desagüe industrial." },
-            { id: 2, cat: 'industrial', nombre: "Cumbrera troquelada a dos aguas 5 grecas", precio: 15.00, ud: "ud", img: "Industrial-cumbrera-troquelada-a-dos-aguas-5-grecas-2-2048x1152.png", desc: "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas." },
-            { id: 3, cat: 'industrial', nombre: "Remate frontal troquelado para panel 5 grecas", precio: 15.00, ud: "ud", img: "Industrial-remate-frontal-troquelado-para-panel-5-grecas-2-2048x1152.png", desc: "Remate frontal troquelado para panel industrial de 5 grecas." },
-            { id: 4, cat: 'industrial', nombre: "Remate lateral para cubiertas", precio: 15.00, ud: "ud", img: "Industrial-remate-lateral-para-cubiertas-1-2048x1152.png", desc: "Remate lateral para cubiertas industriales." },
-            { id: 5, cat: 'industrial', nombre: "Remate lateral para pared", precio: 15.00, ud: "ud", img: "Industrial-remate-lateral-para-pared-1-2048x1152.png", desc: "Remate lateral de pared para panel industrial." },
-            { id: 6, cat: 'teja', nombre: "Canal de desagüe", precio: 15.00, ud: "ud", img: "Teja-canal-de-desague-2048x1152.png", desc: "Canal de desagüe adaptado para panel teja." },
-            { id: 7, cat: 'teja', nombre: "Cumbrera troquelada a dos aguas", precio: 15.00, ud: "ud", img: "Teja-cumbrera-troquelada-a-dos-aguas-2048x1152.png", desc: "Cumbrera troquelada a dos aguas para panel teja." },
-            { id: 8, cat: 'teja', nombre: "Remate lateral para cubiertas", precio: 15.00, ud: "ud", img: "Teja-remate-lateral-para-cubiertas-2048x1152.png", desc: "Remate lateral de cierre para cubiertas de panel teja." },
-            { id: 9, cat: 'teja', nombre: "Remate trasero para pared", precio: 15.00, ud: "ud", img: "Teja-remate-trasero-para-pared-1-2048x1152.png", desc: "Remate trasero de encuentro con pared para panel teja." },
-            { id: 10, cat: 'teja', nombre: "Remate vuelo trasero troquelado", precio: 15.00, ud: "ud", img: "Teja-remate-vuelo-trasero-troquelqdo-1-2048x1152.png", desc: "Remate de vuelo trasero troquelado para panel teja." }
-        ];
-
         let carrito = [];
         let productoSeleccionado = null;
 
         function mostrarCategorias() {
             document.getElementById('vista-productos').classList.add('hidden');
+            document.getElementById('vista-nosotros').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
+        }
+
+        function mostrarNosotros() {
+            document.getElementById('vista-categorias').classList.add('hidden');
+            document.getElementById('vista-productos').classList.add('hidden');
+            document.getElementById('vista-nosotros').classList.remove('hidden');
             document.querySelector('input[placeholder="Buscar..."]').value = '';
         }
 
@@ -274,54 +290,46 @@
             }
             
             document.getElementById('vista-categorias').classList.add('hidden');
+            document.getElementById('vista-nosotros').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
             
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
             
+            // productosDB se carga desde productos.js
             const resultados = productosDB.filter(p => p.nombre.toLowerCase().includes(termino) || p.desc.toLowerCase().includes(termino));
             
             if (resultados.length === 0) {
                 grid.innerHTML = '<p class="text-gray-400 col-span-full">No se han encontrado productos con ese nombre.</p>';
                 return;
             }
-
-            resultados.forEach(p => {
-                grid.innerHTML += `
-                    <div class="bg-brand-darker rounded border border-gray-700 flex flex-col hover:border-brand-accent transition">
-                        <div class="bg-white flex items-center justify-center p-2 cursor-pointer h-48" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${p.nombre}" class="max-h-full object-contain">
-                        </div>
-                        <div class="p-5 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-white">${p.nombre}</h3>
-                            <p class="text-brand-accent text-2xl font-extrabold my-3">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded border border-gray-600 transition">Ver Detalles</button>
-                        </div>
-                    </div>
-                `;
-            });
+            dibujarGrid(resultados, grid);
         }
 
         function cargarProductos(categoria) {
             document.getElementById('vista-categorias').classList.add('hidden');
+            document.getElementById('vista-nosotros').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
+            dibujarGrid(productosDB.filter(p => p.cat === categoria), grid);
+        }
 
-            productosDB.filter(p => p.cat === categoria).forEach(p => {
-                grid.innerHTML += `
-                    <div class="bg-brand-darker rounded border border-gray-700 flex flex-col hover:border-brand-accent transition">
-                        <div class="bg-white flex items-center justify-center p-2 cursor-pointer h-48" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${p.nombre}" class="max-h-full object-contain">
+        function dibujarGrid(arrayProductos, gridElement) {
+            arrayProductos.forEach(p => {
+                gridElement.innerHTML += `
+                    <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:border-brand-accent transition overflow-hidden shadow-lg">
+                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                            <img src="${p.img}" alt="${p.nombre}" class="max-h-full object-contain drop-shadow-md">
                         </div>
-                        <div class="p-5 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-white">${p.nombre}</h3>
-                            <p class="text-brand-accent text-2xl font-extrabold my-3">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded border border-gray-600 transition">Ver Detalles</button>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
+                            <p class="text-brand-accent text-2xl font-extrabold my-4">${p.precio.toFixed(2)}€ <span class="text-sm text-gray-400 font-normal">/ ${p.ud}</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
                         </div>
                     </div>
                 `;
