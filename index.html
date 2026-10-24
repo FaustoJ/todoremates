@@ -123,16 +123,16 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza (Más pequeños) -->
+            <!-- CRO: Logotipos de confianza (Más pequeños y sutiles) -->
             <div class="pt-8 border-t border-gray-700 mt-12">
-                <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con los principales fabricantes</p>
-                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-60 grayscale select-none">
-                    <span class="text-lg font-black text-white font-serif">Huurre</span>
-                    <span class="text-base font-bold text-white tracking-wider">ISOPAN</span>
-                    <span class="text-lg font-extrabold text-white">Kingspan</span>
-                    <span class="text-base font-bold text-white italic">Hiansa</span>
-                    <span class="text-lg font-bold text-white tracking-widest">Arcelor</span>
-                    <span class="text-base font-bold text-white uppercase">Panelais</span>
+                <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con</p>
+                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
+                    <span class="text-sm md:text-base font-black text-white font-serif">Huurre</span>
+                    <span class="text-xs md:text-sm font-bold text-white tracking-wider">ISOPAN</span>
+                    <span class="text-sm md:text-base font-extrabold text-white">Kingspan</span>
+                    <span class="text-xs md:text-sm font-bold text-white italic">Hiansa</span>
+                    <span class="text-sm md:text-base font-bold text-white tracking-widest">Arcelor</span>
+                    <span class="text-xs md:text-sm font-bold text-white uppercase">Panelais</span>
                 </div>
             </div>
         </div>
@@ -298,6 +298,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
+                    <!-- CRO: Microcopias de confianza -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -662,27 +663,32 @@
                 </div>
             `;
 
-            // CREACIÓN DE UN CONTENEDOR TEMPORAL PARA FORZAR EL RENDER EN MÓVILES (Evita el PDF en blanco)
+            // CREACIÓN DE UN CONTENEDOR TEMPORAL PARA FORZAR EL RENDER EN MÓVILES
             const contenedorPDF = document.createElement('div');
             contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'fixed';
-            contenedorPDF.style.top = '-10000px';
-            contenedorPDF.style.left = '0';
+            
+            // Forzamos estilos para evitar que Safari iOS lo detecte como "fuera de cámara" y lo ignore
+            contenedorPDF.style.position = 'absolute';
+            contenedorPDF.style.left = '-9999px';
+            contenedorPDF.style.top = '0';
             contenedorPDF.style.width = '800px';
-            contenedorPDF.style.background = 'white';
+            contenedorPDF.style.backgroundColor = '#ffffff';
             document.body.appendChild(contenedorPDF);
+
+            // IMPORTANTE: Damos un respiro al navegador para que dibuje el PDF internamente antes de capturarlo
+            await new Promise(resolve => setTimeout(resolve, 200));
 
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2, useCORS: true, windowWidth: 800 }, 
+                html2canvas: { scale: 2, useCORS: true, width: 800, windowWidth: 800 }, 
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
             try {
-                // Generar y capturar el Base64 directamente desde el contenedor DOM
-                const pdfDataUri = await html2pdf().set(opt).from(contenedorPDF).toPdf().output('datauristring');
+                const worker = html2pdf().set(opt).from(contenedorPDF);
+                const pdfDataUri = await worker.outputPdf('datauristring');
                 const pdfBase64 = pdfDataUri.split(',')[1];
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -699,8 +705,7 @@
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
-                // Descargar el PDF al usuario y limpiar la pantalla
-                await html2pdf().set(opt).from(contenedorPDF).save();
+                await worker.save();
                 document.body.removeChild(contenedorPDF);
 
                 cerrarCheckout();
