@@ -60,9 +60,13 @@
         
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
             <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-sm md:text-base">
-                <div class="flex items-center gap-2 md:gap-6">
+                <div class="flex items-center gap-2 md:gap-4 lg:gap-6">
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
                     
+                    <!-- Separador vertical -->
+                    <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
+
+                    <!-- Menú Desplegable Categorías -->
                     <div class="relative group cursor-pointer" tabindex="0">
                         <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">
                             Categorías
@@ -74,9 +78,13 @@
                         </div>
                     </div>
 
+                    <!-- Separador vertical -->
+                    <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
+
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
                 </div>
                 
+                <!-- Buscador -->
                 <div class="relative w-32 sm:w-48 md:w-64 ml-2">
                     <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
                         <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -350,6 +358,7 @@
         let productoSeleccionado = null;
 
         function mostrarCategorias() {
+            document.activeElement.blur();
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
@@ -357,6 +366,7 @@
         }
 
         function mostrarAmedida() {
+            document.activeElement.blur();
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.remove('hidden');
@@ -392,6 +402,7 @@
         }
 
         function cargarProductos(categoria) {
+            document.activeElement.blur();
             if (typeof productosDB === 'undefined') {
                 alert("Error: No se ha podido cargar la base de datos (productos.js). Comprueba que el archivo esté en la misma carpeta.");
                 return;
