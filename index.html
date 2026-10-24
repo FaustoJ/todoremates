@@ -59,12 +59,12 @@
         </div>
         
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
-            <!-- Forzado a una sola línea con flex-row, ajustando márgenes y tamaños -->
-            <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-xs md:text-base">
-                <div class="flex items-center gap-3 md:gap-6">
+            <!-- Textos un poco más grandes (text-sm en móvil) pero forzando a una sola línea -->
+            <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-sm md:text-base">
+                <div class="flex items-center gap-2 md:gap-6">
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
                     
-                    <!-- Menú Desplegable Categorías (Sin Flecha) -->
+                    <!-- Menú Desplegable Categorías -->
                     <div class="relative group cursor-pointer" tabindex="0">
                         <span class="hover:text-white transition whitespace-nowrap flex items-center py-2">
                             Categorías
@@ -79,14 +79,14 @@
                     <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
                 </div>
                 
-                <!-- Buscador ultra compacto en móvil -->
-                <div class="relative w-28 sm:w-48 md:w-64 ml-2">
-                    <div class="absolute inset-y-0 left-0 pl-2 md:pl-3 flex items-center pointer-events-none">
-                        <svg class="h-3 w-3 md:h-4 md:w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <!-- Buscador ligeramente más grande pero adaptativo -->
+                <div class="relative w-32 sm:w-48 md:w-64 ml-2">
+                    <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="text" oninput="buscarProductos(event)" placeholder="Buscar..." class="w-full pl-6 md:pl-9 pr-2 md:pr-3 py-1 md:py-1.5 rounded-full text-gray-900 text-xs md:text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
+                    <input type="text" oninput="buscarProductos(event)" placeholder="Buscar..." class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
                 </div>
             </div>
         </div>
@@ -94,7 +94,6 @@
 
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
-        <!-- VISTA CATEGORÍAS PRINCIPAL -->
         <div id="vista-categorias" class="block">
             <h2 class="text-4xl font-extrabold text-white mb-2">Soluciones de Panel Sandwich</h2>
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
@@ -148,7 +147,6 @@
             </div>
         </div>
 
-        <!-- VISTA PRODUCTOS -->
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
@@ -157,7 +155,6 @@
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
-        <!-- VISTA A MEDIDA -->
         <div id="vista-amedida" class="hidden">
             <div class="flex items-center gap-4 mb-8">
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
@@ -199,7 +196,6 @@
 
     </main>
 
-    <!-- Footer Legal -->
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
@@ -211,7 +207,6 @@
         </div>
     </footer>
 
-    <!-- Modal Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
@@ -240,7 +235,6 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-300 mb-1">Espesor</label>
                         <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                            <!-- Se rellena dinámicamente -->
                         </select>
                     </div>
                     
@@ -260,7 +254,6 @@
         </div>
     </div>
 
-    <!-- Panel Carrito -->
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white">Tu Pedido</h2>
@@ -275,7 +268,6 @@
         </div>
     </div>
 
-    <!-- Modal Checkout -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
             <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -319,7 +311,6 @@
         </div>
     </div>
 
-    <!-- Modal Contacto Genérico -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -334,7 +325,6 @@
         </div>
     </div>
 
-    <!-- Modal Éxito -->
     <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
@@ -360,14 +350,14 @@
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
-            document.querySelector('input[placeholder="Buscar remate..."]').value = '';
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
         }
 
         function mostrarAmedida() {
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.remove('hidden');
-            document.querySelector('input[placeholder="Buscar remate..."]').value = '';
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
         }
 
         function buscarProductos(event) {
@@ -407,7 +397,7 @@
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
-            document.querySelector('input[placeholder="Buscar remate..."]').value = '';
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
