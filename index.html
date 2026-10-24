@@ -663,26 +663,24 @@
                 </div>
             `;
 
-            // CREACIÓN DE UN CONTENEDOR TEMPORAL PARA FORZAR EL RENDER EN MÓVILES
+            // Contenedor temporal fijo pero invisible
             const contenedorPDF = document.createElement('div');
             contenedorPDF.innerHTML = pedidoHTML;
-            
-            // Forzamos estilos para evitar que Safari iOS lo detecte como "fuera de cámara" y lo ignore
             contenedorPDF.style.position = 'absolute';
-            contenedorPDF.style.left = '-9999px';
+            contenedorPDF.style.left = '0';
             contenedorPDF.style.top = '0';
             contenedorPDF.style.width = '800px';
-            contenedorPDF.style.backgroundColor = '#ffffff';
+            contenedorPDF.style.zIndex = '-1000'; // Debajo de todo, pero no fuera de cámara
             document.body.appendChild(contenedorPDF);
 
-            // IMPORTANTE: Damos un respiro al navegador para que dibuje el PDF internamente antes de capturarlo
-            await new Promise(resolve => setTimeout(resolve, 200));
+            // Pausa vital para que Safari iOS renderice antes de la "foto"
+            await new Promise(resolve => setTimeout(resolve, 300));
 
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2, useCORS: true, width: 800, windowWidth: 800 }, 
+                html2canvas: { scale: 1, useCORS: true }, // SCALE 1 ES CLAVE PARA EVITAR PANTALLAZO BLANCO EN IOS
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
