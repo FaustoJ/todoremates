@@ -357,8 +357,19 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        function mostrarCategorias() {
+        function forzarCierreMenu() {
             document.activeElement.blur();
+            const menu = document.querySelector('.dropdown-menu');
+            if (menu) {
+                menu.style.display = 'none';
+                setTimeout(() => {
+                    menu.style.display = '';
+                }, 100);
+            }
+        }
+
+        function mostrarCategorias() {
+            forzarCierreMenu();
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
@@ -366,7 +377,7 @@
         }
 
         function mostrarAmedida() {
-            document.activeElement.blur();
+            forzarCierreMenu();
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.remove('hidden');
@@ -402,7 +413,7 @@
         }
 
         function cargarProductos(categoria) {
-            document.activeElement.blur();
+            forzarCierreMenu();
             if (typeof productosDB === 'undefined') {
                 alert("Error: No se ha podido cargar la base de datos (productos.js). Comprueba que el archivo esté en la misma carpeta.");
                 return;
