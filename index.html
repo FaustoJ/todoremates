@@ -28,9 +28,20 @@
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
+        
+        /* Ocultar elementos nativos de Google Translate */
+        body { top: 0 !important; }
+        .goog-te-banner-frame { display: none !important; }
+        .goog-tooltip { display: none !important; }
+        .goog-tooltip:hover { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+        #google_translate_element { display: none !important; }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col relative">
+
+    <!-- Motor de traducción invisible -->
+    <div id="google_translate_element"></div>
 
     <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
@@ -48,8 +59,16 @@
                     <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
                 </div>
             </div>
-            <nav class="flex items-center gap-4 md:gap-6">
-                <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm">Pide presupuesto</button>
+            
+            <nav class="flex items-center gap-3 md:gap-6">
+                <!-- Banderas de Idioma -->
+                <div class="flex items-center gap-2 border-r border-gray-200 pr-3 md:pr-6">
+                    <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-es"><img src="https://flagcdn.com/w20/es.png" alt="Español" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-en"><img src="https://flagcdn.com/w20/gb.png" alt="English" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-fr"><img src="https://flagcdn.com/w20/fr.png" alt="Français" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                </div>
+
+                <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap">Pide presupuesto</button>
                 <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
@@ -298,7 +317,6 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <!-- CRO: Microcopias de confianza -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -339,6 +357,36 @@
     </div>
 
     <script src="productos.js"></script>
+
+    <!-- SCRIPTS DE IDIOMA GOOGLE TRANSLATE -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,fr,es', autoDisplay: false}, 'google_translate_element');
+        }
+
+        function cambiarIdioma(lang) {
+            if(lang === 'es') {
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + location.hostname;
+            } else {
+                document.cookie = "googtrans=/es/" + lang + "; path=/";
+                document.cookie = "googtrans=/es/" + lang + "; path=/; domain=" + location.hostname;
+            }
+            window.location.reload();
+        }
+
+        // Marcar visualmente la bandera activa
+        document.addEventListener('DOMContentLoaded', () => {
+            const match = document.cookie.match(/googtrans=\/es\/([a-z]{2})/);
+            const activeLang = match ? match[1] : 'es';
+            const btn = document.getElementById('btn-lang-' + activeLang);
+            if(btn) {
+                btn.classList.remove('opacity-50');
+                btn.classList.add('ring-2', 'ring-brand-accent');
+            }
+        });
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvBV88qZBso1LqIXlVs0lFwbABodYZZ1D7-n2MBv-330te3T5y5ROBWMSbIq29bG3L/exec";
@@ -559,7 +607,7 @@
             document.getElementById('modal-exito').classList.remove('hidden');
             if(esPedido) {
                 document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
-                document.getElementById('texto-exito-desc').innerText = "Se ha descargado el resumen de tu pedido en PDF y lo revisaremos en breve.";
+                document.getElementById('texto-exito-desc').innerText = "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.";
                 document.getElementById('div-ref-exito').classList.remove('hidden');
                 document.getElementById('ref-exito').innerText = ref;
             } else {
@@ -663,24 +711,26 @@
                 </div>
             `;
 
-            // Contenedor temporal fijo pero invisible
+            // CREACIÓN DE UN CONTENEDOR TEMPORAL CON FIX PARA iOS (MÓVILES)
             const contenedorPDF = document.createElement('div');
             contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'absolute';
+            contenedorPDF.style.position = 'fixed'; 
             contenedorPDF.style.left = '0';
             contenedorPDF.style.top = '0';
             contenedorPDF.style.width = '800px';
-            contenedorPDF.style.zIndex = '-1000'; // Debajo de todo, pero no fuera de cámara
+            contenedorPDF.style.backgroundColor = '#ffffff';
+            contenedorPDF.style.zIndex = '-9999'; // Queda escondido al fondo, pero dentro de la "pantalla"
             document.body.appendChild(contenedorPDF);
 
-            // Pausa vital para que Safari iOS renderice antes de la "foto"
-            await new Promise(resolve => setTimeout(resolve, 300));
+            // Pausa obligatoria mayor para que el iPhone tenga tiempo de dibujar en memoria
+            await new Promise(resolve => setTimeout(resolve, 500));
 
+            // scale: 1 es CRÍTICO para evitar que la memoria RAM de iOS colapse y devuelva blanco
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 1, useCORS: true }, // SCALE 1 ES CLAVE PARA EVITAR PANTALLAZO BLANCO EN IOS
+                html2canvas: { scale: 1, useCORS: true, width: 800, windowWidth: 800, scrollY: 0 }, 
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
@@ -703,7 +753,7 @@
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
-                await worker.save();
+                // ELIMINADO EL WORKER.SAVE() PARA QUE NO SE DESCARGUE AL DISPOSITIVO
                 document.body.removeChild(contenedorPDF);
 
                 cerrarCheckout();
