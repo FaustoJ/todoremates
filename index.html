@@ -59,8 +59,7 @@
                     <span class="text-xs md:text-sm text-gray-500 font-medium">Especialistas en remates y accesorios</span>
                 </div>
             </div>
-            
-            <nav class="flex items-center gap-3 md:gap-6">
+            <nav class="flex items-center gap-4 md:gap-6">
                 <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap">Pide presupuesto</button>
                 <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -135,7 +134,7 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza -->
+            <!-- CRO: Logotipos de confianza (Pequeños y elegantes) -->
             <div class="pt-8 border-t border-gray-700 mt-12">
                 <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
@@ -198,11 +197,11 @@
 
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
-            <!-- Banderas de Idioma Discretas -->
+            <!-- Banderas de Idioma Discretas en el Footer -->
             <div class="flex items-center justify-center gap-4 mb-6">
-                <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100" id="btn-lang-es"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-6 h-6 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100" id="btn-lang-en"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-6 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100" id="btn-lang-fr"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-6 h-6 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-es"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-6 h-6 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-en"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-6 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-fr"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-6 h-6 rounded-full object-cover"></button>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
@@ -380,7 +379,7 @@
             const activeLang = match ? match[1] : 'es';
             const btn = document.getElementById('btn-lang-' + activeLang);
             if(btn) {
-                btn.classList.remove('opacity-60');
+                btn.classList.remove('opacity-50');
                 btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
             }
         });
@@ -710,35 +709,17 @@
                 </div>
             `;
 
-            // FIX IOS: El contenedor del PDF ahora se pinta FÍSICAMENTE en la esquina superior izquierda
-            const contenedorPDF = document.createElement('div');
-            contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'absolute'; 
-            contenedorPDF.style.left = '0';
-            // Lo anclamos exactamente a la altura actual de la pantalla para evitar fallos de scroll
-            contenedorPDF.style.top = window.scrollY + 'px'; 
-            contenedorPDF.style.width = '800px';
-            // Le damos una visibilidad del 1% (imperceptible para el ojo, pero iOS se ve obligado a dibujarlo)
-            contenedorPDF.style.opacity = '0.01'; 
-            contenedorPDF.style.pointerEvents = 'none';
-            contenedorPDF.style.zIndex = '-1'; 
-            document.body.appendChild(contenedorPDF);
-
-            // Damos medio segundo completo al iPhone para renderizar los elementos
-            await new Promise(resolve => setTimeout(resolve, 500));
-
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 1, useCORS: true, logging: false }, 
+                html2canvas: { scale: 2 }, 
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
             try {
-                const worker = html2pdf().set(opt).from(contenedorPDF);
-                const pdfDataUri = await worker.outputPdf('datauristring');
-                const pdfBase64 = pdfDataUri.split(',')[1];
+                // VUELTA AL MÉTODO DIRECTO (SIN CONTENEDORES INVISIBLES)
+                const pdfBase64 = await html2pdf().set(opt).from(pedidoHTML).outputPdf('base64');
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
@@ -754,9 +735,6 @@
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
-                // BORRADO: Ya NO se descarga el PDF localmente, solo se envía.
-                document.body.removeChild(contenedorPDF);
-
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
@@ -765,7 +743,6 @@
             } catch (error) {
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
-                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
             } finally {
                 btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
