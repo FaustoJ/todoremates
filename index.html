@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
     <title>Remates Panel Sandwich - Especialistas en Remates</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +38,7 @@
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
-                <img src="logo.jpg" alt="Logo" class="h-10 md:h-14 object-contain">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo de Remates Panel Sandwich" class="h-10 md:h-14 object-contain">
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">
                         Remates <span class="text-brand-accent">Panel Sandwich</span>
@@ -101,8 +102,9 @@
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta Teja -->
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="panel-sandwich-teja-roja-9-2048x1152.png" alt="Remates Teja" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" alt="Cubierta de panel sándwich imitación teja roja con remates integrados" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Teja</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Remates, canales y accesorios especializados para cubiertas de panel tipo teja.</p>
@@ -114,8 +116,9 @@
                     </div>
                 </div>
 
+                <!-- Tarjeta Industrial -->
                 <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="panel-5-grecas-6-2048x1152.png" alt="Remates Industrial" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/industrial-panel-5-grecas.webp" alt="Cubierta de panel sándwich industrial de 5 grecas" class="w-full h-56 object-cover bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Industrial</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Canales, cumbreras y cierres diseñados para naves y fachadas industriales.</p>
@@ -127,8 +130,9 @@
                     </div>
                 </div>
 
+                <!-- Tarjeta A Medida (Renombra tu image_2.png a remates-a-medida-chapa-plegada.webp en la carpeta Imagenes) -->
                 <div onclick="mostrarAmedida()" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="image_2.png" alt="Remates a Medida" class="w-full h-56 object-contain p-4 bg-white">
+                    <img src="Imagenes/remates-a-medida-chapa-plegada.webp" alt="Esquema técnico de piezas y remates de chapa plegada a medida" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates a Medida</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Piezas especiales y personalizadas según los requerimientos de tu proyecto.</p>
@@ -160,7 +164,6 @@
                 <p class="text-gray-300 mb-8 leading-relaxed text-lg border-l-4 border-brand-accent pl-4">
                     Describa la pieza que necesita. Lo estudiaremos con la máxima brevedad posible y nos pondremos en contacto con usted para ofrecerle un presupuesto y una solución a su medida.
                 </p>
-                <!-- FormSubmit para consultas y presupuestos a medida (No PDFs) -->
                 <form action="https://formsubmit.co/faustomoyacastells@gmail.com" method="POST" class="space-y-5">
                     <input type="hidden" name="_subject" value="Solicitud de Presupuesto - Remates a Medida">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -206,7 +209,7 @@
         <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
             <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
             <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gray-300">
-                <img id="modal-img" src="" class="max-h-64 object-contain drop-shadow-md">
+                <img id="modal-img" src="" alt="Vista previa del producto" class="max-h-64 object-contain drop-shadow-md">
                 <p id="modal-desc-img" class="text-gray-600 text-sm mt-6 text-center font-medium"></p>
             </div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
@@ -302,7 +305,6 @@
         </div>
     </div>
 
-    <!-- Contacto General FormSubmit -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -456,6 +458,7 @@
         function abrirModal(id) {
             productoSeleccionado = productosDB.find(p => p.id === id);
             document.getElementById('modal-img').src = productoSeleccionado.img;
+            document.getElementById('modal-img').alt = productoSeleccionado.nombre;
             document.getElementById('modal-desc-img').innerText = productoSeleccionado.desc;
             document.getElementById('modal-titulo').innerText = productoSeleccionado.nombre;
             document.getElementById('modal-fabricante').value = '';
@@ -532,7 +535,7 @@
                 list.innerHTML += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
                         <div class="bg-white w-16 h-16 flex items-center justify-center rounded">
-                            <img src="${item.img}" class="max-h-full object-contain">
+                            <img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain">
                         </div>
                         <div class="flex-grow">
                             <h4 class="text-sm font-bold text-white">${item.nombre}</h4>
@@ -672,12 +675,10 @@
             };
 
             try {
-                // Generar PDF y extraer Base64 puro
                 const worker = html2pdf().set(opt).from(pedidoHTML);
                 const pdfDataUri = await worker.outputPdf('datauristring');
                 const pdfBase64 = pdfDataUri.split(',')[1];
 
-                // URL de Google Apps Script
                 const scriptURL = "https://script.google.com/macros/s/AKfycbxlycaIp2-kwzOXaE2US90INMvVUmyLLoH4Pf7inEjnULHVgQNSZMc8CRGhwPYMNhps/exec";
                 
                 const response = await fetch(scriptURL, {
@@ -692,7 +693,6 @@
                     })
                 });
 
-                // Descargamos la copia local del cliente
                 worker.save();
 
                 document.getElementById('modal-exito').classList.remove('hidden');
