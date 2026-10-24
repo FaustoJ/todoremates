@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
+    <!-- SEO: Etiquetas Open Graph -->
     <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
     <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
     <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
@@ -30,8 +31,7 @@
         
         /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
         body { top: 0px !important; position: static !important; }
-        .goog-te-banner-frame { display: none !important; }
-        iframe.skiptranslate { display: none !important; }
+        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-tooltip, .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
@@ -154,6 +154,7 @@
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
+            <!-- Contenedor donde se cargarán los productos una sola vez -->
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
@@ -190,7 +191,7 @@
                         <label class="text-sm font-bold text-gray-400 whitespace-nowrap">Cantidad estimada:</label>
                         <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none text-center">
                     </div>
-                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4 btn-enviar-generico">Solicitar Presupuesto</button>
+                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4">Solicitar Presupuesto</button>
                 </form>
             </div>
         </div>
@@ -317,10 +318,6 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
-                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
-                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
-                    </div>
                 </div>
             </form>
         </div>
@@ -393,6 +390,34 @@
         let carrito = [];
         let productoSeleccionado = null;
 
+        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTORES
+        function inicializarGrid() {
+            const grid = document.getElementById('grid-productos');
+            if (!grid || typeof productosDB === 'undefined') return;
+            
+            let htmlFinal = '';
+            productosDB.forEach(p => {
+                const precioMinimo = Math.min(...Object.values(p.precios));
+                htmlFinal += `
+                    <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg" style="display: none;">
+                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
+                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = htmlFinal;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof productosDB !== 'undefined') inicializarGrid();
+        });
+
         function limpiarTexto(str) {
             return (str || '').replace(/[&<>'"]/g, function(tag) {
                 const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' };
@@ -427,19 +452,26 @@
             document.getElementById('modal-contacto').classList.remove('hidden');
         }
 
+        // MOSTRAR U OCULTAR PRODUCTOS SIN BORRARLOS DEL HTML
         function buscarProductos(event) {
             if (typeof productosDB === 'undefined') return;
             const termino = limpiarTexto(event.target.value.toLowerCase());
             if (termino.length === 0) { mostrarCategorias(); return; }
+            
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
-            const grid = document.getElementById('grid-productos');
             
-            const resultados = productosDB.filter(p => p.nombre.toLowerCase().includes(termino) || p.desc.toLowerCase().includes(termino));
-            if (resultados.length === 0) { grid.innerHTML = '<p class="text-gray-400 col-span-full">No se han encontrado productos con ese nombre.</p>'; return; }
-            dibujarGrid(resultados, grid);
+            document.querySelectorAll('.producto-card').forEach(card => {
+                const nombre = card.getAttribute('data-nombre');
+                const desc = card.getAttribute('data-desc');
+                if(nombre.includes(termino) || desc.includes(termino)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function cargarProductos(categoria) {
@@ -451,29 +483,13 @@
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
             
-            const grid = document.getElementById('grid-productos');
-            dibujarGrid(productosDB.filter(p => p.cat === categoria), grid);
-        }
-
-        // Corrección anti-Google Translate: Construir el HTML primero y asignarlo de una sola vez
-        function dibujarGrid(arrayProductos, gridElement) {
-            let htmlFinal = '';
-            arrayProductos.forEach(p => {
-                const precioMinimo = Math.min(...Object.values(p.precios));
-                htmlFinal += `
-                    <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
-                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
-                        </div>
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
-                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
-                        </div>
-                    </div>
-                `;
+            document.querySelectorAll('.producto-card').forEach(card => {
+                if(card.getAttribute('data-cat') === categoria) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-            gridElement.innerHTML = htmlFinal;
         }
 
         function toggleOtroFabricante() {
@@ -647,7 +663,7 @@
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
-                        asunto: `Nueva solicitud web: ${tipo} - ${name}`,
+                        asunto: `Nueva solicitud desde la web: ${tipo} - ${name}`,
                         mensaje: mensajeHtml,
                         pdfBase64: "", 
                         emailCliente: "",
@@ -697,6 +713,7 @@
             emailText += `<b>DATOS DE ENVÍO:</b><br>Cliente: ${nombreEnvio}<br>${dniEnvio}Teléfono: ${limpiarTexto(form['envio-telefono'].value)}<br>Email: ${limpiarTexto(form['envio-email'].value)}<br>Dirección: ${direccionEnvio}<br><br>`;
             emailText += `<b>DATOS DE FACTURACIÓN:</b><br>Empresa: ${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>Dirección: ${direccionFactura}<br><br>`;
             
+            // GENERACIÓN DE PDF A PRUEBA DE TRADUCTOR
             const pedidoHTML = `
                 <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
                     <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
@@ -718,33 +735,19 @@
                 </div>
             `;
 
-            // PROTECCIÓN CONTRA TRADUCTOR Y RENDERIZADO EN iOS
-            const contenedorPDF = document.createElement('div');
-            contenedorPDF.className = "notranslate"; // Google Translate no tocará esto
-            contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'absolute'; 
-            contenedorPDF.style.left = '0';
-            contenedorPDF.style.top = '0';
-            contenedorPDF.style.width = '800px';
-            contenedorPDF.style.zIndex = '-9999'; 
-            contenedorPDF.style.backgroundColor = '#ffffff';
-            document.body.appendChild(contenedorPDF);
-
-            await new Promise(resolve => setTimeout(resolve, 400));
-
+            // MÉTODO ORIGINAL EXACTO QUE FUNCIONABA HACE 15 VERSIONES
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 1.5, useCORS: true, windowWidth: 800 }, 
+                html2canvas: { scale: 2 }, 
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
             try {
-                // Extracción base64 directa desde el contenedor inyectado
-                const worker = html2pdf().set(opt).from(contenedorPDF);
-                const pdfDataUri = await worker.outputPdf('datauristring');
-                const pdfBase64 = pdfDataUri.split(',')[1];
+                // NO SE GUARDA LOCALMENTE (Worker sin instrucción save)
+                const worker = html2pdf().set(opt).from(pedidoHTML);
+                const pdfBase64 = await worker.outputPdf('base64');
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
@@ -760,8 +763,6 @@
 
                 if (!response.ok) throw new Error("Fallo en Google Script");
 
-                document.body.removeChild(contenedorPDF);
-
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
@@ -770,7 +771,6 @@
             } catch (error) {
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
-                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
             } finally {
                 btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
