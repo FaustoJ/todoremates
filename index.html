@@ -52,13 +52,19 @@
             </nav>
         </div>
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-4 text-gray-900 font-bold text-sm md:text-base">
-                <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
-                <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
+            <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-gray-900 font-bold text-sm md:text-base">
+                <div class="flex items-center gap-4 md:gap-6">
+                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()">Inicio</span>
+                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="document.getElementById('modal-contacto').classList.remove('hidden')">Contacto</span>
+                </div>
                 
-                <!-- Buscador -->
-                <div class="flex-grow w-full md:w-auto md:ml-4">
-                    <input type="text" oninput="buscarProductos(event)" placeholder="Buscar remate..." class="w-full md:max-w-md p-2 rounded text-gray-900 font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner">
+                <div class="relative w-36 md:w-64">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input type="text" oninput="buscarProductos(event)" placeholder="Buscar..." class="w-full pl-9 pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
                 </div>
             </div>
         </div>
@@ -257,7 +263,7 @@
         function mostrarCategorias() {
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
-            document.querySelector('input[placeholder="Buscar remate..."]').value = '';
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
         }
 
         function buscarProductos(event) {
@@ -301,7 +307,7 @@
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
             document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
-            document.querySelector('input[placeholder="Buscar remate..."]').value = '';
+            document.querySelector('input[placeholder="Buscar..."]').value = '';
 
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
@@ -448,7 +454,6 @@
                 document.querySelectorAll('#seccion-facturacion input').forEach(inp => inp.removeAttribute('required'));
             } else {
                 seccion.classList.remove('hidden');
-                // document.getElementsByName('fact-dni')[0].setAttribute('required', 'true'); // Opcional
                 document.getElementsByName('fact-empresa')[0].setAttribute('required', 'true');
                 document.getElementsByName('fact-direccion')[0].setAttribute('required', 'true');
             }
