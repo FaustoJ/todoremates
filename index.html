@@ -32,12 +32,25 @@
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative min-h-screen">
 
-    <!-- Botón Flotante WhatsApp -->
-    <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
-        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12.031 0C5.385 0 0 5.388 0 12.036c0 2.124.553 4.195 1.603 6.01L.523 24l6.113-1.603a11.966 11.966 0 005.395 1.28h.005c6.646 0 12.031-5.388 12.031-12.036 0-3.22-1.254-6.248-3.53-8.528A11.97 11.97 0 0012.031 0zm0 21.654h-.005a9.96 9.96 0 01-5.07-1.378l-.364-.216-3.774.99.998-3.682-.237-.377A9.972 9.972 0 012.015 12.04c0-5.518 4.49-10.007 10.016-10.007 2.675 0 5.187 1.042 7.078 2.935 1.892 1.89 2.934 4.404 2.934 7.08-.002 5.517-4.493 10.006-10.012 10.006zm5.495-7.513c-.301-.151-1.782-.88-2.057-.98-.276-.1-.476-.151-.676.15-.201.3-.776.98-.952 1.18-.175.201-.351.226-.652.076-.301-.151-1.272-.469-2.423-1.496-.895-.8-1.501-1.788-1.677-2.088-.175-.302-.019-.465.132-.616.136-.136.301-.351.451-.527.151-.176.201-.301.301-.502.101-.2.051-.376-.025-.526-.075-.152-.676-1.63-.926-2.23-.245-.589-.494-.509-.676-.518-.175-.008-.376-.008-.576-.008-.201 0-.527.075-.802.376-.276.3-1.053 1.03-1.053 2.51 0 1.48 1.078 2.912 1.228 3.113.15.2 2.124 3.242 5.143 4.544.718.309 1.28.494 1.716.632.72.23 1.376.197 1.895.12.584-.087 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.43-.076-.127-.276-.202-.577-.353z"/>
-        </svg>
-    </a>
+    <!-- CRO: Barra de Confianza Superior -->
+    <div class="bg-brand-darker text-brand-accent text-xs font-bold py-2 px-4 flex justify-center gap-6 md:gap-12 border-b border-gray-700 hidden sm:flex">
+        <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg> <span data-i18n="top1">Envíos a toda España</span></span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="top2">Presupuestos en 24/48h</span></span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> <span data-i18n="top3">Fabricación a medida</span></span>
+    </div>
+
+    <!-- Botón Flotante WhatsApp con Tooltip CRO -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end group">
+        <div class="mb-3 bg-white text-gray-900 text-xs font-extrabold px-4 py-2 rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none transform translate-y-2 group-hover:translate-y-0 border-b-4 border-brand-accent">
+            <span data-i18n="ayudaWa">¿Dudas? Habla con un experto</span>
+        </div>
+        <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-25"></div>
+            <svg class="w-8 h-8 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.031 0C5.385 0 0 5.388 0 12.036c0 2.124.553 4.195 1.603 6.01L.523 24l6.113-1.603a11.966 11.966 0 005.395 1.28h.005c6.646 0 12.031-5.388 12.031-12.036 0-3.22-1.254-6.248-3.53-8.528A11.97 11.97 0 0012.031 0zm0 21.654h-.005a9.96 9.96 0 01-5.07-1.378l-.364-.216-3.774.99.998-3.682-.237-.377A9.972 9.972 0 012.015 12.04c0-5.518 4.49-10.007 10.016-10.007 2.675 0 5.187 1.042 7.078 2.935 1.892 1.89 2.934 4.404 2.934 7.08-.002 5.517-4.493 10.006-10.012 10.006zm5.495-7.513c-.301-.151-1.782-.88-2.057-.98-.276-.1-.476-.151-.676.15-.201.3-.776.98-.952 1.18-.175.201-.351.226-.652.076-.301-.151-1.272-.469-2.423-1.496-.895-.8-1.501-1.788-1.677-2.088-.175-.302-.019-.465.132-.616.136-.136.301-.351.451-.527.151-.176.201-.301.301-.502.101-.2.051-.376-.025-.526-.075-.152-.676-1.63-.926-2.23-.245-.589-.494-.509-.676-.518-.175-.008-.376-.008-.576-.008-.201 0-.527.075-.802.376-.276.3-1.053 1.03-1.053 2.51 0 1.48 1.078 2.912 1.228 3.113.15.2 2.124 3.242 5.143 4.544.718.309 1.28.494 1.716.632.72.23 1.376.197 1.895.12.584-.087 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.43-.076-.127-.276-.202-.577-.353z"/>
+            </svg>
+        </a>
+    </div>
 
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -52,9 +65,9 @@
             <nav class="flex items-center gap-3 md:gap-6">
                 <!-- BANDERAS EN CABECERA (SOLO PC) -->
                 <div class="hidden md:flex items-center gap-3 border-r border-gray-200 pr-4 md:pr-6">
-                    <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow-sm ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow-sm ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-6 h-6 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-6 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-6 h-6 rounded-full object-cover border border-gray-300"></button>
                 </div>
 
                 <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
@@ -141,6 +154,7 @@
                     <span class="text-xs md:text-sm font-bold text-white italic">Hiansa</span>
                     <span class="text-sm md:text-base font-bold text-white tracking-widest">Arcelor</span>
                     <span class="text-xs md:text-sm font-bold text-white uppercase">Panelais</span>
+                    <span class="text-sm md:text-base font-bold text-white tracking-widest">ACH</span>
                 </div>
             </div>
         </div>
@@ -278,6 +292,12 @@
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-brand-darker border-t border-gray-700">
+            <!-- CRO: Bloque de confianza en carrito -->
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-6 flex items-start gap-3">
+                <svg class="w-6 h-6 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <p class="text-xs text-gray-300 leading-relaxed" data-i18n="compraSegura">Compra segura. Revisaremos tu pedido manualmente para garantizar la compatibilidad antes de cualquier pago.</p>
+            </div>
+
             <div class="flex justify-between text-gray-400 mb-2"><span><span data-i18n="sub">Subtotal</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></span><span id="cart-subtotal">0.00 €</span></div>
             <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
             <div class="flex justify-between text-white text-2xl font-bold mb-6"><span data-i18n="total">Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
@@ -394,7 +414,12 @@
                 nomApe: "Nombre y Apellidos", detPieza: "Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)", cantEst: "Cantidad estimada:",
                 aviso: "Aviso Legal", priv: "Política de Privacidad", cook: "Política de Cookies", derechos: "Todos los derechos reservados.",
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
-                exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda"
+                exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda",
+                
+                // CRO Texts
+                top1: "Envíos a toda España", top2: "Presupuestos en 24/48h", top3: "Fabricación a medida", 
+                ayudaWa: "¿Dudas? Habla con un experto", 
+                compraSegura: "Compra segura. Revisaremos tu pedido manualmente para garantizar la compatibilidad antes de cualquier pago."
             },
             en: {
                 inicio: "Home", cat: "Categories", cont: "Contact", pide: "Request Quote", buscar: "Search...",
@@ -420,6 +445,11 @@
                 aviso: "Legal Notice", priv: "Privacy Policy", cook: "Cookie Policy", derechos: "All rights reserved.",
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
                 exitoDescCont: "We have received your inquiry. We will contact you as soon as possible.", volverT: "Back to store",
+                
+                // CRO Texts
+                top1: "Shipping nationwide", top2: "Quotes in 24/48h", top3: "Custom manufacturing", 
+                ayudaWa: "Questions? Talk to an expert", 
+                compraSegura: "Secure checkout. We will manually review your order to ensure compatibility before any payment.",
                 
                 // --- TRADUCCIÓN DE TUS PRODUCTOS ---
                 "Canal de desagüe": "Drainage channel",
@@ -466,6 +496,11 @@
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
                 exitoDescCont: "Nous avons bien reçu votre demande. Nous vous contacterons dans les plus brefs délais.", volverT: "Retour à la boutique",
                 
+                // CRO Texts
+                top1: "Expédition dans tout le pays", top2: "Devis en 24/48h", top3: "Fabrication sur mesure", 
+                ayudaWa: "Des questions ? Parlez à un expert", 
+                compraSegura: "Paiement sécurisé. Nous examinerons manuellement votre commande pour garantir la compatibilité avant tout paiement.",
+
                 // --- TRADUCCIÓN DE TUS PRODUCTOS ---
                 "Canal de desagüe": "Canal de drainage",
                 "Canal de desagüe industrial.": "Canal de drainage industriel.",
@@ -873,14 +908,14 @@
             `;
 
             try {
-                // PDF 100% GESTIONADO POR GOOGLE SCRIPT. SIN LIBRERÍA HTML2PDF. A PRUEBA DE MÓVILES.
+                // PDF GESTIONADO POR GOOGLE SCRIPT EN LA NUBE
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         referencia: referencia, 
                         asunto: `Nuevo Pedido B2B: ${referencia}`, 
                         mensaje: emailText,
-                        htmlContent: pedidoHTML, // Se envía el HTML directo
+                        htmlContent: pedidoHTML, 
                         emailCliente: document.getElementById('correo-cliente-checkout').value, 
                         nombreCliente: nombreEnvio
                     })
