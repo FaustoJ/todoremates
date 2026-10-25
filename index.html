@@ -70,7 +70,7 @@
                     <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
                 </div>
 
-                <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
+                <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
                 <button id="btn-carrito-header" onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
@@ -107,9 +107,9 @@
         
         <div id="vista-categorias" class="block">
             <!-- CRO: Título y descripción centrados con copy persuasivo -->
-            <div class="text-center mb-12 flex flex-col items-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
-                <p class="text-gray-300 text-lg max-w-2xl leading-relaxed" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
+            <div class="mb-12 flex flex-col items-center">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
+                <p class="text-gray-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -443,13 +443,16 @@
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
                 exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda",
                 
-                // CRO & Legal Texts
+                // CRO & UX & Legal Texts
                 top1: "Envíos a toda España", top2: "Presupuestos en 24/48h", top3: "Fabricación a medida", 
                 ayudaWa: "¿Dudas? Habla con un experto", 
                 compraSegura: "Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.",
                 rgpd: 'He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a>',
                 cookieMsg: "Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación.",
-                cookieInfo: "Más información", cookieAceptar: "Aceptar"
+                cookieInfo: "Más información", cookieAceptar: "Aceptar",
+                sinResTit: "No hemos encontrado resultados",
+                sinResDesc: "¿No encuentras lo que buscas? Pide un presupuesto a medida o dinos qué necesitas.",
+                pideMedida: "Solicitar Presupuesto a Medida"
             },
             en: {
                 inicio: "Home", cat: "Categories", cont: "Contact", pide: "Request Quote", buscar: "Search...",
@@ -476,13 +479,16 @@
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
                 exitoDescCont: "We have received your inquiry. We will contact you as soon as possible.", volverT: "Back to store",
                 
-                // CRO & Legal Texts
+                // CRO & UX & Legal Texts
                 top1: "Shipping nationwide", top2: "Quotes in 24/48h", top3: "Custom manufacturing", 
                 ayudaWa: "Questions? Talk to an expert", 
                 compraSegura: "100% secure checkout. Your data is protected by SSL encryption.",
                 rgpd: 'I have read and accept the <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Privacy Policy</a>',
                 cookieMsg: "We use cookies to improve navigation and analyze traffic.",
                 cookieInfo: "More information", cookieAceptar: "Accept",
+                sinResTit: "No results found",
+                sinResDesc: "Can't find what you're looking for? Request a custom quote or tell us what you need.",
+                pideMedida: "Request Custom Quote",
                 
                 // Productos
                 "Canal de desagüe": "Drainage channel",
@@ -514,7 +520,7 @@
                 med: "Finitions sur Mesure", descMed: "Pièces spéciales et sur mesure selon les exigences de votre projet.",
                 descMedLarga: "Décrivez la pièce dont vous avez besoin. Nous l'étudierons dans les plus brefs délais et vous contacterons pour vous proposer un devis et une solution sur mesure.",
                 comp: "Compatibilité garantie avec",
-                volver: "Retour", depuis: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
+                volver: "Retour", desde: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
                 fab: "Fabricant", selFab: "Sélectionner le fabricant...", otros: "Autre (Préciser)",
                 esp: "Épaisseur", selEsp: "Sélectionner l'épaisseur...", cant: "Qté.", añadir: "Ajouter au panier",
                 tuPed: "Votre Commande", sub: "Sous-total", total: "Total", tramitar: "Passer la commande",
@@ -529,13 +535,16 @@
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
                 exitoDescCont: "Nous avons bien reçu votre demande. Nous vous contacterons dans les plus brefs délais.", volverT: "Retour à la boutique",
                 
-                // CRO & Legal Texts
+                // CRO & UX & Legal Texts
                 top1: "Expédition dans tout le pays", top2: "Devis en 24/48h", top3: "Fabrication sur mesure", 
                 ayudaWa: "Des questions ? Parlez à un expert", 
                 compraSegura: "Paiement 100% sécurisé. Vos données sont protégées par cryptage SSL.",
                 rgpd: 'J\'ai lu et j\'accepte la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Politique de Confidentialité</a>',
                 cookieMsg: "Nous utilisons des cookies pour améliorer la navigation et analyser le trafic.",
                 cookieInfo: "Plus d'informations", cookieAceptar: "Accepter",
+                sinResTit: "Aucun résultat trouvé",
+                sinResDesc: "Vous ne trouvez pas ce que vous cherchez ? Demandez un devis sur mesure ou dites-nous ce dont vous avez besoin.",
+                pideMedida: "Demander un Devis sur Mesure",
 
                 // Productos
                 "Canal de desagüe": "Canal de drainage",
@@ -717,6 +726,18 @@
         }
 
         function dibujarGrid(arrayProductos, gridElement) {
+            if (arrayProductos.length === 0) {
+                gridElement.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 bg-brand-darker rounded-2xl border border-gray-700 text-center px-4">
+                        <svg class="w-16 h-16 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mb-2">${t('sinResTit')}</h3>
+                        <p class="text-gray-400 mb-6 max-w-md">${t('sinResDesc')}</p>
+                        <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 px-8 rounded-xl transition shadow">${t('pideMedida')}</button>
+                    </div>
+                `;
+                return;
+            }
+
             let htmlFinal = '';
             const textDesde = i18n[currentLang].desde;
             const textSinIva = i18n[currentLang].sinIva;
@@ -737,7 +758,7 @@
                     </div>
                 `;
             });
-            gridElement.innerHTML = htmlFinal || '<p class="text-gray-400 col-span-full">No results.</p>';
+            gridElement.innerHTML = htmlFinal;
         }
 
         function toggleOtroFabricante() {
