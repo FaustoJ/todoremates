@@ -14,6 +14,7 @@
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <!-- SEO: Marcado de Datos Estructurados (Schema Markup) -->
     <script type="application/ld+json">
@@ -125,7 +126,6 @@
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
         <div id="vista-categorias" class="block">
-            <!-- CRO: Título y descripción centrados con copy persuasivo -->
             <div class="mb-12 flex flex-col items-center">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
                 <p class="text-gray-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
@@ -441,8 +441,6 @@
         </div>
     </div>
 
-    <script src="productos.js"></script>
-
     <!-- SISTEMA NATIVO DE TRADUCCIÓN -->
     <script>
         const i18n = {
@@ -516,27 +514,7 @@
                 cookieInfo: "More information", cookieAceptar: "Accept",
                 sinResTit: "No results found",
                 sinResDesc: "Can't find what you're looking for? Request a custom quote or tell us what you need.",
-                pideMedida: "Request Custom Quote",
-                
-                // Productos
-                "Canal de desagüe": "Drainage channel",
-                "Canal de desagüe industrial.": "Industrial drainage channel.",
-                "Cumbrera troquelada a dos aguas 5 grecas": "Die-cut double-pitched ridge 5 ribs",
-                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Die-cut double-pitched ridge designed for 5-rib panel.",
-                "Remate frontal troquelado para panel 5 grecas": "Die-cut frontal trim for 5-rib panel",
-                "Remate frontal troquelado para panel industrial de 5 grecas.": "Die-cut frontal trim for 5-rib industrial panel.",
-                "Remate lateral para cubiertas": "Lateral roof trim",
-                "Remate lateral para cubiertas industriales.": "Lateral trim for industrial roofs.",
-                "Remate lateral para pared": "Lateral wall trim",
-                "Remate lateral de pared para panel industrial.": "Lateral wall trim for industrial panel.",
-                "Canal de desagüe adaptado para panel teja.": "Drainage channel adapted for tile panel.",
-                "Cumbrera troquelada a dos aguas": "Die-cut double-pitched ridge",
-                "Cumbrera troquelada a dos aguas para panel teja.": "Die-cut double-pitched ridge for tile panel.",
-                "Remate lateral de cierre para cubiertas de panel teja.": "Lateral closing trim for tile panel roofs.",
-                "Remate trasero para pared": "Rear wall trim",
-                "Remate trasero de encuentro con pared para panel teja.": "Rear trim meeting the wall for tile panel.",
-                "Remate vuelo trasero troquelado": "Die-cut rear overhang trim",
-                "Remate de vuelo trasero troquelado para panel teja.": "Die-cut rear overhang trim for tile panel."
+                pideMedida: "Request Custom Quote"
             },
             fr: {
                 inicio: "Accueil", cat: "Catégories", cont: "Contact", pide: "Demander un devis", buscar: "Rechercher...",
@@ -572,32 +550,13 @@
                 cookieInfo: "Plus d'informations", cookieAceptar: "Accepter",
                 sinResTit: "Aucun résultat trouvé",
                 sinResDesc: "Vous ne trouvez pas ce que vous cherchez ? Demandez un devis sur mesure ou dites-nous ce dont vous avez besoin.",
-                pideMedida: "Demander un Devis sur Mesure",
-
-                // Productos
-                "Canal de desagüe": "Canal de drainage",
-                "Canal de desagüe industrial.": "Canal de drainage industriel.",
-                "Cumbrera troquelada a dos aguas 5 grecas": "Faîtière découpée double pente 5 nervures",
-                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
-                "Remate frontal troquelado para panel 5 grecas": "Finition frontale découpée pour panneau 5 nervures",
-                "Remate frontal troquelado para panel industrial de 5 grecas.": "Finition frontale découpée pour panneau industriel à 5 nervures.",
-                "Remate lateral para cubiertas": "Finition latérale pour toitures",
-                "Remate lateral para cubiertas industriales.": "Finition latérale pour toitures industrielles.",
-                "Remate lateral para pared": "Finition latérale pour mur",
-                "Remate lateral de pared para panel industrial.": "Finition latérale murale pour panneau industriel.",
-                "Canal de desagüe adaptado para panel teja.": "Canal de drainage adapté pour panneau tuile.",
-                "Cumbrera troquelada a dos aguas": "Faîtière découpée double pente",
-                "Cumbrera troquelada a dos aguas para panel teja.": "Faîtière découpée double pente pour panneau tuile.",
-                "Remate lateral de cierre para cubiertas de panel teja.": "Finition latérale de fermeture pour toitures en panneau tuile.",
-                "Remate trasero para pared": "Finition arrière pour mur",
-                "Remate trasero de encuentro con pared para panel teja.": "Finition arrière de jonction murale pour panneau tuile.",
-                "Remate vuelo trasero troquelado": "Finition surplomb arrière découpée",
-                "Remate de vuelo trasero troquelado para panel teja.": "Finition de surplomb arrière découpée pour panneau tuile."
+                pideMedida: "Demander un Devis sur Mesure"
             }
         };
 
         let currentLang = 'es';
         let categoriaActual = '';
+        let productosDB = [];
 
         function t(texto) {
             if (!texto) return '';
@@ -617,10 +576,7 @@
                 if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
             });
 
-            // Se han eliminado las clases ring-2 y opacity-50 de las banderas
-            // para que todas luzcan con la misma intensidad y sin bordes.
-
-            if (typeof productosDB !== 'undefined') {
+            if (productosDB.length > 0) {
                 const vistaProductos = document.getElementById('vista-productos');
                 if (!vistaProductos.classList.contains('hidden') && categoriaActual !== '') {
                     cargarProductos(categoriaActual, false); 
@@ -662,7 +618,36 @@
                 banner.classList.remove('hidden');
                 banner.classList.add('flex');
             }
-            enrutarDesdeURL(false);
+            
+            // LECTOR DINÁMICO DEL ARCHIVO PRODUCTOS.CSV
+            Papa.parse("productos.csv", {
+                download: true,
+                header: true,
+                delimiter: ";",
+                complete: function(results) {
+                    productosDB = results.data.filter(row => row.id).map(row => {
+                        const preciosObj = {};
+                        if(row.precios) {
+                            row.precios.split(',').forEach(p => {
+                                const [esp, val] = p.split(':');
+                                if(esp && val) preciosObj[esp.trim()] = parseFloat(val.trim());
+                            });
+                        }
+                        return {
+                            id: parseInt(row.id),
+                            cat: row.cat,
+                            img: row.img,
+                            precios: preciosObj,
+                            nombre: { es: row.nombre_es, en: row.nombre_en, fr: row.nombre_fr },
+                            desc: { es: row.desc_es, en: row.desc_en, fr: row.desc_fr }
+                        };
+                    });
+                    enrutarDesdeURL(false);
+                },
+                error: function(err) {
+                    console.error("Error cargando productos.csv:", err);
+                }
+            });
         });
     </script>
 
@@ -709,7 +694,7 @@
         }
 
         function buscarProductos(event) {
-            if (typeof productosDB === 'undefined') return;
+            if (productosDB.length === 0) return;
             const termino = limpiarTexto(event.target.value.toLowerCase());
             if (termino.length === 0) { mostrarCategorias(); return; }
             
@@ -720,8 +705,8 @@
             
             const grid = document.getElementById('grid-productos');
             const resultados = productosDB.filter(p => {
-                const tNombre = t(p.nombre).toLowerCase();
-                const tDesc = t(p.desc).toLowerCase();
+                const tNombre = p.nombre[currentLang].toLowerCase();
+                const tDesc = p.desc[currentLang].toLowerCase();
                 return tNombre.includes(termino) || tDesc.includes(termino);
             });
             dibujarGrid(resultados, grid);
@@ -729,7 +714,7 @@
 
         function cargarProductos(categoria, push = true) {
             forzarCierreMenu();
-            if (typeof productosDB === 'undefined') return;
+            if (productosDB.length === 0) return;
             categoriaActual = categoria;
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
@@ -765,10 +750,10 @@
                 htmlFinal += `
                     <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
                         <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${t(p.nombre)}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
+                            <img src="${p.img}" alt="${p.nombre[currentLang]}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-white leading-tight">${t(p.nombre)}</h3>
+                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre[currentLang]}</h3>
                             <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">${textDesde} </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">${textSinIva}</span></p>
                             <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow">${textVerDet}</button>
                         </div>
@@ -797,9 +782,9 @@
         function abrirModal(id) {
             productoSeleccionado = productosDB.find(p => p.id === id);
             document.getElementById('modal-img').src = productoSeleccionado.img;
-            document.getElementById('modal-img').alt = t(productoSeleccionado.nombre);
-            document.getElementById('modal-desc-img').innerText = t(productoSeleccionado.desc);
-            document.getElementById('modal-titulo').innerText = t(productoSeleccionado.nombre);
+            document.getElementById('modal-img').alt = productoSeleccionado.nombre[currentLang];
+            document.getElementById('modal-desc-img').innerText = productoSeleccionado.desc[currentLang];
+            document.getElementById('modal-titulo').innerText = productoSeleccionado.nombre[currentLang];
             document.getElementById('modal-fabricante').value = '';
             document.getElementById('modal-fabricante-otro').classList.add('hidden');
             document.getElementById('modal-fabricante-otro').value = '';
@@ -861,9 +846,9 @@
             carrito.forEach(item => {
                 list.innerHTML += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
-                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${t(item.nombre)}" class="max-h-full object-contain"></div>
+                        <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre[currentLang]}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
-                            <h4 class="text-sm font-bold text-white">${t(item.nombre)}</h4>
+                            <h4 class="text-sm font-bold text-white">${item.nombre[currentLang]}</h4>
                             <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor.replace('mm',' mm')}</p>
                             <div class="flex justify-between items-center mt-2">
                                 <div class="flex items-center bg-gray-800 rounded border border-gray-600">
@@ -936,7 +921,6 @@
             e.preventDefault();
             const form = e.target;
             
-            // Verificación del honeypot anti-spam
             if(form['honeypot'] && form['honeypot'].value !== '') return false;
 
             const btn = form.querySelector('button[type="submit"]');
@@ -977,7 +961,6 @@
             e.preventDefault();
             const form = e.target;
 
-            // Verificación del honeypot anti-spam
             if(form['honeypot'] && form['honeypot'].value !== '') return false;
 
             const btn = document.getElementById('btn-submit-pago');
@@ -1018,7 +1001,7 @@
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
                         <thead><tr style="background-color: #2B2B2B; color: white;"><th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th><th style="padding: 12px; text-align: center; font-size: 14px;">${l.cant}</th><th style="padding: 12px; text-align: right; font-size: 14px;">Total</th></tr></thead>
                         <tbody>
-                            ${carrito.map(item => `<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 12px; font-size: 14px;"><b>${t(item.nombre)}</b><br><span style="color: #666; font-size: 12px;">${l.fab}: ${item.fabricante} | ${l.esp}: ${item.espesor.replace('mm',' mm')}</span></td><td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td><td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td></tr>`).join('')}
+                            ${carrito.map(item => `<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 12px; font-size: 14px;"><b>${item.nombre[currentLang]}</b><br><span style="color: #666; font-size: 12px;">${l.fab}: ${item.fabricante} | ${l.esp}: ${item.espesor.replace('mm',' mm')}</span></td><td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td><td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td></tr>`).join('')}
                         </tbody>
                     </table>
                     <div style="text-align: right; border-top: 2px solid #eee; padding-top: 20px;">
