@@ -469,7 +469,6 @@
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
                 exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda",
                 
-                // CRO & UX & Legal Texts
                 top1: "Envíos a toda España", top2: "Presupuestos en 24/48h", top3: "Fabricación a medida", 
                 ayudaWa: "¿Dudas? Habla con un experto", 
                 compraSegura: "Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.",
@@ -505,7 +504,6 @@
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
                 exitoDescCont: "We have received your inquiry. We will contact you as soon as possible.", volverT: "Back to store",
                 
-                // CRO & UX & Legal Texts
                 top1: "Shipping nationwide", top2: "Quotes in 24/48h", top3: "Custom manufacturing", 
                 ayudaWa: "Questions? Talk to an expert", 
                 compraSegura: "100% secure checkout. Your data is protected by SSL encryption.",
@@ -541,7 +539,6 @@
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
                 exitoDescCont: "Nous avons bien reçu votre demande. Nous vous contacterons dans les plus brefs délais.", volverT: "Retour à la boutique",
                 
-                // CRO & UX & Legal Texts
                 top1: "Expédition dans tout le pays", top2: "Devis en 24/48h", top3: "Fabrication sur mesure", 
                 ayudaWa: "Des questions ? Parlez à un expert", 
                 compraSegura: "Paiement 100% sécurisé. Vos données sont protégées par cryptage SSL.",
@@ -619,11 +616,14 @@
                 banner.classList.add('flex');
             }
             
-            // LECTOR DINÁMICO DEL ARCHIVO PRODUCTOS.CSV
-            Papa.parse("productos.csv", {
+            Papa.parse("./productos.csv", {
                 download: true,
                 header: true,
                 delimiter: ";",
+                skipEmptyLines: true,
+                transformHeader: function(h) {
+                    return h.trim().replace(/^\uFEFF/, '');
+                },
                 complete: function(results) {
                     productosDB = results.data.filter(row => row.id).map(row => {
                         const preciosObj = {};
@@ -714,7 +714,10 @@
 
         function cargarProductos(categoria, push = true) {
             forzarCierreMenu();
-            if (productosDB.length === 0) return;
+            if (productosDB.length === 0) {
+                alert("No se han cargado los productos. Verifica que productos.csv está subido a GitHub y guardado correctamente.");
+                return;
+            }
             categoriaActual = categoria;
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
