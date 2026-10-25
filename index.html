@@ -14,6 +14,25 @@
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- SEO: Marcado de Datos Estructurados (Schema Markup) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Remates Panel Sandwich",
+      "image": "https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp",
+      "description": "Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich.",
+      "url": "https://faustoj.github.io/todoremates/",
+      "telephone": "+34691842833",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES"
+      },
+      "priceRange": "$$"
+    }
+    </script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -44,7 +63,7 @@
         <div class="mb-3 bg-white text-gray-900 text-xs font-extrabold px-4 py-2 rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none transform translate-y-2 group-hover:translate-y-0 border-b-4 border-brand-accent">
             <span data-i18n="ayudaWa">¿Dudas? Habla con un experto</span>
         </div>
-        <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 flex items-center justify-center relative">
+        <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" aria-label="Contactar por WhatsApp" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 flex items-center justify-center relative">
             <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-25"></div>
             <svg class="w-8 h-8 relative z-10" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.031 0C5.385 0 0 5.388 0 12.036c0 2.124.553 4.195 1.603 6.01L.523 24l6.113-1.603a11.966 11.966 0 005.395 1.28h.005c6.646 0 12.031-5.388 12.031-12.036 0-3.22-1.254-6.248-3.53-8.528A11.97 11.97 0 0012.031 0zm0 21.654h-.005a9.96 9.96 0 01-5.07-1.378l-.364-.216-3.774.99.998-3.682-.237-.377A9.972 9.972 0 012.015 12.04c0-5.518 4.49-10.007 10.016-10.007 2.675 0 5.187 1.042 7.078 2.935 1.892 1.89 2.934 4.404 2.934 7.08-.002 5.517-4.493 10.006-10.012 10.006zm5.495-7.513c-.301-.151-1.782-.88-2.057-.98-.276-.1-.476-.151-.676.15-.201.3-.776.98-.952 1.18-.175.201-.351.226-.652.076-.301-.151-1.272-.469-2.423-1.496-.895-.8-1.501-1.788-1.677-2.088-.175-.302-.019-.465.132-.616.136-.136.301-.351.451-.527.151-.176.201-.301.301-.502.101-.2.051-.376-.025-.526-.075-.152-.676-1.63-.926-2.23-.245-.589-.494-.509-.676-.518-.175-.008-.376-.008-.576-.008-.201 0-.527.075-.802.376-.276.3-1.053 1.03-1.053 2.51 0 1.48 1.078 2.912 1.228 3.113.15.2 2.124 3.242 5.143 4.544.718.309 1.28.494 1.716.632.72.23 1.376.197 1.895.12.584-.087 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.43-.076-.127-.276-.202-.577-.353z"/>
@@ -55,7 +74,7 @@
     <header class="bg-white sticky top-0 z-40 shadow">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
-                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-14 object-contain">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo Remates Panel Sandwich" class="h-10 md:h-14 object-contain">
                 <div class="flex flex-col">
                     <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
                     <span class="text-xs md:text-sm text-gray-500 font-medium" data-i18n="subtit">Especialistas en remates y accesorios</span>
@@ -65,13 +84,13 @@
             <nav class="flex items-center gap-3 md:gap-6">
                 <!-- BANDERAS EN CABECERA (SOLO PC) -->
                 <div class="hidden md:flex items-center gap-3 border-r border-gray-200 pr-4 md:pr-6">
-                    <button onclick="cambiarIdioma('es')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('en')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('fr')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('es')" aria-label="Cambiar a Español" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" aria-label="Cambiar a Inglés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" aria-label="Cambiar a Francés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
                 </div>
 
-                <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
-                <button id="btn-carrito-header" onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
+                <button onclick="mostrarAmedida()" aria-label="Solicitar Presupuesto a Medida" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
+                <button id="btn-carrito-header" onclick="toggleCarrito()" aria-label="Ver el carrito de compra" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
                 </button>
@@ -97,7 +116,7 @@
                     <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
                         <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
-                    <input type="text" id="buscador-input" oninput="buscarProductos(event)" placeholder="Buscar..." class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
+                    <input type="text" id="buscador-input" oninput="buscarProductos(event)" placeholder="Buscar..." aria-label="Buscador de productos" class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
                 </div>
             </div>
         </div>
@@ -106,6 +125,7 @@
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
         <div id="vista-categorias" class="block">
+            <!-- CRO: Título y descripción centrados con copy persuasivo -->
             <div class="mb-12 flex flex-col items-center">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
                 <p class="text-gray-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
@@ -162,7 +182,7 @@
 
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
+                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
                         <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
@@ -176,7 +196,7 @@
 
         <div id="vista-amedida" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
+                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
                         <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
@@ -190,6 +210,9 @@
                     Describa la pieza que necesita. Lo estudiaremos con la máxima brevedad posible y nos pondremos en contacto con usted para ofrecerle un presupuesto y una solución a su medida.
                 </p>
                 <form onsubmit="enviarFormularioGoogle(event, 'Presupuesto a Medida')" class="space-y-5">
+                    <!-- Seguridad Antispam (Honeypot) -->
+                    <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-sm font-bold text-gray-400 mb-1" data-i18n="nomApe">Nombre y Apellidos</label>
@@ -228,9 +251,9 @@
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
             <!-- BANDERAS EN PIE DE PÁGINA (SOLO MÓVIL) -->
             <div class="flex md:hidden items-center justify-center gap-6 mb-6">
-                <button onclick="cambiarIdioma('es')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('en')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('fr')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('es')" aria-label="Cambiar a Español" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('en')" aria-label="Cambiar a Inglés" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('fr')" aria-label="Cambiar a Francés" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover"></button>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
@@ -254,7 +277,7 @@
     <!-- Modal Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
-            <button onclick="cerrarModalProducto()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
+            <button onclick="cerrarModalProducto()" aria-label="Cerrar ventana de producto" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
             <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gray-300">
                 <img id="modal-img" src="" alt="Producto" loading="lazy" class="max-h-64 object-contain drop-shadow-md">
                 <p id="modal-desc-img" class="text-gray-600 text-sm mt-6 text-center font-medium"></p>
@@ -292,7 +315,7 @@
                             <p id="modal-precio-dinamico" class="text-3xl font-extrabold text-brand-accent">0.00€</p>
                         </div>
                     </div>
-                    <button id="btn-add-modal" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
+                    <button id="btn-add-modal" aria-label="Añadir producto al carrito" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
                 </div>
             </div>
         </div>
@@ -302,7 +325,7 @@
     <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
         <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold text-white" data-i18n="tuPed">Tu Pedido</h2>
-            <button onclick="toggleCarrito()" class="text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
+            <button onclick="toggleCarrito()" aria-label="Cerrar el carrito de compra" class="text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-brand-darker border-t border-gray-700">
@@ -314,16 +337,19 @@
             <div class="flex justify-between text-gray-400 mb-2"><span><span data-i18n="sub">Subtotal</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></span><span id="cart-subtotal">0.00 €</span></div>
             <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
             <div class="flex justify-between text-white text-2xl font-bold mb-6"><span data-i18n="total">Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button id="btn-tramitar" onclick="abrirCheckout()" class="w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
+            <button id="btn-tramitar" aria-label="Proceder al pago seguro" onclick="abrirCheckout()" class="w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
         </div>
     </div>
 
     <!-- Modal Checkout -->
     <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
-            <button onclick="cerrarCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
+            <button onclick="cerrarCheckout()" aria-label="Cancelar y cerrar la ventana de pago" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-6" data-i18n="tramitar">Finalizar Pedido</h2>
             <form id="form-checkout" onsubmit="confirmarPedido(event)" class="space-y-6">
+                <!-- Seguridad Antispam (Honeypot) -->
+                <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
+
                 <div class="bg-brand-darker p-6 rounded-xl border border-gray-700">
                     <h3 class="text-xl font-bold text-white mb-4" data-i18n="datosEnv">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -377,10 +403,13 @@
     <!-- Modal Contacto General -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
+            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" aria-label="Cerrar ventana de contacto" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
             <h2 class="text-3xl font-extrabold text-brand-accent mb-2" data-i18n="cont">Contacto</h2>
             <p class="text-gray-400 text-sm mb-6" data-i18n="contDesc">Nuestro equipo le atenderá a la mayor brevedad posible.</p>
             <form onsubmit="enviarFormularioGoogle(event, 'Contacto General')" class="space-y-4">
+                <!-- Seguridad Antispam (Honeypot) -->
+                <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
+
                 <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="nom">
                 <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tel">
                 <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
@@ -587,6 +616,9 @@
                 const key = el.getAttribute('data-i18n-ph');
                 if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
             });
+
+            // Se han eliminado las clases ring-2 y opacity-50 de las banderas
+            // para que todas luzcan con la misma intensidad y sin bordes.
 
             if (typeof productosDB !== 'undefined') {
                 const vistaProductos = document.getElementById('vista-productos');
@@ -842,7 +874,7 @@
                                 <span class="font-bold text-white">${(item.precioFinal * item.cantidad).toFixed(2)}€</span>
                             </div>
                         </div>
-                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
+                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" aria-label="Eliminar producto" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
                     </div>
                 `;
             });
@@ -903,6 +935,10 @@
         async function enviarFormularioGoogle(e, tipo) {
             e.preventDefault();
             const form = e.target;
+            
+            // Verificación del honeypot anti-spam
+            if(form['honeypot'] && form['honeypot'].value !== '') return false;
+
             const btn = form.querySelector('button[type="submit"]');
             btn.disabled = true;
 
@@ -939,11 +975,15 @@
 
         async function confirmarPedido(e) {
             e.preventDefault();
+            const form = e.target;
+
+            // Verificación del honeypot anti-spam
+            if(form['honeypot'] && form['honeypot'].value !== '') return false;
+
             const btn = document.getElementById('btn-submit-pago');
             btn.innerHTML = `<svg class="animate-spin h-5 w-5 inline mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
-            const form = e.target;
             const referencia = `TR-${Math.floor(Math.random()*10000)}`;
             const isFacturacionIgual = document.getElementById('facturacion-igual').checked;
 
