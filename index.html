@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
-    <!-- SEO: Etiquetas Open Graph -->
+    
+    <!-- SEO -->
     <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
     <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
     <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
@@ -29,19 +30,24 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
         
-        /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
-        body { top: 0px !important; position: static !important; }
-        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; }
+        /* CSS EXTREMO PARA MATAR LA BARRA DE GOOGLE TRANSLATE */
+        body { top: 0px !important; position: static !important; min-height: 100vh; }
+        .goog-te-banner-frame, .skiptranslate > iframe { display: none !important; visibility: hidden !important; height: 0 !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-tooltip, .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
-        #google_translate_element { display: none !important; }
     </style>
 </head>
-<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative overflow-x-hidden">
 
-    <!-- Motor de traducción invisible -->
-    <div id="google_translate_element"></div>
+    <!-- Motor de traducción de Google (Oculto) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- PANTALLA DE CARGA (Para obligar a iOS a procesar el PDF) -->
+    <div id="pantalla-carga" class="fixed inset-0 bg-brand-darker bg-opacity-95 z-[100] hidden flex-col items-center justify-center">
+        <svg class="animate-spin h-14 w-14 text-brand-accent mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <p class="text-white font-bold text-xl md:text-2xl text-center px-4">Procesando pedido de forma segura...<br><span class="text-sm text-gray-400 font-normal">Por favor, no cierres esta ventana</span></p>
+    </div>
 
     <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
@@ -135,7 +141,6 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza -->
             <div class="pt-8 border-t border-gray-700 mt-12">
                 <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
@@ -154,7 +159,8 @@
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
-            <!-- Contenedor donde se cargarán los productos una sola vez -->
+            
+            <!-- EL DOM DE LOS PRODUCTOS SE CARGARÁ AQUÍ UNA SOLA VEZ -->
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
@@ -191,7 +197,7 @@
                         <label class="text-sm font-bold text-gray-400 whitespace-nowrap">Cantidad estimada:</label>
                         <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none text-center">
                     </div>
-                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4">Solicitar Presupuesto</button>
+                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4 btn-enviar-generico">Solicitar Presupuesto</button>
                 </form>
             </div>
         </div>
@@ -199,11 +205,11 @@
 
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
-            <!-- Banderas de Idioma Discretas en el Footer -->
-            <div class="flex items-center justify-center gap-4 mb-6">
-                <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-es"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-6 h-6 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-en"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-6 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100" id="btn-lang-fr"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-6 h-6 rounded-full object-cover"></button>
+            <!-- BANDERAS DE IDIOMA EN EL FOOTER (Elegantes y funcionales) -->
+            <div class="flex items-center justify-center gap-6 mb-8 pt-4">
+                <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover border-2 border-transparent hover:border-brand-accent"></button>
+                <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover border-2 border-transparent hover:border-brand-accent"></button>
+                <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover border-2 border-transparent hover:border-brand-accent"></button>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
@@ -345,10 +351,6 @@
             </div>
             <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
             <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
-            <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
-                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
-                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
-            </div>
             <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
         </div>
     </div>
@@ -358,29 +360,17 @@
     <!-- SCRIPTS DE IDIOMA GOOGLE TRANSLATE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,fr,es', autoDisplay: false}, 'google_translate_element');
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,fr,es'}, 'google_translate_element');
         }
 
+        // Nuevo sistema de cambio de idioma nativo (Sin recargar y sin fallos)
         function cambiarIdioma(lang) {
-            if(lang === 'es') {
-                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + location.hostname;
-            } else {
-                document.cookie = "googtrans=/es/" + lang + "; path=/";
-                document.cookie = "googtrans=/es/" + lang + "; path=/; domain=" + location.hostname;
+            const selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event("change"));
             }
-            window.location.reload();
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const match = document.cookie.match(/googtrans=\/es\/([a-z]{2})/);
-            const activeLang = match ? match[1] : 'es';
-            const btn = document.getElementById('btn-lang-' + activeLang);
-            if(btn) {
-                btn.classList.remove('opacity-50');
-                btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
-            }
-        });
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
@@ -390,32 +380,28 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTORES
-        function inicializarGrid() {
-            const grid = document.getElementById('grid-productos');
-            if (!grid || typeof productosDB === 'undefined') return;
-            
-            let htmlFinal = '';
-            productosDB.forEach(p => {
-                const precioMinimo = Math.min(...Object.values(p.precios));
-                htmlFinal += `
-                    <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg" style="display: none;">
-                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
-                        </div>
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
-                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
-                        </div>
-                    </div>
-                `;
-            });
-            grid.innerHTML = htmlFinal;
-        }
-
+        // ESTA FUNCIÓN ES CLAVE PARA EL TRADUCTOR: Dibuja TODOS los productos una sola vez al cargar
         window.addEventListener('DOMContentLoaded', () => {
-            if (typeof productosDB !== 'undefined') inicializarGrid();
+            if (typeof productosDB !== 'undefined') {
+                const grid = document.getElementById('grid-productos');
+                let htmlFinal = '';
+                productosDB.forEach(p => {
+                    const precioMinimo = Math.min(...Object.values(p.precios));
+                    htmlFinal += `
+                        <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg hidden">
+                            <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                                <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
+                                <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
+                                <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = htmlFinal;
+            }
         });
 
         function limpiarTexto(str) {
@@ -452,12 +438,10 @@
             document.getElementById('modal-contacto').classList.remove('hidden');
         }
 
-        // MOSTRAR U OCULTAR PRODUCTOS SIN BORRARLOS DEL HTML
+        // Ahora solo quitamos o ponemos el class "hidden", sin borrar el HTML (Para no bloquear el traductor)
         function buscarProductos(event) {
-            if (typeof productosDB === 'undefined') return;
             const termino = limpiarTexto(event.target.value.toLowerCase());
             if (termino.length === 0) { mostrarCategorias(); return; }
-            
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
@@ -467,16 +451,17 @@
                 const nombre = card.getAttribute('data-nombre');
                 const desc = card.getAttribute('data-desc');
                 if(nombre.includes(termino) || desc.includes(termino)) {
-                    card.style.display = 'flex';
+                    card.classList.remove('hidden');
+                    card.classList.add('flex');
                 } else {
-                    card.style.display = 'none';
+                    card.classList.add('hidden');
+                    card.classList.remove('flex');
                 }
             });
         }
 
         function cargarProductos(categoria) {
             forzarCierreMenu();
-            if (typeof productosDB === 'undefined') return;
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
@@ -485,9 +470,11 @@
             
             document.querySelectorAll('.producto-card').forEach(card => {
                 if(card.getAttribute('data-cat') === categoria) {
-                    card.style.display = 'flex';
+                    card.classList.remove('hidden');
+                    card.classList.add('flex');
                 } else {
-                    card.style.display = 'none';
+                    card.classList.add('hidden');
+                    card.classList.remove('flex');
                 }
             });
         }
@@ -520,12 +507,10 @@
             document.getElementById('modal-cantidad').value = '1';
             
             const espSelect = document.getElementById('modal-espesor');
-            let espHtml = '<option value="">Seleccione espesor...</option>';
+            espSelect.innerHTML = '<option value="">Seleccione espesor...</option>';
             for (const [espesor, precio] of Object.entries(productoSeleccionado.precios)) {
-                espHtml += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
+                espSelect.innerHTML += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
             }
-            espSelect.innerHTML = espHtml;
-
             actualizarPrecioModal();
             document.getElementById('modal-producto').classList.remove('hidden');
             
@@ -570,10 +555,9 @@
         function actualizarCarrito() {
             document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
             const list = document.getElementById('cart-items');
-            
-            let htmlCarrito = '';
+            list.innerHTML = '';
             carrito.forEach(item => {
-                htmlCarrito += `
+                list.innerHTML += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
                         <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
@@ -592,8 +576,6 @@
                     </div>
                 `;
             });
-            list.innerHTML = htmlCarrito;
-
             const subtotal = calcularSubtotal();
             const iva = subtotal * 0.21;
             document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
@@ -626,17 +608,14 @@
             mostrarCategorias();
         }
 
-        function mostrarExito(esPedido, ref) {
+        function mostrarExito(esPedido) {
             document.getElementById('modal-exito').classList.remove('hidden');
             if(esPedido) {
                 document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.";
-                document.getElementById('div-ref-exito').classList.remove('hidden');
-                document.getElementById('ref-exito').innerText = ref;
             } else {
                 document.getElementById('texto-exito-titulo').innerText = "¡Mensaje Enviado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.";
-                document.getElementById('div-ref-exito').classList.add('hidden');
             }
         }
 
@@ -662,20 +641,14 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    body: JSON.stringify({
-                        asunto: `Nueva solicitud desde la web: ${tipo} - ${name}`,
-                        mensaje: mensajeHtml,
-                        pdfBase64: "", 
-                        emailCliente: "",
-                        nombreCliente: ""
-                    })
+                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, pdfBase64: "", emailCliente: "", nombreCliente: "" })
                 });
                 if (!response.ok) throw new Error("Fallo de comunicación con Google");
                 
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
                 form.reset();
-                mostrarExito(false, null);
+                mostrarExito(false);
             } catch (error) {
                 alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
@@ -685,9 +658,11 @@
 
         async function confirmarPedido(e) {
             e.preventDefault();
-            const btn = document.getElementById('btn-submit-pago');
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
-            btn.disabled = true;
+            
+            // PANTALLA DE CARGA: Fuerza a iOS a parar y procesar
+            const pantallaCarga = document.getElementById('pantalla-carga');
+            pantallaCarga.classList.remove('hidden');
+            pantallaCarga.classList.add('flex');
 
             const form = e.target;
             const referencia = `TR-${Math.floor(Math.random()*10000)}`;
@@ -713,7 +688,6 @@
             emailText += `<b>DATOS DE ENVÍO:</b><br>Cliente: ${nombreEnvio}<br>${dniEnvio}Teléfono: ${limpiarTexto(form['envio-telefono'].value)}<br>Email: ${limpiarTexto(form['envio-email'].value)}<br>Dirección: ${direccionEnvio}<br><br>`;
             emailText += `<b>DATOS DE FACTURACIÓN:</b><br>Empresa: ${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>Dirección: ${direccionFactura}<br><br>`;
             
-            // GENERACIÓN DE PDF A PRUEBA DE TRADUCTOR
             const pedidoHTML = `
                 <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
                     <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
@@ -735,46 +709,63 @@
                 </div>
             `;
 
-            // MÉTODO ORIGINAL EXACTO QUE FUNCIONABA HACE 15 VERSIONES
-            const opt = { 
-                margin: 0.2, 
-                filename: `Pedido_${referencia}.pdf`, 
-                image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2 }, 
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
-            };
+            // CREAR CONTENEDOR FÍSICO POR DEBAJO DE LA PANTALLA DE CARGA
+            const contenedorPDF = document.createElement('div');
+            contenedorPDF.innerHTML = pedidoHTML;
+            contenedorPDF.style.position = 'fixed';
+            contenedorPDF.style.top = '0';
+            contenedorPDF.style.left = '0';
+            contenedorPDF.style.width = '800px';
+            contenedorPDF.style.backgroundColor = '#ffffff';
+            contenedorPDF.style.zIndex = '90'; // Por debajo del 100 de la pantalla de carga, pero encima del resto
+            document.body.appendChild(contenedorPDF);
 
-            try {
-                // NO SE GUARDA LOCALMENTE (Worker sin instrucción save)
-                const worker = html2pdf().set(opt).from(pedidoHTML);
-                const pdfBase64 = await worker.outputPdf('base64');
-                
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        referencia: referencia, 
-                        asunto: `Nuevo Pedido B2B: ${referencia}`, 
-                        mensaje: emailText,
-                        pdfBase64: pdfBase64, 
-                        emailCliente: document.getElementById('correo-cliente-checkout').value, 
-                        nombreCliente: nombreEnvio
-                    })
+            // DAMOS 1 SEGUNDO DE MARGEN PARA QUE iPHONE CONSTRUYA LA PÁGINA ANTES DE LA CAPTURA
+            setTimeout(() => {
+                const opt = { 
+                    margin: 0.2, 
+                    filename: `Pedido_${referencia}.pdf`, 
+                    image: { type: 'jpeg', quality: 0.98 }, 
+                    html2canvas: { scale: 2, useCORS: true }, 
+                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+                };
+
+                html2pdf().set(opt).from(contenedorPDF).outputPdf('datauristring').then(async function(pdfDataUri) {
+                    const pdfBase64 = pdfDataUri.split(',')[1];
+                    
+                    try {
+                        const response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                referencia: referencia, 
+                                asunto: `Nuevo Pedido B2B: ${referencia}`, 
+                                mensaje: emailText,
+                                pdfBase64: pdfBase64, 
+                                emailCliente: document.getElementById('correo-cliente-checkout').value, 
+                                nombreCliente: nombreEnvio
+                            })
+                        });
+
+                        if (!response.ok) throw new Error("Fallo en Google Script");
+
+                        document.body.removeChild(contenedorPDF);
+                        pantallaCarga.classList.remove('flex');
+                        pantallaCarga.classList.add('hidden');
+
+                        cerrarCheckout();
+                        carrito = []; actualizarCarrito(); form.reset();
+                        document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
+                        mostrarExito(true);
+
+                    } catch (error) {
+                        console.error(error);
+                        alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
+                        document.body.removeChild(contenedorPDF);
+                        pantallaCarga.classList.remove('flex');
+                        pantallaCarga.classList.add('hidden');
+                    }
                 });
-
-                if (!response.ok) throw new Error("Fallo en Google Script");
-
-                cerrarCheckout();
-                carrito = []; actualizarCarrito(); form.reset();
-                document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
-                mostrarExito(true, referencia);
-
-            } catch (error) {
-                console.error(error);
-                alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
-            } finally {
-                btn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
-                btn.disabled = false;
-            }
+            }, 1000);
         }
     </script>
 </body>
