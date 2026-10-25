@@ -13,6 +13,7 @@
     <title>Remates Panel Sandwich - Especialistas en Remates</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -49,11 +50,11 @@
             </div>
             
             <nav class="flex items-center gap-3 md:gap-6">
-                <!-- BANDERAS EN CABECERA (SOLO ORDENADOR) -->
+                <!-- BANDERAS EN CABECERA (SOLO PC) -->
                 <div class="hidden md:flex items-center gap-3 border-r border-gray-200 pr-4 md:pr-6">
-                    <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow-sm ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow-sm ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
                 </div>
 
                 <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
@@ -131,7 +132,6 @@
                 </div>
             </div>
 
-            <!-- CRO: Logotipos de confianza -->
             <div class="pt-8 border-t border-gray-700 mt-12">
                 <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6" data-i18n="comp">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
@@ -147,10 +147,10 @@
 
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <!-- NUEVO BOTÓN VOLVER (Naranja, redondo y flecha dentro de círculo) -->
+                <!-- NUEVO BOTÓN VOLVER -->
                 <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
                     <span data-i18n="volver">Volver</span>
                 </button>
@@ -165,7 +165,7 @@
                 <!-- NUEVO BOTÓN VOLVER -->
                 <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
                     <span data-i18n="volver">Volver</span>
                 </button>
@@ -264,7 +264,7 @@
                             <p id="modal-precio-dinamico" class="text-3xl font-extrabold text-brand-accent">0.00€</p>
                         </div>
                     </div>
-                    <button id="btn-add-modal" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
+                    <button id="btn-add-modal" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
                 </div>
             </div>
         </div>
@@ -281,7 +281,7 @@
             <div class="flex justify-between text-gray-400 mb-2"><span><span data-i18n="sub">Subtotal</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></span><span id="cart-subtotal">0.00 €</span></div>
             <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
             <div class="flex justify-between text-white text-2xl font-bold mb-6"><span data-i18n="total">Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button id="btn-tramitar" onclick="abrirCheckout()" class="w-full bg-gray-500 text-gray-300 font-extrabold py-4 rounded text-lg transition cursor-not-allowed" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
+            <button id="btn-tramitar" onclick="abrirCheckout()" class="w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
         </div>
     </div>
 
@@ -326,7 +326,7 @@
                         <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         <span data-i18n="conf">Confirmar Pedido Seguro</span>
                     </button>
-                    <!-- CRO -->
+                    <!-- CRO: ICONOS DE CONFIANZA -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="pres">Presupuesto sin compromiso</span></span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="gest">Gestión rápida 24/48h</span></span>
@@ -368,8 +368,8 @@
 
     <script src="productos.js"></script>
 
+    <!-- SISTEMA NATIVO DE TRADUCCIÓN (Nombres de productos integrados) -->
     <script>
-        // EL SISTEMA DE TRADUCCIÓN NATIVO QUE NO DEPENDE DE GOOGLE
         const i18n = {
             es: {
                 inicio: "Inicio", cat: "Categorías", cont: "Contacto", pide: "Pide presupuesto", buscar: "Buscar...",
@@ -394,13 +394,7 @@
                 nomApe: "Nombre y Apellidos", detPieza: "Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)", cantEst: "Cantidad estimada:",
                 aviso: "Aviso Legal", priv: "Política de Privacidad", cook: "Política de Cookies", derechos: "Todos los derechos reservados.",
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
-                exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda",
-                
-                // Mapea los nombres de tus productos aquí para que existan
-                "Remate de Cumbrera a Pared": "Remate de Cumbrera a Pared",
-                "Chapa plegada de acero para cierre superior.": "Chapa plegada de acero para cierre superior.",
-                "Remate Lateral": "Remate Lateral",
-                "Remate para cerramiento lateral del panel.": "Remate para cerramiento lateral del panel."
+                exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda"
             },
             en: {
                 inicio: "Home", cat: "Categories", cont: "Contact", pide: "Request Quote", buscar: "Search...",
@@ -427,11 +421,25 @@
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
                 exitoDescCont: "We have received your inquiry. We will contact you as soon as possible.", volverT: "Back to store",
                 
-                // Mapea los nombres de tus productos aquí con su traducción al INGLÉS
-                "Remate de Cumbrera a Pared": "Wall Ridge Trim",
-                "Chapa plegada de acero para cierre superior.": "Folded steel sheet for top closure.",
-                "Remate Lateral": "Side Trim",
-                "Remate para cerramiento lateral del panel.": "Trim for side panel enclosure."
+                // --- TRADUCCIÓN DE TUS PRODUCTOS ---
+                "Canal de desagüe": "Drainage channel",
+                "Canal de desagüe industrial.": "Industrial drainage channel.",
+                "Cumbrera troquelada a dos aguas 5 grecas": "Die-cut double-pitched ridge 5 ribs",
+                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Die-cut double-pitched ridge designed for 5-rib panel.",
+                "Remate frontal troquelado para panel 5 grecas": "Die-cut frontal trim for 5-rib panel",
+                "Remate frontal troquelado para panel industrial de 5 grecas.": "Die-cut frontal trim for 5-rib industrial panel.",
+                "Remate lateral para cubiertas": "Lateral roof trim",
+                "Remate lateral para cubiertas industriales.": "Lateral trim for industrial roofs.",
+                "Remate lateral para pared": "Lateral wall trim",
+                "Remate lateral de pared para panel industrial.": "Lateral wall trim for industrial panel.",
+                "Canal de desagüe adaptado para panel teja.": "Drainage channel adapted for tile panel.",
+                "Cumbrera troquelada a dos aguas": "Die-cut double-pitched ridge",
+                "Cumbrera troquelada a dos aguas para panel teja.": "Die-cut double-pitched ridge for tile panel.",
+                "Remate lateral de cierre para cubiertas de panel teja.": "Lateral closing trim for tile panel roofs.",
+                "Remate trasero para pared": "Rear wall trim",
+                "Remate trasero de encuentro con pared para panel teja.": "Rear trim meeting the wall for tile panel.",
+                "Remate vuelo trasero troquelado": "Die-cut rear overhang trim",
+                "Remate de vuelo trasero troquelado para panel teja.": "Die-cut rear overhang trim for tile panel."
             },
             fr: {
                 inicio: "Accueil", cat: "Catégories", cont: "Contact", pide: "Demander un devis", buscar: "Rechercher...",
@@ -443,7 +451,7 @@
                 med: "Finitions sur Mesure", descMed: "Pièces spéciales et sur mesure selon les exigences de votre projet.",
                 descMedLarga: "Décrivez la pièce dont vous avez besoin. Nous l'étudierons dans les plus brefs délais et vous contacterons pour vous proposer un devis et une solution sur mesure.",
                 comp: "Compatibilité garantie avec",
-                volver: "Retour", depuis: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
+                volver: "Retour", desde: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
                 fab: "Fabricant", selFab: "Sélectionner le fabricant...", otros: "Autre (Préciser)",
                 esp: "Épaisseur", selEsp: "Sélectionner l'épaisseur...", cant: "Qté.", añadir: "Ajouter au panier",
                 tuPed: "Votre Commande", sub: "Sous-total", total: "Total", tramitar: "Passer la commande",
@@ -454,22 +462,35 @@
                 conf: "Confirmer la Commande Sécurisée", pres: "Devis sans engagement", gest: "Gestion rapide 24/48h",
                 tuCons: "Votre demande", envMen: "Envoyer le Message",
                 nomApe: "Nom et Prénom", detPieza: "Détails de la Pièce (Développement, angles, couleur, épaisseur...)", cantEst: "Quantité estimée :",
-                aviso: "Mentions Légales", priv: "Politique de Confidentialité", cook: "Politique de Cookies", droits: "Tous droits réservés.",
+                aviso: "Mentions Légales", priv: "Politique de Confidentialité", cook: "Politique de Cookies", derechos: "Tous droits réservés.",
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
                 exitoDescCont: "Nous avons bien reçu votre demande. Nous vous contacterons dans les plus brefs délais.", volverT: "Retour à la boutique",
                 
-                // Mapea los nombres de tus productos aquí con su traducción al FRANCÉS
-                "Remate de Cumbrera a Pared": "Finition Faîtière Murale",
-                "Chapa plegada de acero para cierre superior.": "Tôle d'acier pliée pour la fermeture supérieure.",
-                "Remate Lateral": "Finition Latérale",
-                "Remate para cerramiento lateral del panel.": "Finition pour la fermeture latérale du panneau."
+                // --- TRADUCCIÓN DE TUS PRODUCTOS ---
+                "Canal de desagüe": "Canal de drainage",
+                "Canal de desagüe industrial.": "Canal de drainage industriel.",
+                "Cumbrera troquelada a dos aguas 5 grecas": "Faîtière découpée double pente 5 nervures",
+                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
+                "Remate frontal troquelado para panel 5 grecas": "Finition frontale découpée pour panneau 5 nervures",
+                "Remate frontal troquelado para panel industrial de 5 grecas.": "Finition frontale découpée pour panneau industriel à 5 nervures.",
+                "Remate lateral para cubiertas": "Finition latérale pour toitures",
+                "Remate lateral para cubiertas industriales.": "Finition latérale pour toitures industrielles.",
+                "Remate lateral para pared": "Finition latérale pour mur",
+                "Remate lateral de pared para panel industrial.": "Finition latérale murale pour panneau industriel.",
+                "Canal de desagüe adaptado para panel teja.": "Canal de drainage adapté pour panneau tuile.",
+                "Cumbrera troquelada a dos aguas": "Faîtière découpée double pente",
+                "Cumbrera troquelada a dos aguas para panel teja.": "Faîtière découpée double pente pour panneau tuile.",
+                "Remate lateral de cierre para cubiertas de panel teja.": "Finition latérale de fermeture pour toitures en panneau tuile.",
+                "Remate trasero para pared": "Finition arrière pour mur",
+                "Remate trasero de encuentro con pared para panel teja.": "Finition arrière de jonction murale pour panneau tuile.",
+                "Remate vuelo trasero troquelado": "Finition surplomb arrière découpée",
+                "Remate de vuelo trasero troquelado para panel teja.": "Finition de surplomb arrière découpée pour panneau tuile."
             }
         };
 
         let currentLang = 'es';
         let categoriaActual = '';
 
-        // Función para traducir los textos dinámicos que vienen del archivo productos.js
         function t(texto) {
             if (!texto) return '';
             return (i18n[currentLang] && i18n[currentLang][texto]) ? i18n[currentLang][texto] : texto;
@@ -478,44 +499,40 @@
         function cambiarIdioma(lang) {
             currentLang = lang;
             
-            // Actualizar todos los textos con la etiqueta data-i18n
+            // 1. Textos estáticos
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (i18n[lang] && i18n[lang][key]) {
-                    el.innerHTML = i18n[lang][key];
-                }
+                if (i18n[lang] && i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
 
-            // Actualizar placeholders
+            // 2. Placeholders
             document.querySelectorAll('[data-i18n-ph]').forEach(el => {
                 const key = el.getAttribute('data-i18n-ph');
-                if (i18n[lang] && i18n[lang][key]) {
-                    el.placeholder = i18n[lang][key];
-                }
+                if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
             });
 
-            // Resaltar la bandera activa en ambos menús (desktop y móvil)
+            // 3. Estilo Banderas
             document.querySelectorAll('.flag-btn').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-brand-accent', 'opacity-100');
-                btn.classList.add('opacity-50', 'opacity-60');
+                btn.classList.add('opacity-50');
             });
             document.querySelectorAll('.flag-' + lang).forEach(btn => {
-                btn.classList.remove('opacity-50', 'opacity-60');
+                btn.classList.remove('opacity-50');
                 btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
             });
 
-            // Mantenerse en la misma página de productos en la que estábamos
+            // 4. Refrescar Productos Dinámicos (Sin cambiar de página)
             if (typeof productosDB !== 'undefined') {
                 const vistaProductos = document.getElementById('vista-productos');
                 if (!vistaProductos.classList.contains('hidden') && categoriaActual !== '') {
-                    cargarProductos(categoriaActual);
+                    cargarProductos(categoriaActual); // Refresca en el idioma actual
                 }
             }
             actualizarCarrito();
         }
+    </script>
 
-        // --- RESTO DEL CÓDIGO TÉCNICO Y LÓGICO DE LA WEB ---
-
+    <script>
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbQqB_QdX_KhOCMFyVfU7ESew4w1Gh1rlWDXvzMKdVZ1tqcPQZtsb7Ricw7rz1UcEu/exec";
         
         let carrito = [];
@@ -566,7 +583,11 @@
             document.getElementById('titulo-categoria').innerText = i18n[currentLang].buscar;
             
             const grid = document.getElementById('grid-productos');
-            const resultados = productosDB.filter(p => p.nombre.toLowerCase().includes(termino) || p.desc.toLowerCase().includes(termino));
+            const resultados = productosDB.filter(p => {
+                const tNombre = t(p.nombre).toLowerCase();
+                const tDesc = t(p.desc).toLowerCase();
+                return tNombre.includes(termino) || tDesc.includes(termino);
+            });
             dibujarGrid(resultados, grid);
         }
 
@@ -600,7 +621,6 @@
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-bold text-white leading-tight">${t(p.nombre)}</h3>
                             <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">${textDesde} </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">${textSinIva}</span></p>
-                            <!-- BOTÓN VER DETALLES EN NARANJA REDONDEADO -->
                             <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow">${textVerDet}</button>
                         </div>
                     </div>
@@ -714,19 +734,19 @@
             document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €';
             document.getElementById('cart-total').innerText = (subtotal + iva).toFixed(2) + ' €';
             
-            // Activar o desactivar el botón de Tramitar Pedido según haya elementos
+            // Lógica Botón Tramitar (Gris si vacío, Naranja si hay items)
             const btnTramitar = document.getElementById('btn-tramitar');
             if (carrito.length === 0) {
                 btnTramitar.disabled = true;
-                btnTramitar.className = "w-full bg-gray-500 text-gray-300 font-extrabold py-4 rounded text-lg transition cursor-not-allowed";
+                btnTramitar.className = "w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition";
             } else {
                 btnTramitar.disabled = false;
-                btnTramitar.className = "w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded text-lg transition shadow";
+                btnTramitar.className = "w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-lg transition shadow";
             }
         }
 
         function abrirCheckout() {
-            if (carrito.length === 0) return; // Prevent empty checkout
+            if (carrito.length === 0) return; 
             toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden');
         }
 
@@ -750,13 +770,16 @@
             mostrarCategorias();
         }
 
-        function mostrarExito(esPedido) {
+        function mostrarExito(esPedido, ref) {
             document.getElementById('modal-exito').classList.remove('hidden');
             document.getElementById('texto-exito-titulo').innerText = i18n[currentLang].exitoTit;
             if(esPedido) {
                 document.getElementById('texto-exito-desc').innerText = i18n[currentLang].exitoDesc;
+                document.getElementById('div-ref-exito').classList.remove('hidden');
+                document.getElementById('ref-exito').innerText = ref;
             } else {
                 document.getElementById('texto-exito-desc').innerText = i18n[currentLang].exitoDescCont;
+                document.getElementById('div-ref-exito').classList.add('hidden');
             }
         }
 
@@ -782,14 +805,14 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, pdfBase64: "", emailCliente: "", nombreCliente: "" })
+                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, htmlContent: "", emailCliente: "", nombreCliente: "" })
                 });
                 if (!response.ok) throw new Error("Fallo de comunicación con Google");
                 
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
                 form.reset();
-                mostrarExito(false);
+                mostrarExito(false, null);
             } catch (error) {
                 alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
@@ -797,7 +820,6 @@
             }
         }
 
-        // GENERACIÓN DE PDF EXACTA A LA VERSIÓN ORIGINAL
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
@@ -828,7 +850,6 @@
             emailText += `<b>DATOS DE ENVÍO:</b><br>Cliente: ${nombreEnvio}<br>${dniEnvio}Teléfono: ${limpiarTexto(form['envio-telefono'].value)}<br>Email: ${limpiarTexto(form['envio-email'].value)}<br>Dirección: ${direccionEnvio}<br><br>`;
             emailText += `<b>DATOS DE FACTURACIÓN:</b><br>Empresa: ${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>Dirección: ${direccionFactura}<br><br>`;
             
-            // Textos traducidos dinámicamente para el PDF
             const l = i18n[currentLang];
             const pedidoHTML = `
                 <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
@@ -851,25 +872,15 @@
                 </div>
             `;
 
-            const opt = { 
-                margin: 0.2, 
-                filename: `Pedido_${referencia}.pdf`, 
-                image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2 }, 
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
-            };
-
             try {
-                // Generación nativa (funciona perfectamente con iOS al no hacer save)
-                const pdfBase64 = await html2pdf().set(opt).from(pedidoHTML).outputPdf('base64');
-                
+                // PDF 100% GESTIONADO POR GOOGLE SCRIPT. SIN LIBRERÍA HTML2PDF. A PRUEBA DE MÓVILES.
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         referencia: referencia, 
                         asunto: `Nuevo Pedido B2B: ${referencia}`, 
                         mensaje: emailText,
-                        pdfBase64: pdfBase64, 
+                        htmlContent: pedidoHTML, // Se envía el HTML directo
                         emailCliente: document.getElementById('correo-cliente-checkout').value, 
                         nombreCliente: nombreEnvio
                     })
@@ -880,10 +891,7 @@
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
-                
-                document.getElementById('div-ref-exito').classList.remove('hidden');
-                document.getElementById('ref-exito').innerText = referencia;
-                mostrarExito(true);
+                mostrarExito(true, referencia);
 
             } catch (error) {
                 console.error(error);
@@ -896,3 +904,4 @@
     </script>
 </body>
 </html>
+```eof
