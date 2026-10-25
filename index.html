@@ -14,11 +14,6 @@
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <!-- NUEVA ALTERNATIVA: GTranslate Widget (Limpio, elegante y sin errores de DOM) -->
-    <script>window.gtranslateSettings = {"default_language":"es","languages":["es","en","fr"],"wrapper_selector":".gtranslate_wrapper","flag_size":24,"switcher_horizontal_position":"inline","flag_style":"2d"};</script>
-    <script src="https://cdn.gtranslate.net/widgets/latest/flags.js" defer></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -33,9 +28,20 @@
         ::-webkit-scrollbar-track { background: #1A1A1A; }
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
+        
+        /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
+        body { top: 0px !important; position: static !important; }
+        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; height: 0 !important; }
+        #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+        .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+        #google_translate_element { display: none !important; }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative min-h-screen">
+
+    <!-- Motor de traducción invisible -->
+    <div id="google_translate_element"></div>
 
     <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
@@ -55,8 +61,12 @@
             </div>
             
             <nav class="flex items-center gap-3 md:gap-6">
-                <!-- Wrapper de GTranslate -->
-                <div class="gtranslate_wrapper flex items-center gap-2 border-r border-gray-200 pr-3 md:pr-6"></div>
+                <!-- BANDERAS EN CABECERA (SOLO PARA ORDENADOR) -->
+                <div class="hidden md:flex items-center gap-2 border-r border-gray-200 pr-4">
+                    <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-es-desk"><img src="https://flagcdn.com/w20/es.png" alt="Español" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-en-desk"><img src="https://flagcdn.com/w20/gb.png" alt="English" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100" id="btn-lang-fr-desk"><img src="https://flagcdn.com/w20/fr.png" alt="Français" class="w-5 h-5 rounded-full object-cover border border-gray-300"></button>
+                </div>
 
                 <button onclick="abrirModalContacto('General')" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap">Pide presupuesto</button>
                 <button onclick="toggleCarrito()" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
@@ -98,6 +108,7 @@
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Imagen centrada sin estirarse: object-contain p-4 -->
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
                     <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
@@ -148,26 +159,27 @@
 
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <!-- Botón Volver Renovado -->
-                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-5 rounded-full transition flex items-center gap-2 shadow-sm">
+                <!-- NUEVO BOTÓN VOLVER -->
+                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </div> 
+                    </div>
                     Volver
                 </button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
             
+            <!-- EL DOM DE LOS PRODUCTOS SE CARGARÁ AQUÍ -->
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
         <div id="vista-amedida" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <!-- Botón Volver Renovado -->
-                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-5 rounded-full transition flex items-center gap-2 shadow-sm">
+                <!-- NUEVO BOTÓN VOLVER -->
+                <button onclick="mostrarCategorias()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
                     <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l7-7m7-7H3" /></svg>
-                    </div> 
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </div>
                     Volver
                 </button>
             </div>
@@ -208,6 +220,13 @@
 
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
+            <!-- BANDERAS EN PIE DE PÁGINA (SOLO PARA MÓVIL) -->
+            <div class="flex md:hidden items-center justify-center gap-6 mb-6">
+                <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none" id="btn-lang-es-mob"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover border border-gray-300"></button>
+                <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none" id="btn-lang-en-mob"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover border border-gray-300"></button>
+                <button onclick="cambiarIdioma('fr')" class="hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none" id="btn-lang-fr-mob"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover border border-gray-300"></button>
+            </div>
+
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
                 <a href="aviso-legal.html" class="hover:text-brand-accent transition">Aviso Legal</a>
                 <a href="politica-privacidad.html" class="hover:text-brand-accent transition">Política de Privacidad</a>
@@ -258,7 +277,7 @@
                             <p id="modal-precio-dinamico" class="text-3xl font-extrabold text-brand-accent">0.00€</p>
                         </div>
                     </div>
-                    <button id="btn-add-modal" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow">Añadir al carrito</button>
+                    <button id="btn-add-modal" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded transition shadow">Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -320,7 +339,7 @@
                         <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <!-- CRO: ICONOS DE CONFIANZA -->
+                    <!-- CRO: ICONOS DE CONFIANZA RESTAURADOS -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -362,36 +381,75 @@
 
     <script src="productos.js"></script>
 
+    <!-- SCRIPTS DE IDIOMA GOOGLE TRANSLATE -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,fr,es'}, 'google_translate_element');
+        }
+
+        // Lógica para encender las banderas visualmente
+        document.addEventListener('DOMContentLoaded', () => {
+            const match = document.cookie.match(/googtrans=\/es\/([a-z]{2})/);
+            const activeLang = match ? match[1] : 'es';
+            
+            // Buscar la bandera activa tanto en el móvil (footer) como en PC (header)
+            ['desk', 'mob'].forEach(device => {
+                const btn = document.getElementById(`btn-lang-${activeLang}-${device}`);
+                if(btn) {
+                    btn.classList.remove('opacity-50', 'opacity-60');
+                    btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
+                }
+            });
+        });
+
+        // Cambio de idioma automático
+        function cambiarIdioma(lang) {
+            const selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event("change"));
+            } else {
+                document.cookie = "googtrans=/es/" + lang + "; path=/;";
+                document.cookie = "googtrans=/es/" + lang + "; path=/; domain=" + location.hostname;
+                window.location.reload();
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
-        // NUEVA URL ASIGNADA
+        // URL ACTUALIZADA
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbQqB_QdX_KhOCMFyVfU7ESew4w1Gh1rlWDXvzMKdVZ1tqcPQZtsb7Ricw7rz1UcEu/exec";
         
         let carrito = [];
         let productoSeleccionado = null;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof productosDB !== 'undefined') {
-                const grid = document.getElementById('grid-productos');
-                let htmlFinal = '';
-                productosDB.forEach(p => {
-                    const precioMinimo = Math.min(...Object.values(p.precios));
-                    htmlFinal += `
-                        <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg hidden">
-                            <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                                <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
-                                <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
-                                <!-- BOTÓN VER DETALLES ACTUALIZADO -->
-                                <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow">Ver Detalles</button>
-                            </div>
+        // EJECUCIÓN INMEDIATA: Evita que Google Translate se cuelgue al inyectar el código tarde
+        function renderizarProductos() {
+            if (typeof productosDB === 'undefined') return;
+            const grid = document.getElementById('grid-productos');
+            let htmlFinal = '';
+            productosDB.forEach(p => {
+                const precioMinimo = Math.min(...Object.values(p.precios));
+                htmlFinal += `
+                    <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg" style="display: none;">
+                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
                         </div>
-                    `;
-                });
-                grid.innerHTML = htmlFinal;
-            }
-        });
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
+                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
+                            <!-- NUEVO BOTÓN VER DETALLES EN NARANJA -->
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow">Ver Detalles</button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = htmlFinal;
+        }
+        
+        // Llamada inmediata
+        renderizarProductos();
 
         function limpiarTexto(str) {
             return (str || '').replace(/[&<>'"]/g, function(tag) {
@@ -427,23 +485,21 @@
             document.getElementById('modal-contacto').classList.remove('hidden');
         }
 
+        // MOSTRAR PRODUCTOS PREVIAMENTE CARGADOS (Sin romper traductor)
         function buscarProductos(event) {
             const termino = limpiarTexto(event.target.value.toLowerCase());
             if (termino.length === 0) { mostrarCategorias(); return; }
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
-            document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
             
             document.querySelectorAll('.producto-card').forEach(card => {
                 const nombre = card.getAttribute('data-nombre');
                 const desc = card.getAttribute('data-desc');
                 if(nombre.includes(termino) || desc.includes(termino)) {
-                    card.classList.remove('hidden');
-                    card.classList.add('flex');
+                    card.style.display = 'flex';
                 } else {
-                    card.classList.add('hidden');
-                    card.classList.remove('flex');
+                    card.style.display = 'none';
                 }
             });
         }
@@ -453,16 +509,13 @@
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
-            document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
             
             document.querySelectorAll('.producto-card').forEach(card => {
                 if(card.getAttribute('data-cat') === categoria) {
-                    card.classList.remove('hidden');
-                    card.classList.add('flex');
+                    card.style.display = 'flex';
                 } else {
-                    card.classList.add('hidden');
-                    card.classList.remove('flex');
+                    card.style.display = 'none';
                 }
             });
         }
@@ -634,7 +687,7 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, htmlContent: "", emailCliente: "", nombreCliente: "" })
+                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, pdfBase64: "", emailCliente: "", nombreCliente: "" })
                 });
                 if (!response.ok) throw new Error("Fallo de comunicación con Google");
                 
@@ -649,12 +702,11 @@
             }
         }
 
-        // GENERACIÓN DE PDF GESTIONADA POR EL SCRIPT DE GOOGLE SERVER-SIDE
+        // LA VERSIÓN DEFINITIVA Y ORIGINAL DEL PDF (Que se envía a Google Script y NO se descarga localmente)
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
-            
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-gray-900 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 inline mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
             const form = e.target;
@@ -681,7 +733,6 @@
             emailText += `<b>DATOS DE ENVÍO:</b><br>Cliente: ${nombreEnvio}<br>${dniEnvio}Teléfono: ${limpiarTexto(form['envio-telefono'].value)}<br>Email: ${limpiarTexto(form['envio-email'].value)}<br>Dirección: ${direccionEnvio}<br><br>`;
             emailText += `<b>DATOS DE FACTURACIÓN:</b><br>Empresa: ${nombreFactura}<br>CIF/NIF: ${nifFactura}<br>Dirección: ${direccionFactura}<br><br>`;
             
-            // Este HTML se envía crudo a Google Script y él mismo genera el PDF (Infalible en todos los móviles)
             const pedidoHTML = `
                 <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
                     <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
@@ -704,14 +755,15 @@
             `;
 
             try {
-                // FETCH DIRECTO ENVIANDO EL CONTENIDO HTML AL SCRIPT
+                // SE ENVÍA EL HTML CRUDO A GOOGLE SCRIPT PARA QUE GENERE EL PDF 
+                // Y NO HAYA PROBLEMAS EN EL MÓVIL
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         referencia: referencia, 
                         asunto: `Nuevo Pedido B2B: ${referencia}`, 
                         mensaje: emailText,
-                        htmlContent: pedidoHTML, // ENVIAMOS ESTO EN LUGAR DEL BASE64
+                        htmlContent: pedidoHTML, // Enviamos htmlContent
                         emailCliente: document.getElementById('correo-cliente-checkout').value, 
                         nombreCliente: nombreEnvio
                     })
@@ -728,7 +780,7 @@
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
             } finally {
-                btn.innerHTML = `<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>Confirmar Pedido Seguro`;
+                btn.innerHTML = `<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
             }
         }
