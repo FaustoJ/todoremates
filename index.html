@@ -396,7 +396,7 @@
             ['desk', 'mob'].forEach(device => {
                 const btn = document.getElementById(`btn-lang-${activeLang}-${device}`);
                 if(btn) {
-                    btn.classList.remove('opacity-50', 'opacity-60');
+                    btn.classList.remove('opacity-50');
                     btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
                 }
             });
@@ -418,7 +418,6 @@
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        // URL ACTUALIZADA
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbQqB_QdX_KhOCMFyVfU7ESew4w1Gh1rlWDXvzMKdVZ1tqcPQZtsb7Ricw7rz1UcEu/exec";
         
         let carrito = [];
@@ -492,6 +491,7 @@
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
+            document.getElementById('titulo-categoria').innerText = 'Resultados de búsqueda';
             
             document.querySelectorAll('.producto-card').forEach(card => {
                 const nombre = card.getAttribute('data-nombre');
@@ -509,6 +509,7 @@
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-productos').classList.remove('hidden');
+            document.getElementById('titulo-categoria').innerText = categoria === 'teja' ? 'Remates Teja' : 'Remates Industrial';
             document.querySelector('input[placeholder="Buscar..."]').value = '';
             
             document.querySelectorAll('.producto-card').forEach(card => {
@@ -755,15 +756,14 @@
             `;
 
             try {
-                // SE ENVÍA EL HTML CRUDO A GOOGLE SCRIPT PARA QUE GENERE EL PDF 
-                // Y NO HAYA PROBLEMAS EN EL MÓVIL
+                // SE ENVÍA EL HTML CRUDO A GOOGLE SCRIPT PARA QUE GENERE EL PDF EN LA NUBE
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         referencia: referencia, 
                         asunto: `Nuevo Pedido B2B: ${referencia}`, 
                         mensaje: emailText,
-                        htmlContent: pedidoHTML, // Enviamos htmlContent
+                        htmlContent: pedidoHTML,
                         emailCliente: document.getElementById('correo-cliente-checkout').value, 
                         nombreCliente: nombreEnvio
                     })
