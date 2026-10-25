@@ -361,9 +361,11 @@
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-4" data-i18n="cont">Contacto</h2>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-2" data-i18n="cont">Contacto</h2>
+            <p class="text-gray-400 text-sm mb-6" data-i18n="contDesc">Nuestro equipo le atenderá a la mayor brevedad posible.</p>
             <form onsubmit="enviarFormularioGoogle(event, 'Contacto General')" class="space-y-4">
                 <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="nom">
+                <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tel">
                 <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
                 <textarea name="message" rows="4" placeholder="Tu consulta" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tuCons"></textarea>
                 <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico"><span data-i18n="envMen">Enviar Mensaje</span></button>
@@ -411,7 +413,7 @@
                 loc: "Localidad", prov: "Provincia",
                 mismaFact: "Mis datos de facturación son los mismos", datosFact: "Datos de Facturación", rs: "Razón Social / Nombre",
                 conf: "Confirmar Pedido Seguro", pres: "Presupuesto sin compromiso", gest: "Gestión rápida 24/48h",
-                tuCons: "Tu consulta", envMen: "Enviar Mensaje",
+                tuCons: "Tu consulta", envMen: "Enviar Mensaje", contDesc: "Nuestro equipo le atenderá a la mayor brevedad posible.",
                 nomApe: "Nombre y Apellidos", detPieza: "Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)", cantEst: "Cantidad estimada:",
                 aviso: "Aviso Legal", priv: "Política de Privacidad", cook: "Política de Cookies", derechos: "Todos los derechos reservados.",
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
@@ -441,7 +443,7 @@
                 loc: "City", prov: "State/Province",
                 mismaFact: "My billing details are the same", datosFact: "Billing Details", rs: "Company Name / Full Name",
                 conf: "Confirm Secure Order", pres: "No-obligation quote", gest: "Fast management 24/48h",
-                tuCons: "Your inquiry", envMen: "Send Message",
+                tuCons: "Your inquiry", envMen: "Send Message", contDesc: "Our team will assist you as soon as possible.",
                 nomApe: "Full Name", detPieza: "Piece Details (Development, angles, color, thickness...)", cantEst: "Estimated quantity:",
                 aviso: "Legal Notice", priv: "Privacy Policy", cook: "Cookie Policy", derechos: "All rights reserved.",
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
@@ -491,7 +493,7 @@
                 loc: "Ville", prov: "Région/Province",
                 mismaFact: "Mes informations de facturation sont les mêmes", datosFact: "Détails de Facturation", rs: "Raison Sociale / Nom Complet",
                 conf: "Confirmer la Commande Sécurisée", pres: "Devis sans engagement", gest: "Gestion rapide 24/48h",
-                tuCons: "Votre demande", envMen: "Envoyer le Message",
+                tuCons: "Votre demande", envMen: "Envoyer le Message", contDesc: "Notre équipe vous répondra dans les plus brefs délais.",
                 nomApe: "Nom et Prénom", detPieza: "Détails de la Pièce (Développement, angles, couleur, épaisseur...)", cantEst: "Quantité estimée :",
                 aviso: "Mentions Légales", priv: "Politique de Confidentialité", cook: "Politique de Cookies", derechos: "Tous droits réservés.",
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
@@ -506,7 +508,7 @@
                 "Canal de desagüe": "Canal de drainage",
                 "Canal de desagüe industrial.": "Canal de drainage industriel.",
                 "Cumbrera troquelada a dos aguas 5 grecas": "Faîtière découpée double pente 5 nervures",
-                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
+                "Cumbrera troquelada a dos aguas diseñada pour panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
                 "Remate frontal troquelado para panel 5 grecas": "Finition frontale découpée pour panneau 5 nervures",
                 "Remate frontal troquelado para panel industrial de 5 grecas.": "Finition frontale découpée pour panneau industriel à 5 nervures.",
                 "Remate lateral para cubiertas": "Finition latérale pour toitures",
@@ -520,7 +522,7 @@
                 "Remate trasero para pared": "Finition arrière pour mur",
                 "Remate trasero de encuentro con pared para panel teja.": "Finition arrière de jonction murale pour panneau tuile.",
                 "Remate vuelo trasero troquelado": "Finition surplomb arrière découpée",
-                "Remate de vuelo trasero troquelado pour panel teja.": "Finition de surplomb arrière découpée pour panneau tuile."
+                "Remate de vuelo trasero troquelado para panel teja.": "Finition de surplomb arrière découpée pour panneau tuile."
             }
         };
 
@@ -731,7 +733,6 @@
             if (existe) existe.cantidad += cantidad;
             else carrito.push({ ...prod, idCompuesto, cantidad, fabricante: fab, espesor: esp, precioFinal: precioUnidad });
             
-            // Animación aplicada específicamente al carrito
             const btnCarrito = document.getElementById('btn-carrito-header');
             btnCarrito.classList.add('shake'); setTimeout(() => btnCarrito.classList.remove('shake'), 400);
             
@@ -777,7 +778,6 @@
             document.getElementById('cart-iva').innerText = iva.toFixed(2) + ' €';
             document.getElementById('cart-total').innerText = (subtotal + iva).toFixed(2) + ' €';
             
-            // Lógica Botón Tramitar
             const btnTramitar = document.getElementById('btn-tramitar');
             if (carrito.length === 0) {
                 btnTramitar.disabled = true;
