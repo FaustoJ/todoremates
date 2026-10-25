@@ -29,24 +29,18 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
         
-        /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
-        body { top: 0px !important; position: static !important; min-height: 100vh; }
-        .goog-te-banner-frame, .skiptranslate > iframe { display: none !important; visibility: hidden !important; height: 0 !important; }
+        /* ELIMINAR BARRA SUPERIOR Y ELEMENTOS NATIVOS DE GOOGLE TRANSLATE */
+        body { top: 0px !important; position: static !important; }
+        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; height: 0 !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-tooltip, .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
     </style>
 </head>
-<body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative overflow-x-hidden">
+<body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative min-h-screen">
 
-    <!-- Motor de traducción de Google (Oculto) -->
+    <!-- Motor de traducción invisible -->
     <div id="google_translate_element" style="display: none;"></div>
-
-    <!-- PANTALLA DE CARGA -->
-    <div id="pantalla-carga" class="fixed inset-0 bg-brand-darker bg-opacity-95 z-[100] hidden flex-col items-center justify-center">
-        <svg class="animate-spin h-14 w-14 text-brand-accent mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-        <p class="text-white font-bold text-xl md:text-2xl text-center px-4">Procesando pedido de forma segura...<br><span class="text-sm text-gray-400 font-normal">Por favor, no cierres esta ventana</span></p>
-    </div>
 
     <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
@@ -324,7 +318,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <!-- CRO: GARANTÍAS DE CONFIANZA RESTAURADAS -->
+                    <!-- CRO: ICONOS DE CONFIANZA RESTAURADOS -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -334,7 +328,7 @@
         </div>
     </div>
 
-    <!-- Modal Contacto General a Google Script -->
+    <!-- Modal Contacto General -->
     <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
             <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
@@ -356,10 +350,6 @@
             </div>
             <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
             <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
-            <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
-                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
-                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
-            </div>
             <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
         </div>
     </div>
@@ -388,7 +378,7 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTORES
+        // INICIALIZACIÓN DE PRODUCTOS (Se cargan invisibles para que el traductor no falle)
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof productosDB !== 'undefined') {
                 const grid = document.getElementById('grid-productos');
@@ -617,17 +607,14 @@
             mostrarCategorias();
         }
 
-        function mostrarExito(esPedido, ref) {
+        function mostrarExito(esPedido) {
             document.getElementById('modal-exito').classList.remove('hidden');
             if(esPedido) {
                 document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.";
-                document.getElementById('div-ref-exito').classList.remove('hidden');
-                document.getElementById('ref-exito').innerText = ref;
             } else {
                 document.getElementById('texto-exito-titulo').innerText = "¡Mensaje Enviado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.";
-                document.getElementById('div-ref-exito').classList.add('hidden');
             }
         }
 
@@ -660,7 +647,7 @@
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
                 form.reset();
-                mostrarExito(false, null);
+                mostrarExito(false);
             } catch (error) {
                 alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
@@ -668,15 +655,14 @@
             }
         }
 
+        // GENERACIÓN DE PDF EXACTA A LA VERSIÓN ORIGINAL (Limpiada de parches que lo rompían)
         async function confirmarPedido(e) {
             e.preventDefault();
-            
             const btn = document.getElementById('btn-submit-pago');
-            const pantallaCarga = document.getElementById('pantalla-carga');
             
-            // Mostrar pantalla de carga
-            pantallaCarga.classList.remove('hidden');
-            pantallaCarga.classList.add('flex');
+            // Efecto de carga en el botón en lugar de bloquear la pantalla
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-gray-900 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
+            btn.disabled = true;
 
             const form = e.target;
             const referencia = `TR-${Math.floor(Math.random()*10000)}`;
@@ -723,7 +709,6 @@
                 </div>
             `;
 
-            // MÉTODO ORIGINAL EXACTO QUE FUNCIONABA
             const opt = { 
                 margin: 0.2, 
                 filename: `Pedido_${referencia}.pdf`, 
@@ -732,20 +717,11 @@
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
             };
 
-            // Contenedor físico para forzar render en iOS
-            const contenedorPDF = document.createElement('div');
-            contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'absolute';
-            contenedorPDF.style.left = '-10000px';
-            contenedorPDF.style.top = '0';
-            document.body.appendChild(contenedorPDF);
-
-            // Pausa obligatoria para evitar el PDF en blanco
-            await new Promise(r => setTimeout(r, 400));
-
             try {
-                // Sacar el base64 sin descargar nada
-                const pdfBase64 = await html2pdf().set(opt).from(contenedorPDF).outputPdf('base64');
+                // EXTRACCIÓN DIRECTA DESDE LA CADENA DE TEXTO (Lo que funcionaba sin fallos en iOS)
+                const worker = html2pdf().set(opt).from(pedidoHTML);
+                const pdfDataUri = await worker.outputPdf('datauristring');
+                const pdfBase64 = pdfDataUri.split(',')[1];
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
@@ -764,16 +740,17 @@
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
-                mostrarExito(true, referencia);
+                mostrarExito(true);
 
             } catch (error) {
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
             } finally {
-                // IMPORTANTE: Esto asegura que la pantalla de carga desaparezca
-                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
-                pantallaCarga.classList.remove('flex');
-                pantallaCarga.classList.add('hidden');
+                btn.innerHTML = `
+                    <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    Confirmar Pedido Seguro
+                `;
+                btn.disabled = false;
             }
         }
     </script>
