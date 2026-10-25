@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
-    <!-- SEO: Etiquetas Open Graph -->
+    <!-- SEO -->
     <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
     <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
     <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
@@ -13,7 +13,6 @@
     <title>Remates Panel Sandwich - Especialistas en Remates</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -29,18 +28,19 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
         
-        /* ELIMINAR BARRA SUPERIOR Y ELEMENTOS NATIVOS DE GOOGLE TRANSLATE */
+        /* BLOQUEO TOTAL DE LOS WIDGETS Y POPUPS DE GOOGLE TRANSLATE */
         body { top: 0px !important; position: static !important; }
-        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; height: 0 !important; }
+        .goog-te-banner-frame, iframe.skiptranslate { display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-tooltip, .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+        #google_translate_element { display: none !important; }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative min-h-screen">
 
-    <!-- Motor de traducción invisible -->
-    <div id="google_translate_element" style="display: none;"></div>
+    <!-- Traductor oculto -->
+    <div id="google_translate_element"></div>
 
     <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 z-50 flex items-center justify-center">
@@ -100,8 +100,9 @@
             <p class="text-gray-300 mb-10 max-w-3xl">En Remates Panel Sandwich presentamos nuestra línea de remates y accesorios. Una solución sólida para crear un entorno profesional con la eficiencia y calidad que caracteriza al sistema sándwich.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Se cambió object-cover por object-contain y p-2 para evitar pixelado en desktop -->
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-contain p-2 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Teja</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Remates, canales y accesorios especializados para cubiertas de panel tipo teja.</p>
@@ -112,7 +113,7 @@
                 </div>
 
                 <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
-                    <img src="Imagenes/industrial-panel-5-grecas.webp" loading="lazy" alt="Panel grecado industrial" class="w-full h-56 object-cover bg-white">
+                    <img src="Imagenes/industrial-panel-5-grecas.webp" loading="lazy" alt="Panel grecado industrial" class="w-full h-56 object-contain p-2 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
                         <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Remates Industrial</h3>
                         <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4">Canales, cumbreras y cierres diseñados para naves y fachadas industriales.</p>
@@ -153,7 +154,8 @@
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
-            <!-- EL DOM DE LOS PRODUCTOS SE CARGARÁ AQUÍ UNA SOLA VEZ -->
+            
+            <!-- EL DOM DE LOS PRODUCTOS SE INYECTA AQUÍ -->
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
 
@@ -327,33 +329,46 @@
         </div>
     </div>
 
-    <!-- Modal Contacto General -->
-    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-4">Contacto</h2>
-            <form onsubmit="enviarFormularioGoogle(event, 'Contacto General')" class="space-y-4">
-                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                <textarea name="message" placeholder="Tu consulta" rows="4" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></textarea>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico">Enviar Mensaje</button>
-            </form>
-        </div>
-    </div>
-
     <!-- Modal Éxito Universal -->
     <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
-            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
-                <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-brand-accent text-center shadow-2xl">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-6" id="exito-icon-container">
+                <svg class="h-10 w-10 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
             </div>
             <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
             <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
-            <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
+            <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
+                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
+                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
+            </div>
+            <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Entendido</button>
         </div>
     </div>
 
+    <!-- CARGA SÍNCRONA DE PRODUCTOS PARA QUE GOOGLE TRANSLATE NO FALLE -->
     <script src="productos.js"></script>
+    <script>
+        if (typeof productosDB !== 'undefined') {
+            const grid = document.getElementById('grid-productos');
+            let htmlFinal = '';
+            productosDB.forEach(p => {
+                const precioMinimo = Math.min(...Object.values(p.precios));
+                htmlFinal += `
+                    <div data-cat="${p.cat}" data-nombre="${(p.nombre || '').toLowerCase()}" data-desc="${(p.desc || '').toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg hidden">
+                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                            <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
+                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = htmlFinal;
+        }
+    </script>
 
     <!-- SCRIPTS DE IDIOMA GOOGLE TRANSLATE -->
     <script type="text/javascript">
@@ -372,34 +387,10 @@
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvBV88qZBso1LqIXlVs0lFwbABodYZZ1D7-n2MBv-330te3T5y5ROBWMSbIq29bG3L/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxenazUL4Yk6nK0iA7fjLS7GDjXZtFiopp04lUJBDfnGnhKCTvsr94KUYq_19wro6eN/exec";
         
         let carrito = [];
         let productoSeleccionado = null;
-
-        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTOR
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof productosDB !== 'undefined') {
-                const grid = document.getElementById('grid-productos');
-                let htmlFinal = '';
-                productosDB.forEach(p => {
-                    const precioMinimo = Math.min(...Object.values(p.precios));
-                    htmlFinal += `
-                        <div data-cat="${p.cat}" data-nombre="${limpiarTexto(p.nombre).toLowerCase()}" data-desc="${limpiarTexto(p.desc).toLowerCase()}" class="producto-card bg-brand-darker rounded-2xl border border-gray-700 flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg hidden">
-                            <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
-                                <img src="${p.img}" alt="${p.nombre}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-white leading-tight">${p.nombre}</h3>
-                                <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">Desde </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">(sin IVA)</span></p>
-                                <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-dark hover:bg-gray-700 text-white font-semibold py-3 rounded-xl border border-gray-600 transition">Ver Detalles</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                grid.innerHTML = htmlFinal;
-            }
-        });
 
         function limpiarTexto(str) {
             return (str || '').replace(/[&<>'"]/g, function(tag) {
@@ -553,9 +544,10 @@
         function actualizarCarrito() {
             document.getElementById('cart-count').innerText = carrito.reduce((sum, item) => sum + item.cantidad, 0);
             const list = document.getElementById('cart-items');
-            list.innerHTML = '';
+            
+            let htmlCarrito = '';
             carrito.forEach(item => {
-                list.innerHTML += `
+                htmlCarrito += `
                     <div class="flex gap-4 border-b border-gray-700 pb-4">
                         <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
@@ -574,6 +566,8 @@
                     </div>
                 `;
             });
+            list.innerHTML = htmlCarrito;
+
             const subtotal = calcularSubtotal();
             const iva = subtotal * 0.21;
             document.getElementById('cart-subtotal').innerText = subtotal.toFixed(2) + ' €';
@@ -582,7 +576,10 @@
         }
 
         function abrirCheckout() {
-            if (carrito.length === 0) return alert("El carrito está vacío");
+            if (carrito.length === 0) {
+                mostrarAviso("El carrito está vacío. Añade productos antes de tramitar el pedido.");
+                return;
+            }
             toggleCarrito(); document.getElementById('modal-checkout').classList.remove('hidden');
         }
 
@@ -606,14 +603,29 @@
             mostrarCategorias();
         }
 
-        function mostrarExito(esPedido) {
+        function mostrarAviso(mensaje) {
+            document.getElementById('texto-exito-titulo').innerText = "Aviso";
+            document.getElementById('texto-exito-desc').innerText = mensaje;
+            document.getElementById('div-ref-exito').classList.add('hidden');
+            document.querySelector('#modal-exito svg').outerHTML = `<svg class="h-10 w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`;
+            document.querySelector('#exito-icon-container').className = 'mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-6';
+            document.getElementById('modal-exito').classList.remove('hidden');
+        }
+
+        function mostrarExito(esPedido, ref) {
+            document.querySelector('#modal-exito svg').outerHTML = `<svg class="h-10 w-10 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>`;
+            document.querySelector('#exito-icon-container').className = 'mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-6';
+
             document.getElementById('modal-exito').classList.remove('hidden');
             if(esPedido) {
                 document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.";
+                document.getElementById('div-ref-exito').classList.remove('hidden');
+                document.getElementById('ref-exito').innerText = ref;
             } else {
                 document.getElementById('texto-exito-titulo').innerText = "¡Mensaje Enviado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.";
+                document.getElementById('div-ref-exito').classList.add('hidden');
             }
         }
 
@@ -639,27 +651,25 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, pdfBase64: "", emailCliente: "", nombreCliente: "" })
+                    body: JSON.stringify({ asunto: `Nueva solicitud web: ${tipo} - ${name}`, mensaje: mensajeHtml, htmlContent: "", emailCliente: "", nombreCliente: "" })
                 });
                 if (!response.ok) throw new Error("Fallo de comunicación con Google");
                 
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
                 form.reset();
-                mostrarExito(false);
+                mostrarExito(false, null);
             } catch (error) {
-                alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
+                mostrarAviso("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
                 btn.innerText = "Enviar Mensaje"; btn.disabled = false;
             }
         }
 
-        // GENERACIÓN DE PDF EXACTA A LA VERSIÓN ORIGINAL (Sin código colgante)
+        // EL PDF SE GENERA TOTALMENTE EN LOS SERVIDORES DE GOOGLE (Adiós fallos de iOS)
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
-            
-            // Efecto visual en el propio botón
             btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-2 inline text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
@@ -708,26 +718,15 @@
                 </div>
             `;
 
-            const opt = { 
-                margin: 0.2, 
-                filename: `Pedido_${referencia}.pdf`, 
-                image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2 }, 
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
-            };
-
             try {
-                // VERSIÓN ORIGINAL QUE SÍ FUNCIONABA EN TU MÓVIL (Con método 'datauristring')
-                const pdfDataUri = await html2pdf().set(opt).from(pedidoHTML).outputPdf('datauristring');
-                const pdfBase64 = pdfDataUri.split(',')[1];
-                
+                // Envia el texto HTML directamente al servidor de Google para que ÉL genere el PDF
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     body: JSON.stringify({
                         referencia: referencia, 
                         asunto: `Nuevo Pedido B2B: ${referencia}`, 
                         mensaje: emailText,
-                        pdfBase64: pdfBase64, 
+                        htmlContent: pedidoHTML, // Esto es lo que lee tu nuevo script de Google
                         emailCliente: document.getElementById('correo-cliente-checkout').value, 
                         nombreCliente: nombreEnvio
                     })
@@ -738,13 +737,13 @@
                 cerrarCheckout();
                 carrito = []; actualizarCarrito(); form.reset();
                 document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
-                mostrarExito(true);
+                mostrarExito(true, referencia);
 
             } catch (error) {
                 console.error(error);
-                alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
+                mostrarAviso("Hubo un problema al procesar el pedido mediante el servidor. Inténtalo de nuevo más tarde.");
             } finally {
-                btn.innerHTML = `<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>Confirmar Pedido Seguro`;
+                btn.innerHTML = `<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> Confirmar Pedido Seguro`;
                 btn.disabled = false;
             }
         }
