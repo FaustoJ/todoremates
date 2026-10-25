@@ -113,7 +113,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <!-- Imagen centrada sin pixelarse -->
                 <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
                     <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
@@ -214,6 +213,12 @@
                         <label class="text-sm font-bold text-gray-400 whitespace-nowrap" data-i18n="cantEst">Cantidad estimada:</label>
                         <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none text-center">
                     </div>
+                    
+                    <label class="flex items-start space-x-3 cursor-pointer mt-4">
+                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
+                        <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                    </label>
+
                     <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4"><span data-i18n="pide">Solicitar Presupuesto</span></button>
                 </form>
             </div>
@@ -237,6 +242,15 @@
             <p>&copy; 2026 Remates Panel Sandwich. <span data-i18n="derechos">Todos los derechos reservados.</span></p>
         </div>
     </footer>
+
+    <!-- Banner de Cookies -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-brand-darker border-t border-brand-accent p-4 z-[100] hidden flex-col sm:flex-row items-center justify-center gap-4 shadow-2xl">
+        <p class="text-gray-300 text-sm text-center sm:text-left max-w-4xl" data-i18n="cookieMsg">Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación.</p>
+        <div class="flex items-center gap-4 flex-shrink-0">
+            <a href="politica-cookies.html" class="text-brand-accent hover:text-white text-sm underline whitespace-nowrap" data-i18n="cookieInfo">Más información</a>
+            <button onclick="aceptarCookies()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded transition whitespace-nowrap" data-i18n="cookieAceptar">Aceptar</button>
+        </div>
+    </div>
 
     <!-- Modal Producto -->
     <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
@@ -293,7 +307,6 @@
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-brand-darker border-t border-gray-700">
-            <!-- CRO: Bloque de confianza en carrito corregido -->
             <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-6 flex items-start gap-3">
                 <svg class="w-6 h-6 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 <p class="text-xs text-gray-300 leading-relaxed" data-i18n="compraSegura">Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.</p>
@@ -343,6 +356,11 @@
                 </div>
                 
                 <div class="pt-4">
+                    <label class="flex items-start space-x-3 cursor-pointer mb-6">
+                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
+                        <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                    </label>
+
                     <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow flex justify-center items-center gap-2">
                         <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         <span data-i18n="conf">Confirmar Pedido Seguro</span>
@@ -368,7 +386,13 @@
                 <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tel">
                 <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
                 <textarea name="message" rows="4" placeholder="Tu consulta" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tuCons"></textarea>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico"><span data-i18n="envMen">Enviar Mensaje</span></button>
+                
+                <label class="flex items-start space-x-3 cursor-pointer mt-2">
+                    <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
+                    <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                </label>
+
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico mt-2"><span data-i18n="envMen">Enviar Mensaje</span></button>
             </form>
         </div>
     </div>
@@ -419,10 +443,13 @@
                 exitoTit: "¡Completado!", exitoDesc: "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.",
                 exitoDescCont: "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.", volverT: "Volver a la tienda",
                 
-                // CRO Texts
+                // CRO & Legal Texts
                 top1: "Envíos a toda España", top2: "Presupuestos en 24/48h", top3: "Fabricación a medida", 
                 ayudaWa: "¿Dudas? Habla con un experto", 
-                compraSegura: "Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL."
+                compraSegura: "Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.",
+                rgpd: 'He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a>',
+                cookieMsg: "Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación.",
+                cookieInfo: "Más información", cookieAceptar: "Aceptar"
             },
             en: {
                 inicio: "Home", cat: "Categories", cont: "Contact", pide: "Request Quote", buscar: "Search...",
@@ -449,10 +476,13 @@
                 exitoTit: "Completed!", exitoDesc: "We have sent the PDF summary of your order to your email and will review it shortly.",
                 exitoDescCont: "We have received your inquiry. We will contact you as soon as possible.", volverT: "Back to store",
                 
-                // CRO Texts
+                // CRO & Legal Texts
                 top1: "Shipping nationwide", top2: "Quotes in 24/48h", top3: "Custom manufacturing", 
                 ayudaWa: "Questions? Talk to an expert", 
                 compraSegura: "100% secure checkout. Your data is protected by SSL encryption.",
+                rgpd: 'I have read and accept the <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Privacy Policy</a>',
+                cookieMsg: "We use cookies to improve navigation and analyze traffic.",
+                cookieInfo: "More information", cookieAceptar: "Accept",
                 
                 // Productos
                 "Canal de desagüe": "Drainage channel",
@@ -484,7 +514,7 @@
                 med: "Finitions sur Mesure", descMed: "Pièces spéciales et sur mesure selon les exigences de votre projet.",
                 descMedLarga: "Décrivez la pièce dont vous avez besoin. Nous l'étudierons dans les plus brefs délais et vous contacterons pour vous proposer un devis et une solution sur mesure.",
                 comp: "Compatibilité garantie avec",
-                volver: "Retour", desde: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
+                volver: "Retour", depuis: "Dès", sinIva: "(HT)", verDet: "Voir Détails",
                 fab: "Fabricant", selFab: "Sélectionner le fabricant...", otros: "Autre (Préciser)",
                 esp: "Épaisseur", selEsp: "Sélectionner l'épaisseur...", cant: "Qté.", añadir: "Ajouter au panier",
                 tuPed: "Votre Commande", sub: "Sous-total", total: "Total", tramitar: "Passer la commande",
@@ -499,16 +529,19 @@
                 exitoTit: "Terminé !", exitoDesc: "Nous avons envoyé le résumé PDF de votre commande à votre adresse e-mail et nous l'examinerons sous peu.",
                 exitoDescCont: "Nous avons bien reçu votre demande. Nous vous contacterons dans les plus brefs délais.", volverT: "Retour à la boutique",
                 
-                // CRO Texts
+                // CRO & Legal Texts
                 top1: "Expédition dans tout le pays", top2: "Devis en 24/48h", top3: "Fabrication sur mesure", 
                 ayudaWa: "Des questions ? Parlez à un expert", 
                 compraSegura: "Paiement 100% sécurisé. Vos données sont protégées par cryptage SSL.",
+                rgpd: 'J\'ai lu et j\'accepte la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Politique de Confidentialité</a>',
+                cookieMsg: "Nous utilisons des cookies pour améliorer la navigation et analyser le trafic.",
+                cookieInfo: "Plus d'informations", cookieAceptar: "Accepter",
 
                 // Productos
                 "Canal de desagüe": "Canal de drainage",
                 "Canal de desagüe industrial.": "Canal de drainage industriel.",
                 "Cumbrera troquelada a dos aguas 5 grecas": "Faîtière découpée double pente 5 nervures",
-                "Cumbrera troquelada a dos aguas diseñada pour panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
+                "Cumbrera troquelada a dos aguas diseñada para panel 5 grecas.": "Faîtière découpée double pente conçue pour panneau à 5 nervures.",
                 "Remate frontal troquelado para panel 5 grecas": "Finition frontale découpée pour panneau 5 nervures",
                 "Remate frontal troquelado para panel industrial de 5 grecas.": "Finition frontale découpée pour panneau industriel à 5 nervures.",
                 "Remate lateral para cubiertas": "Finition latérale pour toitures",
@@ -563,15 +596,47 @@
             if (typeof productosDB !== 'undefined') {
                 const vistaProductos = document.getElementById('vista-productos');
                 if (!vistaProductos.classList.contains('hidden') && categoriaActual !== '') {
-                    cargarProductos(categoriaActual); 
+                    cargarProductos(categoriaActual, false); 
                 }
             }
             actualizarCarrito();
         }
 
-        // Cargar idiomas en el arranque para los placeholders
+        function aceptarCookies() {
+            localStorage.setItem('cookiesAceptadas', 'true');
+            document.getElementById('cookie-banner').classList.add('hidden');
+            document.getElementById('cookie-banner').classList.remove('flex');
+        }
+
+        // SEO: Gestión de URLs Nativas
+        function actualizarURL(param, value) {
+            const url = new URL(window.location);
+            if (value) { url.searchParams.set(param, value); } else { url.searchParams.delete(param); }
+            window.history.pushState({}, '', url);
+        }
+
+        window.addEventListener('popstate', () => { enrutarDesdeURL(false); });
+
+        function enrutarDesdeURL(push = true) {
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get('cat');
+            if (cat === 'amedida') {
+                mostrarAmedida(push);
+            } else if (cat === 'teja' || cat === 'industrial') {
+                cargarProductos(cat, push);
+            } else {
+                mostrarCategorias(push);
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             cambiarIdioma(currentLang);
+            if (!localStorage.getItem('cookiesAceptadas')) {
+                const banner = document.getElementById('cookie-banner');
+                banner.classList.remove('hidden');
+                banner.classList.add('flex');
+            }
+            enrutarDesdeURL(false);
         });
     </script>
 
@@ -594,20 +659,22 @@
             if (menu) { menu.style.display = 'none'; setTimeout(() => { menu.style.display = ''; }, 100); }
         }
 
-        function mostrarCategorias() {
+        function mostrarCategorias(push = true) {
             forzarCierreMenu();
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.add('hidden');
             document.getElementById('vista-categorias').classList.remove('hidden');
             document.getElementById('buscador-input').value = '';
+            if (push) actualizarURL('cat', '');
         }
 
-        function mostrarAmedida() {
+        function mostrarAmedida(push = true) {
             forzarCierreMenu();
             document.getElementById('vista-categorias').classList.add('hidden');
             document.getElementById('vista-productos').classList.add('hidden');
             document.getElementById('vista-amedida').classList.remove('hidden');
             document.getElementById('buscador-input').value = '';
+            if (push) actualizarURL('cat', 'amedida');
         }
         
         function abrirModalContacto() {
@@ -634,7 +701,7 @@
             dibujarGrid(resultados, grid);
         }
 
-        function cargarProductos(categoria) {
+        function cargarProductos(categoria, push = true) {
             forzarCierreMenu();
             if (typeof productosDB === 'undefined') return;
             categoriaActual = categoria;
@@ -646,6 +713,7 @@
             
             const grid = document.getElementById('grid-productos');
             dibujarGrid(productosDB.filter(p => p.cat === categoria), grid);
+            if (push) actualizarURL('cat', categoria);
         }
 
         function dibujarGrid(arrayProductos, gridElement) {
