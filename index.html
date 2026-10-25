@@ -65,9 +65,9 @@
             <nav class="flex items-center gap-3 md:gap-6">
                 <!-- BANDERAS EN CABECERA (SOLO PC) -->
                 <div class="hidden md:flex items-center gap-3 border-r border-gray-200 pr-4 md:pr-6">
-                    <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow-sm ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow-sm opacity-50 hover:opacity-100"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('es')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('en')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                    <button onclick="cambiarIdioma('fr')" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
                 </div>
 
                 <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
@@ -106,7 +106,6 @@
     <main class="flex-grow w-full max-w-6xl mx-auto p-4 md:p-8 mt-4">
         
         <div id="vista-categorias" class="block">
-            <!-- CRO: Título y descripción centrados con copy persuasivo -->
             <div class="mb-12 flex flex-col items-center">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
                 <p class="text-gray-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
@@ -229,9 +228,9 @@
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
             <!-- BANDERAS EN PIE DE PÁGINA (SOLO MÓVIL) -->
             <div class="flex md:hidden items-center justify-center gap-6 mb-6">
-                <button onclick="cambiarIdioma('es')" class="flag-btn flag-es hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none ring-2 ring-brand-accent opacity-100"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('en')" class="flag-btn flag-en hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover"></button>
-                <button onclick="cambiarIdioma('fr')" class="flag-btn flag-fr hover:scale-110 transition drop-shadow opacity-50 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('es')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('en')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover"></button>
+                <button onclick="cambiarIdioma('fr')" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-7 h-7 rounded-full object-cover"></button>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
@@ -579,29 +578,16 @@
         function cambiarIdioma(lang) {
             currentLang = lang;
             
-            // 1. Textos estáticos
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang] && i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
 
-            // 2. Placeholders
             document.querySelectorAll('[data-i18n-ph]').forEach(el => {
                 const key = el.getAttribute('data-i18n-ph');
                 if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
             });
 
-            // 3. Estilo Banderas
-            document.querySelectorAll('.flag-btn').forEach(btn => {
-                btn.classList.remove('ring-2', 'ring-brand-accent', 'opacity-100');
-                btn.classList.add('opacity-50');
-            });
-            document.querySelectorAll('.flag-' + lang).forEach(btn => {
-                btn.classList.remove('opacity-50');
-                btn.classList.add('ring-2', 'ring-brand-accent', 'opacity-100');
-            });
-
-            // 4. Refrescar Productos Dinámicos
             if (typeof productosDB !== 'undefined') {
                 const vistaProductos = document.getElementById('vista-productos');
                 if (!vistaProductos.classList.contains('hidden') && categoriaActual !== '') {
@@ -617,7 +603,6 @@
             document.getElementById('cookie-banner').classList.remove('flex');
         }
 
-        // SEO: Gestión de URLs Nativas
         function actualizarURL(param, value) {
             const url = new URL(window.location);
             if (value) { url.searchParams.set(param, value); } else { url.searchParams.delete(param); }
