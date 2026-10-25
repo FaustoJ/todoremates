@@ -616,7 +616,7 @@
                 banner.classList.add('flex');
             }
             
-            Papa.parse("./productos.csv", {
+            Papa.parse("./productos.csv?v=" + new Date().getTime(), {
                 download: true,
                 header: true,
                 delimiter: ";",
