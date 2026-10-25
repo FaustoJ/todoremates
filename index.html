@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fabricación y venta de remates, canales y accesorios a medida para cubiertas y fachadas de panel sándwich. Soluciones compatibles con los principales fabricantes.">
-    
-    <!-- SEO -->
+    <!-- SEO: Etiquetas Open Graph -->
     <meta property="og:title" content="Remates Panel Sandwich - Especialistas">
     <meta property="og:description" content="Fabricación y venta de remates y accesorios a medida para cubiertas y fachadas. Envío de presupuestos rápidos.">
     <meta property="og:image" content="https://faustoj.github.io/todoremates/Imagenes/logo-remates-panel-sandwich.webp">
@@ -30,7 +29,7 @@
         ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
         
-        /* CSS EXTREMO PARA MATAR LA BARRA DE GOOGLE TRANSLATE */
+        /* ELIMINAR CUALQUIER RASTRO VISUAL DE GOOGLE TRANSLATE */
         body { top: 0px !important; position: static !important; min-height: 100vh; }
         .goog-te-banner-frame, .skiptranslate > iframe { display: none !important; visibility: hidden !important; height: 0 !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
@@ -43,7 +42,7 @@
     <!-- Motor de traducción de Google (Oculto) -->
     <div id="google_translate_element" style="display: none;"></div>
 
-    <!-- PANTALLA DE CARGA (Para obligar a iOS a procesar el PDF) -->
+    <!-- PANTALLA DE CARGA -->
     <div id="pantalla-carga" class="fixed inset-0 bg-brand-darker bg-opacity-95 z-[100] hidden flex-col items-center justify-center">
         <svg class="animate-spin h-14 w-14 text-brand-accent mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         <p class="text-white font-bold text-xl md:text-2xl text-center px-4">Procesando pedido de forma segura...<br><span class="text-sm text-gray-400 font-normal">Por favor, no cierres esta ventana</span></p>
@@ -141,6 +140,7 @@
                 </div>
             </div>
 
+            <!-- CRO: Logotipos de confianza -->
             <div class="pt-8 border-t border-gray-700 mt-12">
                 <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
@@ -205,7 +205,7 @@
 
     <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
         <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
-            <!-- BANDERAS DE IDIOMA EN EL FOOTER (Elegantes y funcionales) -->
+            <!-- BANDERAS DE IDIOMA EN EL FOOTER -->
             <div class="flex items-center justify-center gap-6 mb-8 pt-4">
                 <button onclick="cambiarIdioma('es')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover border-2 border-transparent hover:border-brand-accent"></button>
                 <button onclick="cambiarIdioma('en')" class="hover:scale-110 transition drop-shadow opacity-60 hover:opacity-100 outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover border-2 border-transparent hover:border-brand-accent"></button>
@@ -324,6 +324,11 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
+                    <!-- CRO: GARANTÍAS DE CONFIANZA RESTAURADAS -->
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
+                    </div>
                 </div>
             </form>
         </div>
@@ -351,6 +356,10 @@
             </div>
             <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
             <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
+            <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
+                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
+                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
+            </div>
             <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition">Volver a la tienda</button>
         </div>
     </div>
@@ -363,7 +372,6 @@
             new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,fr,es'}, 'google_translate_element');
         }
 
-        // Nuevo sistema de cambio de idioma nativo (Sin recargar y sin fallos)
         function cambiarIdioma(lang) {
             const selectField = document.querySelector(".goog-te-combo");
             if (selectField) {
@@ -380,7 +388,7 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        // ESTA FUNCIÓN ES CLAVE PARA EL TRADUCTOR: Dibuja TODOS los productos una sola vez al cargar
+        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTORES
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof productosDB !== 'undefined') {
                 const grid = document.getElementById('grid-productos');
@@ -438,7 +446,6 @@
             document.getElementById('modal-contacto').classList.remove('hidden');
         }
 
-        // Ahora solo quitamos o ponemos el class "hidden", sin borrar el HTML (Para no bloquear el traductor)
         function buscarProductos(event) {
             const termino = limpiarTexto(event.target.value.toLowerCase());
             if (termino.length === 0) { mostrarCategorias(); return; }
@@ -507,10 +514,12 @@
             document.getElementById('modal-cantidad').value = '1';
             
             const espSelect = document.getElementById('modal-espesor');
-            espSelect.innerHTML = '<option value="">Seleccione espesor...</option>';
+            let espHtml = '<option value="">Seleccione espesor...</option>';
             for (const [espesor, precio] of Object.entries(productoSeleccionado.precios)) {
-                espSelect.innerHTML += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
+                espHtml += `<option value="${espesor}">${espesor.replace('mm', ' mm')} - ${precio.toFixed(2)}€/ud</option>`;
             }
+            espSelect.innerHTML = espHtml;
+
             actualizarPrecioModal();
             document.getElementById('modal-producto').classList.remove('hidden');
             
@@ -608,14 +617,17 @@
             mostrarCategorias();
         }
 
-        function mostrarExito(esPedido) {
+        function mostrarExito(esPedido, ref) {
             document.getElementById('modal-exito').classList.remove('hidden');
             if(esPedido) {
                 document.getElementById('texto-exito-titulo').innerText = "¡Pedido Completado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos enviado el resumen de tu pedido en PDF a tu correo y lo revisaremos en breve.";
+                document.getElementById('div-ref-exito').classList.remove('hidden');
+                document.getElementById('ref-exito').innerText = ref;
             } else {
                 document.getElementById('texto-exito-titulo').innerText = "¡Mensaje Enviado!";
                 document.getElementById('texto-exito-desc').innerText = "Hemos recibido tu consulta. Nos pondremos en contacto contigo lo antes posible.";
+                document.getElementById('div-ref-exito').classList.add('hidden');
             }
         }
 
@@ -648,7 +660,7 @@
                 document.getElementById('modal-contacto').classList.add('hidden');
                 document.getElementById('vista-amedida').classList.add('hidden');
                 form.reset();
-                mostrarExito(false);
+                mostrarExito(false, null);
             } catch (error) {
                 alert("Hubo un problema al enviar el mensaje. Inténtalo de nuevo más tarde.");
             } finally {
@@ -659,8 +671,10 @@
         async function confirmarPedido(e) {
             e.preventDefault();
             
-            // PANTALLA DE CARGA: Fuerza a iOS a parar y procesar
+            const btn = document.getElementById('btn-submit-pago');
             const pantallaCarga = document.getElementById('pantalla-carga');
+            
+            // Mostrar pantalla de carga
             pantallaCarga.classList.remove('hidden');
             pantallaCarga.classList.add('flex');
 
@@ -709,63 +723,58 @@
                 </div>
             `;
 
-            // CREAR CONTENEDOR FÍSICO POR DEBAJO DE LA PANTALLA DE CARGA
+            // MÉTODO ORIGINAL EXACTO QUE FUNCIONABA
+            const opt = { 
+                margin: 0.2, 
+                filename: `Pedido_${referencia}.pdf`, 
+                image: { type: 'jpeg', quality: 0.98 }, 
+                html2canvas: { scale: 2 }, 
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+            };
+
+            // Contenedor físico para forzar render en iOS
             const contenedorPDF = document.createElement('div');
             contenedorPDF.innerHTML = pedidoHTML;
-            contenedorPDF.style.position = 'fixed';
+            contenedorPDF.style.position = 'absolute';
+            contenedorPDF.style.left = '-10000px';
             contenedorPDF.style.top = '0';
-            contenedorPDF.style.left = '0';
-            contenedorPDF.style.width = '800px';
-            contenedorPDF.style.backgroundColor = '#ffffff';
-            contenedorPDF.style.zIndex = '90'; // Por debajo del 100 de la pantalla de carga, pero encima del resto
             document.body.appendChild(contenedorPDF);
 
-            // DAMOS 1 SEGUNDO DE MARGEN PARA QUE iPHONE CONSTRUYA LA PÁGINA ANTES DE LA CAPTURA
-            setTimeout(() => {
-                const opt = { 
-                    margin: 0.2, 
-                    filename: `Pedido_${referencia}.pdf`, 
-                    image: { type: 'jpeg', quality: 0.98 }, 
-                    html2canvas: { scale: 2, useCORS: true }, 
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
-                };
+            // Pausa obligatoria para evitar el PDF en blanco
+            await new Promise(r => setTimeout(r, 400));
 
-                html2pdf().set(opt).from(contenedorPDF).outputPdf('datauristring').then(async function(pdfDataUri) {
-                    const pdfBase64 = pdfDataUri.split(',')[1];
-                    
-                    try {
-                        const response = await fetch(GOOGLE_SCRIPT_URL, {
-                            method: "POST",
-                            body: JSON.stringify({
-                                referencia: referencia, 
-                                asunto: `Nuevo Pedido B2B: ${referencia}`, 
-                                mensaje: emailText,
-                                pdfBase64: pdfBase64, 
-                                emailCliente: document.getElementById('correo-cliente-checkout').value, 
-                                nombreCliente: nombreEnvio
-                            })
-                        });
-
-                        if (!response.ok) throw new Error("Fallo en Google Script");
-
-                        document.body.removeChild(contenedorPDF);
-                        pantallaCarga.classList.remove('flex');
-                        pantallaCarga.classList.add('hidden');
-
-                        cerrarCheckout();
-                        carrito = []; actualizarCarrito(); form.reset();
-                        document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
-                        mostrarExito(true);
-
-                    } catch (error) {
-                        console.error(error);
-                        alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
-                        document.body.removeChild(contenedorPDF);
-                        pantallaCarga.classList.remove('flex');
-                        pantallaCarga.classList.add('hidden');
-                    }
+            try {
+                // Sacar el base64 sin descargar nada
+                const pdfBase64 = await html2pdf().set(opt).from(contenedorPDF).outputPdf('base64');
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        referencia: referencia, 
+                        asunto: `Nuevo Pedido B2B: ${referencia}`, 
+                        mensaje: emailText,
+                        pdfBase64: pdfBase64, 
+                        emailCliente: document.getElementById('correo-cliente-checkout').value, 
+                        nombreCliente: nombreEnvio
+                    })
                 });
-            }, 1000);
+
+                if (!response.ok) throw new Error("Fallo en Google Script");
+
+                cerrarCheckout();
+                carrito = []; actualizarCarrito(); form.reset();
+                document.getElementById('facturacion-igual').checked = true; toggleFacturacion();
+                mostrarExito(true, referencia);
+
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
+            } finally {
+                // IMPORTANTE: Esto asegura que la pantalla de carga desaparezca
+                if(document.body.contains(contenedorPDF)) document.body.removeChild(contenedorPDF);
+                pantallaCarga.classList.remove('flex');
+                pantallaCarga.classList.add('hidden');
+            }
         }
     </script>
 </body>
