@@ -153,7 +153,6 @@
                 <button onclick="mostrarCategorias()" class="bg-brand-darker hover:bg-gray-800 text-white px-4 py-2 rounded transition border border-gray-600">← Volver</button>
                 <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
             </div>
-            
             <!-- EL DOM DE LOS PRODUCTOS SE CARGARÁ AQUÍ UNA SOLA VEZ -->
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
@@ -315,10 +314,10 @@
                 
                 <div class="pt-4">
                     <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow flex justify-center items-center gap-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Confirmar Pedido Seguro
                     </button>
-                    <!-- CRO: ICONOS DE CONFIANZA RESTAURADOS -->
+                    <!-- CRO: ICONOS DE CONFIANZA -->
                     <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Presupuesto sin compromiso</span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Gestión rápida 24/48h</span>
@@ -378,7 +377,7 @@
         let carrito = [];
         let productoSeleccionado = null;
 
-        // INICIALIZACIÓN DE PRODUCTOS (Se cargan invisibles para que el traductor no falle)
+        // INICIALIZACIÓN DE PRODUCTOS A PRUEBA DE TRADUCTOR
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof productosDB !== 'undefined') {
                 const grid = document.getElementById('grid-productos');
@@ -655,13 +654,13 @@
             }
         }
 
-        // GENERACIÓN DE PDF EXACTA A LA VERSIÓN ORIGINAL (Limpiada de parches que lo rompían)
+        // GENERACIÓN DE PDF EXACTA A LA VERSIÓN ORIGINAL (Sin código colgante)
         async function confirmarPedido(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-pago');
             
-            // Efecto de carga en el botón en lugar de bloquear la pantalla
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-gray-900 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
+            // Efecto visual en el propio botón
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-2 inline text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
             const form = e.target;
@@ -718,9 +717,8 @@
             };
 
             try {
-                // EXTRACCIÓN DIRECTA DESDE LA CADENA DE TEXTO (Lo que funcionaba sin fallos en iOS)
-                const worker = html2pdf().set(opt).from(pedidoHTML);
-                const pdfDataUri = await worker.outputPdf('datauristring');
+                // VERSIÓN ORIGINAL QUE SÍ FUNCIONABA EN TU MÓVIL (Con método 'datauristring')
+                const pdfDataUri = await html2pdf().set(opt).from(pedidoHTML).outputPdf('datauristring');
                 const pdfBase64 = pdfDataUri.split(',')[1];
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -746,10 +744,7 @@
                 console.error(error);
                 alert("Hubo un problema al procesar el pedido. Inténtalo de nuevo más tarde.");
             } finally {
-                btn.innerHTML = `
-                    <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    Confirmar Pedido Seguro
-                `;
+                btn.innerHTML = `<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>Confirmar Pedido Seguro`;
                 btn.disabled = false;
             }
         }
