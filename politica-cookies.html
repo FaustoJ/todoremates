@@ -5,70 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Política de Cookies - Remates Panel Sandwich</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
-                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+                extend: { 
+                    colors: { 
+                        'brand-dark': '#1E293B',    /* Slate 800 */
+                        'brand-darker': '#0F172A',  /* Slate 900 */
+                        'brand-accent': '#FF6B00',  /* Naranja industrial */
+                        'brand-accent-hover': '#CC5500' 
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
             }
         }
     </script>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col min-h-screen">
 
-    <header class="bg-white sticky top-0 z-40 shadow">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center">
-            <a href="index.html" class="flex items-center gap-2 md:gap-3 cursor-pointer">
-                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-14 object-contain shrink-0">
-                <div class="flex flex-col shrink-0">
-                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
-                    <span class="text-xs md:text-sm text-gray-500 font-medium hidden sm:block">Especialistas en remates y accesorios</span>
+    <!-- Cabecera -->
+    <header class="bg-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-12 object-contain">
+                <div class="flex flex-col">
+                    <span class="text-lg md:text-2xl font-extrabold text-slate-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></span>
                 </div>
             </a>
+            <a href="index.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-2 px-4 rounded-full transition text-sm">Volver a la tienda</a>
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 mt-8 mb-12 bg-brand-darker rounded-2xl shadow-xl border border-gray-700">
-        <!-- NUEVO BOTÓN VOLVER -->
-        <div class="mb-8">
-            <a href="index.html" class="inline-flex bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition items-center gap-2 shadow-sm">
-                <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                    <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </div>
-                <span>Volver</span>
-            </a>
-        </div>
+    <!-- Contenido -->
+    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 my-6">
+        <div class="bg-brand-darker p-8 md:p-10 rounded-2xl border border-slate-700 shadow-xl">
+            <h1 class="text-3xl font-extrabold text-white mb-2 border-b-4 border-brand-accent pb-4 inline-block">Política de Cookies</h1>
+            <p class="text-slate-400 text-sm mb-8 mt-2">Última actualización: Octubre de 2026</p>
 
-        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-accent mb-8">Política de Cookies</h1>
-        
-        <div class="space-y-6 text-gray-300 leading-relaxed">
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">1. ¿Qué son las cookies?</h2>
-                <p>Una cookie es un fichero que se descarga en su ordenador al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información que contengan y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario.</p>
-            </section>
+            <div class="space-y-6 text-slate-300 leading-relaxed font-medium">
+                <h2 class="text-xl font-bold text-white mt-8">1. ¿Qué son las cookies?</h2>
+                <p>Las cookies son pequeños archivos de texto que se descargan e instalan en el navegador de su dispositivo (ordenador, smartphone, tablet) al acceder y navegar por determinadas páginas web. Permiten a una web, entre otras cosas, recordar las elecciones de idioma de un usuario, almacenar información del estado de la cesta de la compra o analizar hábitos generales para mejorar los tiempos de carga y la experiencia del sitio.</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">2. Tipos de cookies que utiliza esta web</h2>
-                <ul class="list-disc pl-6 space-y-2 mt-2">
-                    <li><strong>Cookies técnicas:</strong> Son aquellas necesarias para la navegación y el buen funcionamiento de la página web. Permiten, por ejemplo, el proceso de compra de un pedido o compartir contenidos a través de redes sociales.</li>
-                    <li><strong>Cookies de personalización (Idioma):</strong> Son aquellas que permiten recordar información para que el usuario acceda al servicio con determinadas características (por ejemplo, el idioma seleccionado en el traductor).</li>
+                <h2 class="text-xl font-bold text-white mt-8">2. ¿Qué tipos de cookies utiliza este sitio web?</h2>
+                <p>En Remates Panel Sandwich solo empleamos aquellas cookies necesarias para ofrecer el servicio idóneo en cada visita, las cuales se pueden clasificar en las siguientes categorías:</p>
+                <ul class="list-disc list-inside space-y-4 pl-4">
+                    <li><strong>Cookies Técnicas y Obligatorias:</strong> Son fundamentales para que pueda navegar por la web con normalidad. Estas cookies permiten, por ejemplo, mantener los productos que añade dentro de su "Carrito de la compra" a medida que cambia de página, gestionar los formularios de contacto o pedidos a medida, o recordar si ya aceptó el banner inicial para no volver a mostrárselo de manera insistente. No guardan ningún tipo de información confidencial.</li>
+                    <li><strong>Cookies de Personalización o Preferencias:</strong> Se encargan de recordar sus preferencias de navegación anteriores, como por ejemplo el idioma preferido en el que visualiza la página (español, inglés, francés), asegurando que no tenga que reconfigurarlo cada vez que accede al catálogo de remates.</li>
                 </ul>
-            </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">3. Revocación y eliminación de cookies</h2>
-                <p>Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en tu ordenador. En la función 'Ayuda' de la mayoría de los navegadores se indica cómo configurar el navegador para que no acepte cookies, para que le notifique cada vez que reciba una nueva cookie, así como para desactivar todas las cookies por completo.</p>
-            </section>
+                <h2 class="text-xl font-bold text-white mt-8">3. Cookies de Terceros y Analíticas</h2>
+                <p>No utilizamos cookies publicitarias complejas ni de seguimiento abusivo. En el caso de que usemos servicios de terceros, como scripts de mapas o contadores y análisis estadístico anónimo para ver qué remates se consultan más, las cookies estarán sujetas a las correspondientes políticas de privacidad de los respectivos proveedores y se tratarán siempre de manera disociada y respetuosa.</p>
+
+                <h2 class="text-xl font-bold text-white mt-8">4. ¿Cómo puede desactivar o eliminar las cookies?</h2>
+                <p>Usted tiene la libertad de permitir, bloquear o eliminar todas las cookies instaladas en su dispositivo mediante la configuración del navegador de Internet que esté utilizando en este momento. Sin embargo, recuerde que si bloquea o elimina la totalidad de las cookies, es probable que algunas funciones importantes de esta tienda (como conservar los artículos del carrito o enviar solicitudes de presupuestos a medida) puedan dejar de funcionar de forma correcta.</p>
+                <p class="mt-4">Puede acceder a la configuración de cookies de los navegadores de uso más común en los siguientes enlaces:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" class="text-brand-accent underline">Google Chrome</a></li>
+                    <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" class="text-brand-accent underline">Mozilla Firefox</a></li>
+                    <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" class="text-brand-accent underline">Apple Safari</a></li>
+                    <li><a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-y-administrar-cookies-168ded11-0c7c-e4b1-c23f-103010d6de47" target="_blank" class="text-brand-accent underline">Microsoft Edge / Internet Explorer</a></li>
+                </ul>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-brand-darker border-t border-gray-700 py-8 text-center text-sm text-gray-400 mt-auto">
-        <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
-            <a href="aviso-legal.html" class="hover:text-brand-accent transition">Aviso Legal</a>
-            <a href="politica-privacidad.html" class="hover:text-brand-accent transition">Política de Privacidad</a>
-            <a href="politica-cookies.html" class="hover:text-brand-accent transition text-brand-accent">Política de Cookies</a>
+    <!-- Pie de página -->
+    <footer class="bg-brand-darker border-t border-slate-700 py-6 text-center text-sm text-slate-400 font-medium">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
         </div>
-        <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
     </footer>
+
 </body>
 </html>

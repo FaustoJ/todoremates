@@ -5,67 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Política de Privacidad - Remates Panel Sandwich</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
-                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+                extend: { 
+                    colors: { 
+                        'brand-dark': '#1E293B',    /* Slate 800 */
+                        'brand-darker': '#0F172A',  /* Slate 900 */
+                        'brand-accent': '#FF6B00',  /* Naranja industrial */
+                        'brand-accent-hover': '#CC5500' 
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
             }
         }
     </script>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col min-h-screen">
 
-    <header class="bg-white sticky top-0 z-40 shadow">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center">
-            <a href="index.html" class="flex items-center gap-2 md:gap-3 cursor-pointer">
-                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-14 object-contain shrink-0">
-                <div class="flex flex-col shrink-0">
-                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
-                    <span class="text-xs md:text-sm text-gray-500 font-medium hidden sm:block">Especialistas en remates y accesorios</span>
+    <!-- Cabecera -->
+    <header class="bg-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-12 object-contain">
+                <div class="flex flex-col">
+                    <span class="text-lg md:text-2xl font-extrabold text-slate-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></span>
                 </div>
             </a>
+            <a href="index.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-2 px-4 rounded-full transition text-sm">Volver a la tienda</a>
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 mt-8 mb-12 bg-brand-darker rounded-2xl shadow-xl border border-gray-700">
-        <!-- NUEVO BOTÓN VOLVER -->
-        <div class="mb-8">
-            <a href="index.html" class="inline-flex bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition items-center gap-2 shadow-sm">
-                <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                    <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </div>
-                <span>Volver</span>
-            </a>
-        </div>
+    <!-- Contenido -->
+    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 my-6">
+        <div class="bg-brand-darker p-8 md:p-10 rounded-2xl border border-slate-700 shadow-xl">
+            <h1 class="text-3xl font-extrabold text-white mb-2 border-b-4 border-brand-accent pb-4 inline-block">Política de Privacidad</h1>
+            <p class="text-slate-400 text-sm mb-8 mt-2">Última actualización: Octubre de 2026</p>
 
-        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-accent mb-8">Política de Privacidad</h1>
-        
-        <div class="space-y-6 text-gray-300 leading-relaxed">
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">1. Protección de Datos</h2>
-                <p>La Empresa cumple con las directrices de la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales, y el Reglamento (UE) 2016/679 del Parlamento Europeo, velando por garantizar un correcto uso y tratamiento de los datos personales del usuario.</p>
-            </section>
+            <div class="space-y-6 text-slate-300 leading-relaxed font-medium">
+                <h2 class="text-xl font-bold text-white mt-8">1. Compromiso de Privacidad</h2>
+                <p>En Remates Panel Sandwich nos tomamos muy en serio la seguridad y el tratamiento confidencial de sus datos de carácter personal. Por ello, adaptamos todos nuestros procesos internos a las exigencias del Reglamento General de Protección de Datos (RGPD) (UE) 2016/679 y a la Ley Orgánica 3/2018 (LOPDGDD).</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">2. Recogida de Datos</h2>
-                <p>Al rellenar formularios de contacto o tramitar pedidos, se solicitan datos de carácter personal como: nombre, apellidos, dirección, correo electrónico y número de teléfono. Estos datos se utilizan exclusivamente para procesar su solicitud, enviar presupuestos y gestionar los pedidos realizados.</p>
-            </section>
+                <h2 class="text-xl font-bold text-white mt-8">2. ¿Qué datos recopilamos y para qué?</h2>
+                <p>Únicamente solicitamos los datos estrictamente necesarios para poder gestionar los presupuestos y tramitar los pedidos de fabricación de remates a medida o industriales que nos solicita a través de los formularios o por contacto directo:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Datos de contacto e identificación:</strong> Nombre, apellidos, teléfono, correo electrónico y DNI/CIF (este último para la posterior facturación o formalización de compra).</li>
+                    <li><strong>Datos de localización:</strong> Dirección completa de entrega, localidad, provincia y código postal para el correcto envío y distribución logística de las piezas solicitadas.</li>
+                    <li><strong>Datos del proyecto:</strong> Cantidad de remates, planos, desarrollos o descripción técnica del pedido a medida.</li>
+                </ul>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">3. Derechos de los Usuarios</h2>
-                <p>En cualquier momento, el usuario puede ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) dirigiendo una solicitud a través del correo electrónico proporcionado en la página de inicio, aportando copia de su DNI o documento equivalente.</p>
-            </section>
+                <h2 class="text-xl font-bold text-white mt-8">3. Base Legal para el Tratamiento</h2>
+                <p>Tratamos sus datos bajo las siguientes condiciones y legitimaciones jurídicas:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Consentimiento:</strong> Al enviarnos voluntariamente el formulario de contacto o presupuesto de remates a medida, nos da permiso explícito para tratar su solicitud.</li>
+                    <li><strong>Relación Contractual / Precontractual:</strong> Al realizar o tramitar un pedido o presupuesto de remates, el uso de sus datos personales e identificativos es imprescindible para enviarle el presupuesto formal, fabricar las piezas solicitadas y realizar la entrega en obra o almacén.</li>
+                    <li><strong>Obligaciones Legales:</strong> Emisión de facturas fiscales, contabilidad interna o declaraciones ante Hacienda.</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-white mt-8">4. Conservación de Datos</h2>
+                <p>Los datos facilitados para solicitar información o presupuestos se conservarán durante el tiempo necesario para resolver la consulta. En el caso de pedidos o facturas formalizadas, se conservarán bajo las obligaciones mercantiles e impositivas legales aplicables en España (habitualmente un mínimo de 5 o 6 años).</p>
+
+                <h2 class="text-xl font-bold text-white mt-8">5. Destinatarios y Terceros</h2>
+                <p>No vendemos ni alquilamos en ningún caso sus datos a terceros. Para el correcto desempeño de nuestros servicios, únicamente comunicamos los datos estrictamente necesarios a:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>Empresas de transportes o logística autorizadas, con la única finalidad de entregar las piezas de remate fabricadas en el lugar de envío indicado por usted.</li>
+                    <li>Asesoría contable, fiscal o plataformas de facturación interna obligadas por ley.</li>
+                    <li>Nuestras herramientas de envío automatizado, bajo acuerdos que aseguran el estricto cumplimiento del RGPD (por ejemplo, los sistemas de gestión interna de solicitudes).</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-white mt-8">6. Sus Derechos</h2>
+                <p>Usted, como titular de los datos, tiene pleno derecho a controlar su información personal de forma gratuita. Puede ejercitar en cualquier momento sus derechos de:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Acceso:</strong> Saber qué datos tenemos suyos y cómo los estamos tratando.</li>
+                    <li><strong>Rectificación:</strong> Solicitar la corrección de errores en su nombre, dirección o datos de contacto.</li>
+                    <li><strong>Supresión ("olvido"):</strong> Solicitar el borrado de sus datos cuando ya no sean necesarios para la relación comercial (y no existan impedimentos legales).</li>
+                    <li><strong>Oposición y Limitación:</strong> Oponerse a tratamientos concretos de su información.</li>
+                </ul>
+                <p class="mt-4">Para ejercer cualquiera de estos derechos, basta con que nos envíe un correo electrónico a nuestro buzón de atención o mediante un mensaje en las vías de contacto telefónico especificadas, aportando una copia de su documento de identidad para verificación de titularidad.</p>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-brand-darker border-t border-gray-700 py-8 text-center text-sm text-gray-400 mt-auto">
-        <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
-            <a href="aviso-legal.html" class="hover:text-brand-accent transition">Aviso Legal</a>
-            <a href="politica-privacidad.html" class="hover:text-brand-accent transition text-brand-accent">Política de Privacidad</a>
-            <a href="politica-cookies.html" class="hover:text-brand-accent transition">Política de Cookies</a>
+    <!-- Pie de página -->
+    <footer class="bg-brand-darker border-t border-slate-700 py-6 text-center text-sm text-slate-400 font-medium">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
         </div>
-        <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
     </footer>
+
 </body>
 </html>

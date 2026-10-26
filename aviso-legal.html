@@ -5,72 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aviso Legal - Remates Panel Sandwich</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
-                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+                extend: { 
+                    colors: { 
+                        'brand-dark': '#1E293B',    /* Slate 800 */
+                        'brand-darker': '#0F172A',  /* Slate 900 */
+                        'brand-accent': '#FF6B00',  /* Naranja industrial */
+                        'brand-accent-hover': '#CC5500' 
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
             }
         }
     </script>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col min-h-screen">
 
-    <header class="bg-white sticky top-0 z-40 shadow">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center">
-            <a href="index.html" class="flex items-center gap-2 md:gap-3 cursor-pointer">
-                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-14 object-contain shrink-0">
-                <div class="flex flex-col shrink-0">
-                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
-                    <span class="text-xs md:text-sm text-gray-500 font-medium hidden sm:block">Especialistas en remates y accesorios</span>
+    <!-- Cabecera -->
+    <header class="bg-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo" class="h-10 md:h-12 object-contain">
+                <div class="flex flex-col">
+                    <span class="text-lg md:text-2xl font-extrabold text-slate-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></span>
                 </div>
             </a>
+            <a href="index.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-2 px-4 rounded-full transition text-sm">Volver a la tienda</a>
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 mt-8 mb-12 bg-brand-darker rounded-2xl shadow-xl border border-gray-700">
-        <!-- NUEVO BOTÓN VOLVER -->
-        <div class="mb-8">
-            <a href="index.html" class="inline-flex bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition items-center gap-2 shadow-sm">
-                <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
-                    <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                </div>
-                <span>Volver</span>
-            </a>
-        </div>
+    <!-- Contenido -->
+    <main class="flex-grow w-full max-w-4xl mx-auto p-6 md:p-12 my-6">
+        <div class="bg-brand-darker p-8 md:p-10 rounded-2xl border border-slate-700 shadow-xl">
+            <h1 class="text-3xl font-extrabold text-white mb-2 border-b-4 border-brand-accent pb-4 inline-block">Aviso Legal</h1>
+            <p class="text-slate-400 text-sm mb-8 mt-2">Última actualización: Octubre de 2026</p>
 
-        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-accent mb-8">Aviso Legal</h1>
-        
-        <div class="space-y-6 text-gray-300 leading-relaxed">
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">1. Datos Identificativos</h2>
-                <p>En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es Remates Panel Sandwich (en adelante, la Empresa), con correo electrónico de contacto: contacto@rematespanelsandwich.com.</p>
-            </section>
+            <div class="space-y-6 text-slate-300 leading-relaxed font-medium">
+                <h2 class="text-xl font-bold text-white mt-8">1. Datos Identificativos</h2>
+                <p>En cumplimiento de la obligación de información general contenida en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico, se hace constar que el titular de esta página web es "Remates Panel Sandwich", con domicilio de contacto para cuestiones comerciales en España y teléfono de atención +34 691 842 833, así como soporte de correo electrónico corporativo.</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">2. Usuarios</h2>
-                <p>El acceso y/o uso de este portal de la Empresa atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas.</p>
-            </section>
+                <h2 class="text-xl font-bold text-white mt-8">2. Condiciones Generales de Uso</h2>
+                <p>El acceso y/o uso de este sitio web le atribuye la condición de usuario, el cual acepta de manera plena, desde dicho acceso y/o uso, las presentes condiciones generales de uso aquí reflejadas. Estas se aplicarán con independencia de las condiciones generales de contratación que, en su caso, resulten de obligado cumplimiento en el proceso de solicitud de presupuestos y pedidos.</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">3. Uso del Portal</h2>
-                <p>rematespanelsandwich.com proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a la Empresa o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal.</p>
-            </section>
-            
-            <section>
-                <h2 class="text-xl font-bold text-white mb-2">4. Propiedad Intelectual e Industrial</h2>
-                <p>La Empresa por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, programas de ordenador necesarios para su funcionamiento, acceso y uso, etc.).</p>
-            </section>
+                <h2 class="text-xl font-bold text-white mt-8">3. Propiedad Intelectual e Industrial</h2>
+                <p>El diseño de la página web, sus códigos fuentes, logotipos, marcas, así como los contenidos de diversa índole que en ella se integran (textos, imágenes, planos, material gráfico, etc.) son propiedad de Remates Panel Sandwich o de sus legítimos colaboradores y se encuentran protegidos por las leyes de propiedad intelectual e industrial aplicables. Queda prohibida la reproducción, transformación, distribución o comunicación pública de los mismos sin la correspondiente autorización previa y por escrito.</p>
+
+                <h2 class="text-xl font-bold text-white mt-8">4. Exclusión de Responsabilidad</h2>
+                <p>Remates Panel Sandwich no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos publicados, falta de disponibilidad del portal web, o la transmisión de virus o programas maliciosos o lesivos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
+
+                <h2 class="text-xl font-bold text-white mt-8">5. Enlaces Externos</h2>
+                <p>En el caso de que en este sitio web se dispusiesen enlaces o hipervínculos hacia otros sitios de Internet, Remates Panel Sandwich no ejercerá ningún tipo de control sobre dichos sitios y contenidos, ni asumirá responsabilidad alguna por los daños y perjuicios derivados de su acceso.</p>
+
+                <h2 class="text-xl font-bold text-white mt-8">6. Legislación Aplicable y Jurisdicción</h2>
+                <p>Para la resolución de todas las controversias o cuestiones relacionadas con el presente sitio web o de las actividades en él desarrolladas, será de aplicación la legislación española, a la que se someten expresamente las partes, siendo competentes para la resolución de todos los conflictos derivados o relacionados con su uso los Juzgados y Tribunales competentes según la normativa vigente.</p>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-brand-darker border-t border-gray-700 py-8 text-center text-sm text-gray-400 mt-auto">
-        <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4">
-            <a href="aviso-legal.html" class="hover:text-brand-accent transition text-brand-accent">Aviso Legal</a>
-            <a href="politica-privacidad.html" class="hover:text-brand-accent transition">Política de Privacidad</a>
-            <a href="politica-cookies.html" class="hover:text-brand-accent transition">Política de Cookies</a>
+    <!-- Pie de página -->
+    <footer class="bg-brand-darker border-t border-slate-700 py-6 text-center text-sm text-slate-400 font-medium">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
         </div>
-        <p>&copy; 2026 Remates Panel Sandwich. Todos los derechos reservados.</p>
     </footer>
+
 </body>
 </html>
