@@ -12,6 +12,12 @@
     
     <title>Remates Panel Sandwich - Especialistas en Remates</title>
     <link rel="icon" type="image/x-icon" href="icono.ico">
+    
+    <!-- Tipografía Inter (Elegante y muy legible) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -37,7 +43,17 @@
     <script>
         tailwind.config = {
             theme: {
-                extend: { colors: { 'brand-dark': '#2B2B2B', 'brand-darker': '#1A1A1A', 'brand-accent': '#F6B64E', 'brand-accent-hover': '#E09F36' } }
+                extend: { 
+                    colors: { 
+                        'brand-dark': '#1E293B',    /* Slate 800 - Azul marino base */
+                        'brand-darker': '#0F172A',  /* Slate 900 - Azul marino profundo */
+                        'brand-accent': '#FF6B00',  /* Naranja industrial vibrante */
+                        'brand-accent-hover': '#CC5500' /* Naranja oscuro hover */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
             }
         }
     </script>
@@ -45,15 +61,15 @@
         .shake { animation: shake 0.4s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1A1A1A; }
-        ::-webkit-scrollbar-thumb { background: #F6B64E; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #FF6B00; border-radius: 4px; }
         .group:hover .dropdown-menu, .group:focus-within .dropdown-menu { display: flex; }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-200 font-sans flex flex-col relative min-h-screen">
 
     <!-- CRO: Barra de Confianza Superior -->
-    <div class="bg-brand-darker text-brand-accent text-xs font-bold py-2 px-4 flex justify-center gap-6 md:gap-12 border-b border-gray-700 hidden sm:flex">
+    <div class="bg-brand-darker text-brand-accent text-xs font-bold py-2 px-4 flex justify-center gap-6 md:gap-12 border-b border-slate-700 hidden sm:flex">
         <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg> <span data-i18n="top1">Envíos a toda España</span></span>
         <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="top2">Presupuestos en 24/48h</span></span>
         <span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> <span data-i18n="top3">Fabricación a medida</span></span>
@@ -61,7 +77,7 @@
 
     <!-- Botón Flotante WhatsApp -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end group">
-        <div class="mb-3 bg-white text-gray-900 text-xs font-extrabold px-4 py-2 rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none transform translate-y-2 group-hover:translate-y-0 border-b-4 border-brand-accent">
+        <div class="mb-3 bg-white text-slate-900 text-xs font-extrabold px-4 py-2 rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none transform translate-y-2 group-hover:translate-y-0 border-b-4 border-brand-accent">
             <span data-i18n="ayudaWa">¿Dudas? Habla con un experto</span>
         </div>
         <a href="https://wa.me/34691842833?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20sobre%20remates..." target="_blank" aria-label="Contactar por WhatsApp" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition hover:-translate-y-1 flex items-center justify-center relative">
@@ -77,47 +93,47 @@
             <div class="flex items-center gap-3 cursor-pointer" onclick="mostrarCategorias()">
                 <img src="Imagenes/logo-remates-panel-sandwich.webp" alt="Logotipo Remates Panel Sandwich" class="h-10 md:h-14 object-contain">
                 <div class="flex flex-col">
-                    <h1 class="text-xl md:text-3xl font-extrabold text-gray-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
-                    <span class="text-xs md:text-sm text-gray-500 font-medium" data-i18n="subtit">Especialistas en remates y accesorios</span>
+                    <h1 class="text-xl md:text-3xl font-extrabold text-slate-900 leading-tight">Remates <span class="text-brand-accent">Panel Sandwich</span></h1>
+                    <span class="text-xs md:text-sm text-slate-500 font-medium" data-i18n="subtit">Especialistas en remates y accesorios</span>
                 </div>
             </div>
             
             <nav class="flex items-center gap-3 md:gap-6">
                 <!-- BANDERAS EN CABECERA (SOLO PC) -->
-                <div class="hidden md:flex items-center gap-3 border-r border-gray-200 pr-4 md:pr-6">
-                    <button onclick="cambiarIdioma('es')" aria-label="Cambiar a Español" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('en')" aria-label="Cambiar a Inglés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
-                    <button onclick="cambiarIdioma('fr')" aria-label="Cambiar a Francés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-gray-300"></button>
+                <div class="hidden md:flex items-center gap-3 border-r border-slate-200 pr-4 md:pr-6">
+                    <button onclick="cambiarIdioma('es')" aria-label="Cambiar a Español" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-[22px] h-[22px] rounded-full object-cover border border-slate-300"></button>
+                    <button onclick="cambiarIdioma('en')" aria-label="Cambiar a Inglés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-[22px] h-[22px] rounded-full object-cover border border-slate-300"></button>
+                    <button onclick="cambiarIdioma('fr')" aria-label="Cambiar a Francés" class="flag-btn hover:scale-110 transition drop-shadow-sm"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-[22px] h-[22px] rounded-full object-cover border border-slate-300"></button>
                 </div>
 
-                <button onclick="mostrarAmedida()" aria-label="Solicitar Presupuesto a Medida" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
-                <button id="btn-carrito-header" onclick="toggleCarrito()" aria-label="Ver el carrito de compra" class="relative text-gray-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
+                <button onclick="mostrarAmedida()" aria-label="Solicitar Presupuesto a Medida" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-2 px-6 rounded-full transition hidden md:block shadow-sm whitespace-nowrap" data-i18n="pide">Pide presupuesto</button>
+                <button id="btn-carrito-header" onclick="toggleCarrito()" aria-label="Ver el carrito de compra" class="relative text-slate-900 p-2 hover:text-brand-accent transition flex items-center gap-2 font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                     <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
                 </button>
             </nav>
         </div>
         <div class="bg-brand-accent w-full border-b-4 border-brand-accent-hover">
-            <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-gray-900 font-bold text-sm md:text-base">
+            <div class="max-w-6xl mx-auto px-2 md:px-4 py-2 flex flex-row items-center justify-between text-white font-bold text-sm md:text-base">
                 <div class="flex items-center gap-2 md:gap-4 lg:gap-6">
-                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="mostrarCategorias()" data-i18n="inicio">Inicio</span>
-                    <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
+                    <span class="cursor-pointer hover:text-brand-darker transition whitespace-nowrap" onclick="mostrarCategorias()" data-i18n="inicio">Inicio</span>
+                    <div class="w-px h-5 md:h-6 bg-white opacity-40 rounded-full"></div>
                     <div class="relative group cursor-pointer" tabindex="0">
-                        <span class="hover:text-white transition whitespace-nowrap flex items-center py-2" data-i18n="cat">Categorías</span>
-                        <div class="dropdown-menu absolute left-0 top-full mt-0 hidden flex-col bg-brand-darker border border-gray-700 rounded-b shadow-xl z-50 min-w-[220px] overflow-hidden text-sm md:text-base">
-                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('teja')" data-i18n="teja">Remates Teja</span>
-                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer border-b border-gray-700 transition" onclick="cargarProductos('industrial')" data-i18n="indus">Remates Industrial</span>
-                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-gray-900 cursor-pointer transition" onclick="mostrarAmedida()" data-i18n="med">Remates a Medida</span>
+                        <span class="hover:text-brand-darker transition whitespace-nowrap flex items-center py-2" data-i18n="cat">Categorías</span>
+                        <div class="dropdown-menu absolute left-0 top-full mt-0 hidden flex-col bg-brand-darker border border-slate-700 rounded-b shadow-xl z-50 min-w-[220px] overflow-hidden text-sm md:text-base">
+                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-white cursor-pointer border-b border-slate-700 transition" onclick="cargarProductos('teja')" data-i18n="teja">Remates Teja</span>
+                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-white cursor-pointer border-b border-slate-700 transition" onclick="cargarProductos('industrial')" data-i18n="indus">Remates Industrial</span>
+                            <span class="px-5 py-3 text-gray-300 hover:bg-brand-accent hover:text-white cursor-pointer transition" onclick="mostrarAmedida()" data-i18n="med">Remates a Medida</span>
                         </div>
                     </div>
-                    <div class="w-px h-5 md:h-6 bg-brand-darker opacity-20 rounded-full"></div>
-                    <span class="cursor-pointer hover:text-white transition whitespace-nowrap" onclick="abrirModalContacto('General')" data-i18n="cont">Contacto</span>
+                    <div class="w-px h-5 md:h-6 bg-white opacity-40 rounded-full"></div>
+                    <span class="cursor-pointer hover:text-brand-darker transition whitespace-nowrap" onclick="abrirModalContacto('General')" data-i18n="cont">Contacto</span>
                 </div>
                 <div class="relative w-32 sm:w-48 md:w-64 ml-2">
                     <div class="absolute inset-y-0 left-0 pl-2.5 md:pl-3 flex items-center pointer-events-none">
-                        <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        <svg class="h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
-                    <input type="text" id="buscador-input" oninput="buscarProductos(event)" placeholder="Buscar..." aria-label="Buscador de productos" class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-gray-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
+                    <input type="text" id="buscador-input" oninput="buscarProductos(event)" placeholder="Buscar..." aria-label="Buscador de productos" class="w-full pl-8 md:pl-9 pr-2 md:pr-3 py-1.5 rounded-full text-slate-900 text-sm font-normal focus:outline-none focus:ring-2 focus:ring-brand-dark shadow-inner bg-white">
                 </div>
             </div>
         </div>
@@ -127,47 +143,47 @@
         
         <div id="vista-categorias" class="block">
             <div class="mb-12 flex flex-col items-center">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
-                <p class="text-gray-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 text-center tracking-tight" data-i18n="sol">Acabados Perfectos para Panel Sándwich</h2>
+                <p class="text-slate-300 text-lg max-w-2xl leading-relaxed text-justify md:text-center font-medium" data-i18n="desc1">Fabricamos remates a medida y accesorios compatibles con las principales marcas. Garantiza el aislamiento, la durabilidad y la estética de tus proyectos con piezas diseñadas para encajar a la perfección.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
+                <div onclick="cargarProductos('teja')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-slate-700">
                     <img src="Imagenes/teja-panel-sandwich-teja-roja.webp" loading="lazy" alt="Cubierta panel teja" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
-                        <h3 class="text-2xl font-extrabold text-gray-900 mb-2" data-i18n="teja">Remates Teja</h3>
-                        <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4" data-i18n="descTeja">Remates, canales y accesorios especializados para cubiertas de panel tipo teja.</p>
+                        <h3 class="text-2xl font-extrabold text-white mb-2" data-i18n="teja">Remates Teja</h3>
+                        <p class="text-brand-darker font-medium text-sm leading-relaxed mb-4" data-i18n="descTeja">Remates, canales y accesorios especializados para cubiertas de panel tipo teja.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
+                            <div class="bg-brand-darker text-brand-accent rounded-full p-2 group-hover:bg-white transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
                 </div>
 
-                <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
+                <div onclick="cargarProductos('industrial')" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-slate-700">
                     <img src="Imagenes/industrial-panel-5-grecas.webp" loading="lazy" alt="Panel grecado industrial" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
-                        <h3 class="text-2xl font-extrabold text-gray-900 mb-2" data-i18n="indus">Remates Industrial</h3>
-                        <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4" data-i18n="descIndus">Canales, cumbreras y cierres diseñados para naves y fachadas industriales.</p>
+                        <h3 class="text-2xl font-extrabold text-white mb-2" data-i18n="indus">Remates Industrial</h3>
+                        <p class="text-brand-darker font-medium text-sm leading-relaxed mb-4" data-i18n="descIndus">Canales, cumbreras y cierres diseñados para naves y fachadas industriales.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
+                            <div class="bg-brand-darker text-brand-accent rounded-full p-2 group-hover:bg-white transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
                 </div>
 
-                <div onclick="mostrarAmedida()" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-gray-700">
+                <div onclick="mostrarAmedida()" class="bg-brand-darker rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition duration-300 flex flex-col border border-slate-700">
                     <img src="Imagenes/remates-a-medida.webp" loading="lazy" alt="Planos de remates" class="w-full h-56 object-contain p-4 bg-white">
                     <div class="bg-brand-accent p-6 flex flex-col flex-grow relative group">
-                        <h3 class="text-2xl font-extrabold text-gray-900 mb-2" data-i18n="med">Remates a Medida</h3>
-                        <p class="text-gray-800 font-medium text-sm leading-relaxed mb-4" data-i18n="descMed">Piezas especiales y personalizadas según los requerimientos de tu proyecto.</p>
+                        <h3 class="text-2xl font-extrabold text-white mb-2" data-i18n="med">Remates a Medida</h3>
+                        <p class="text-brand-darker font-medium text-sm leading-relaxed mb-4" data-i18n="descMed">Piezas especiales y personalizadas según los requerimientos de tu proyecto.</p>
                         <div class="mt-auto flex justify-end">
-                            <div class="bg-gray-900 text-brand-accent rounded-full p-2 group-hover:bg-white group-hover:text-gray-900 transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
+                            <div class="bg-brand-darker text-brand-accent rounded-full p-2 group-hover:bg-white transition"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-gray-700 mt-12">
-                <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6" data-i18n="comp">Compatibilidad garantizada con</p>
+            <div class="pt-8 border-t border-slate-700 mt-12">
+                <p class="text-center text-slate-500 text-xs font-bold uppercase tracking-widest mb-6" data-i18n="comp">Compatibilidad garantizada con</p>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-40 grayscale select-none">
                     <span class="text-sm md:text-base font-black text-white font-serif">Huurre</span>
                     <span class="text-xs md:text-sm font-bold text-white tracking-wider">ISOPAN</span>
@@ -182,13 +198,13 @@
 
         <div id="vista-productos" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
-                    <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
+                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
+                    <div class="bg-brand-darker text-brand-accent rounded-full p-1 flex items-center justify-center">
                         <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
                     <span data-i18n="volver">Volver</span>
                 </button>
-                <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white"></h2>
+                <h2 id="titulo-categoria" class="text-3xl font-extrabold text-white tracking-tight"></h2>
             </div>
             
             <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
@@ -196,60 +212,58 @@
 
         <div id="vista-amedida" class="hidden">
             <div class="flex items-center gap-4 mb-8">
-                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
-                    <div class="bg-gray-900 text-brand-accent rounded-full p-1 flex items-center justify-center">
+                <button onclick="mostrarCategorias()" aria-label="Volver a las categorías" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-2 px-6 rounded-full transition flex items-center gap-2 shadow-sm">
+                    <div class="bg-brand-darker text-brand-accent rounded-full p-1 flex items-center justify-center">
                         <svg class="h-4 w-4 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
                     <span data-i18n="volver">Volver</span>
                 </button>
             </div>
-            <div class="bg-brand-darker p-8 rounded-2xl border border-gray-700 max-w-3xl mx-auto shadow-lg relative overflow-hidden">
+            <div class="bg-brand-darker p-8 rounded-2xl border border-slate-700 max-w-3xl mx-auto shadow-lg relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-2 bg-brand-accent"></div>
-                <h2 class="text-3xl font-extrabold text-brand-accent mb-4 mt-2" data-i18n="med">Remates a Medida</h2>
-                <p class="text-gray-300 mb-8 leading-relaxed text-lg border-l-4 border-brand-accent pl-4" data-i18n="descMedLarga">
+                <h2 class="text-3xl font-extrabold text-brand-accent mb-4 mt-2 tracking-tight" data-i18n="med">Remates a Medida</h2>
+                <p class="text-slate-300 mb-8 leading-relaxed text-lg border-l-4 border-brand-accent pl-4 font-medium" data-i18n="descMedLarga">
                     Describa la pieza que necesita. Lo estudiaremos con la máxima brevedad posible y nos pondremos en contacto con usted para ofrecerle un presupuesto y una solución a su medida.
                 </p>
                 <form onsubmit="enviarFormularioGoogle(event, 'Presupuesto a Medida')" class="space-y-5">
-                    <!-- Seguridad Antispam (Honeypot) -->
                     <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-sm font-bold text-gray-400 mb-1" data-i18n="nomApe">Nombre y Apellidos</label>
-                            <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="nomApe">
+                            <label class="block text-sm font-bold text-slate-400 mb-1" data-i18n="nomApe">Nombre y Apellidos</label>
+                            <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-gray-400 mb-1" data-i18n="tel">Teléfono</label>
-                            <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tel">
+                            <label class="block text-sm font-bold text-slate-400 mb-1" data-i18n="tel">Teléfono</label>
+                            <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
                         </div>
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-400 mb-1" data-i18n="correo">Correo Electrónico</label>
-                            <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                            <label class="block text-sm font-bold text-slate-400 mb-1" data-i18n="correo">Correo Electrónico</label>
+                            <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-400 mb-1" data-i18n="detPieza">Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)</label>
-                        <textarea name="message" rows="5" placeholder="Detalles de la pieza" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="detPieza"></textarea>
+                        <label class="block text-sm font-bold text-slate-400 mb-1" data-i18n="detPieza">Detalles de la Pieza (Desarrollo, ángulos, color, espesor...)</label>
+                        <textarea name="message" rows="5" placeholder="Detalles de la pieza" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition"></textarea>
                     </div>
                     <div class="flex items-center gap-4">
-                        <label class="text-sm font-bold text-gray-400 whitespace-nowrap" data-i18n="cantEst">Cantidad estimada:</label>
-                        <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none text-center">
+                        <label class="text-sm font-bold text-slate-400 whitespace-nowrap" data-i18n="cantEst">Cantidad estimada:</label>
+                        <input type="number" name="cantidad" min="1" value="1" class="w-24 p-3 bg-brand-dark border border-slate-600 rounded text-white focus:border-brand-accent outline-none text-center transition">
                     </div>
                     
                     <label class="flex items-start space-x-3 cursor-pointer mt-4">
-                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
-                        <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-slate-700 border-slate-600 rounded mt-0.5">
+                        <span class="text-slate-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
                     </label>
 
-                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow mt-4"><span data-i18n="pide">Solicitar Presupuesto</span></button>
+                    <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-4 rounded-xl text-xl transition shadow mt-4"><span data-i18n="pide">Solicitar Presupuesto</span></button>
                 </form>
             </div>
         </div>
     </main>
 
-    <footer class="bg-brand-darker border-t border-gray-700 mt-12 py-8 relative z-40">
-        <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-400">
-            <!-- BANDERAS EN PIE DE PÁGINA (SOLO MÓVIL) -->
+    <footer class="bg-brand-darker border-t border-slate-700 mt-12 py-8 relative z-40">
+        <div class="max-w-6xl mx-auto px-4 text-center text-sm text-slate-400 font-medium">
             <div class="flex md:hidden items-center justify-center gap-6 mb-6">
                 <button onclick="cambiarIdioma('es')" aria-label="Cambiar a Español" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/es.png" alt="Español" class="w-7 h-7 rounded-full object-cover"></button>
                 <button onclick="cambiarIdioma('en')" aria-label="Cambiar a Inglés" class="flag-btn hover:scale-110 transition drop-shadow outline-none"><img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-7 h-7 rounded-full object-cover"></button>
@@ -267,27 +281,27 @@
 
     <!-- Banner de Cookies -->
     <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-brand-darker border-t border-brand-accent p-4 z-[100] hidden flex-col sm:flex-row items-center justify-center gap-4 shadow-2xl">
-        <p class="text-gray-300 text-sm text-center sm:text-left max-w-4xl" data-i18n="cookieMsg">Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación.</p>
+        <p class="text-slate-300 text-sm text-center sm:text-left max-w-4xl font-medium" data-i18n="cookieMsg">Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación.</p>
         <div class="flex items-center gap-4 flex-shrink-0">
-            <a href="politica-cookies.html" class="text-brand-accent hover:text-white text-sm underline whitespace-nowrap" data-i18n="cookieInfo">Más información</a>
-            <button onclick="aceptarCookies()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-2 px-6 rounded transition whitespace-nowrap" data-i18n="cookieAceptar">Aceptar</button>
+            <a href="politica-cookies.html" class="text-brand-accent hover:text-white text-sm underline whitespace-nowrap font-medium" data-i18n="cookieInfo">Más información</a>
+            <button onclick="aceptarCookies()" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-2 px-6 rounded transition whitespace-nowrap" data-i18n="cookieAceptar">Aceptar</button>
         </div>
     </div>
 
     <!-- Modal Producto -->
-    <div id="modal-producto" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-darker rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-gray-700 shadow-2xl">
-            <button onclick="cerrarModalProducto()" aria-label="Cerrar ventana de producto" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 text-3xl font-bold">×</button>
-            <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-gray-300">
+    <div id="modal-producto" class="fixed inset-0 bg-brand-darker bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded-2xl max-w-3xl w-full flex flex-col md:flex-row overflow-hidden relative border border-slate-700 shadow-2xl">
+            <button onclick="cerrarModalProducto()" aria-label="Cerrar ventana de producto" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10 text-3xl font-bold">×</button>
+            <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-slate-300">
                 <img id="modal-img" src="" alt="Producto" loading="lazy" class="max-h-64 object-contain drop-shadow-md">
-                <p id="modal-desc-img" class="text-gray-600 text-sm mt-6 text-center font-medium"></p>
+                <p id="modal-desc-img" class="text-slate-600 text-sm mt-6 text-center font-medium"></p>
             </div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
-                <h3 id="modal-titulo" class="text-3xl font-bold text-white mb-6"></h3>
+                <h3 id="modal-titulo" class="text-3xl font-extrabold text-white mb-6 tracking-tight"></h3>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-bold text-gray-300 mb-1" data-i18n="fab">Fabricante</label>
-                        <select id="modal-fabricante" onchange="toggleOtroFabricante()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                        <label class="block text-sm font-bold text-slate-300 mb-1" data-i18n="fab">Fabricante</label>
+                        <select id="modal-fabricante" onchange="toggleOtroFabricante()" class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
                             <option value="" data-i18n="selFab">Seleccione fabricante...</option>
                             <option value="Huurre">Huurre</option>
                             <option value="Isopan">Isopan</option>
@@ -298,100 +312,99 @@
                             <option value="ACH">ACH</option>
                             <option value="Otros" data-i18n="otros">Otros (Especificar)</option>
                         </select>
-                        <input type="text" id="modal-fabricante-otro" class="hidden w-full p-3 mt-2 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
+                        <input type="text" id="modal-fabricante-otro" class="hidden w-full p-3 mt-2 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-300 mb-1" data-i18n="esp">Espesor</label>
-                        <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white focus:border-brand-accent outline-none"></select>
+                        <label class="block text-sm font-bold text-slate-300 mb-1" data-i18n="esp">Espesor</label>
+                        <select id="modal-espesor" onchange="actualizarPrecioModal()" class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition"></select>
                     </div>
                     
                     <div class="flex items-end gap-4 pt-2">
                         <div class="w-1/3">
-                            <label class="block text-sm font-bold text-gray-300 mb-1" data-i18n="cant">Cant.</label>
-                            <input type="number" id="modal-cantidad" min="1" value="1" oninput="actualizarPrecioModal()" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white text-center font-bold">
+                            <label class="block text-sm font-bold text-slate-300 mb-1" data-i18n="cant">Cant.</label>
+                            <input type="number" id="modal-cantidad" min="1" value="1" oninput="actualizarPrecioModal()" class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white text-center font-bold transition">
                         </div>
                         <div class="w-2/3 text-right">
-                            <p class="text-sm text-gray-400"><span data-i18n="total">Total</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></p>
-                            <p id="modal-precio-dinamico" class="text-3xl font-extrabold text-brand-accent">0.00€</p>
+                            <p class="text-sm text-slate-400 font-medium"><span data-i18n="total">Total</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></p>
+                            <p id="modal-precio-dinamico" class="text-3xl font-extrabold text-brand-accent tracking-tight">0.00€</p>
                         </div>
                     </div>
-                    <button id="btn-add-modal" aria-label="Añadir producto al carrito" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
+                    <button id="btn-add-modal" aria-label="Añadir producto al carrito" class="w-full mt-2 bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-3 rounded-full transition shadow"><span data-i18n="añadir">Añadir al carrito</span></button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Panel Carrito -->
-    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-gray-700">
-        <div class="p-6 bg-brand-darker border-b border-gray-700 flex justify-between items-center">
-            <h2 class="text-xl font-bold text-white" data-i18n="tuPed">Tu Pedido</h2>
-            <button onclick="toggleCarrito()" aria-label="Cerrar el carrito de compra" class="text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
+    <div id="carrito-panel" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-brand-dark shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-slate-700">
+        <div class="p-6 bg-brand-darker border-b border-slate-700 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white tracking-tight" data-i18n="tuPed">Tu Pedido</h2>
+            <button onclick="toggleCarrito()" aria-label="Cerrar el carrito de compra" class="text-slate-400 hover:text-white text-3xl font-bold">×</button>
         </div>
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4"></div>
-        <div class="p-6 bg-brand-darker border-t border-gray-700">
-            <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-6 flex items-start gap-3">
+        <div class="p-6 bg-brand-darker border-t border-slate-700">
+            <div class="bg-brand-dark border border-slate-600 rounded-lg p-4 mb-6 flex items-start gap-3">
                 <svg class="w-6 h-6 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <p class="text-xs text-gray-300 leading-relaxed" data-i18n="compraSegura">Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium" data-i18n="compraSegura">Pago 100% seguro. Tus datos están protegidos mediante encriptación SSL.</p>
             </div>
 
-            <div class="flex justify-between text-gray-400 mb-2"><span><span data-i18n="sub">Subtotal</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></span><span id="cart-subtotal">0.00 €</span></div>
-            <div class="flex justify-between text-gray-400 mb-4"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
-            <div class="flex justify-between text-white text-2xl font-bold mb-6"><span data-i18n="total">Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
-            <button id="btn-tramitar" aria-label="Proceder al pago seguro" onclick="abrirCheckout()" class="w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
+            <div class="flex justify-between text-slate-400 mb-2 font-medium"><span><span data-i18n="sub">Subtotal</span> <span class="text-xs" data-i18n="sinIva">(sin IVA)</span></span><span id="cart-subtotal">0.00 €</span></div>
+            <div class="flex justify-between text-slate-400 mb-4 font-medium"><span>IVA (21%)</span><span id="cart-iva">0.00 €</span></div>
+            <div class="flex justify-between text-white text-2xl font-bold mb-6 tracking-tight"><span data-i18n="total">Total</span><span id="cart-total" class="text-brand-accent">0.00 €</span></div>
+            <button id="btn-tramitar" aria-label="Proceder al pago seguro" onclick="abrirCheckout()" class="w-full bg-slate-600 text-slate-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition" disabled><span data-i18n="tramitar">Tramitar Pedido</span></button>
         </div>
     </div>
 
     <!-- Modal Checkout -->
-    <div id="modal-checkout" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700 p-8 relative">
-            <button onclick="cerrarCheckout()" aria-label="Cancelar y cerrar la ventana de pago" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-6" data-i18n="tramitar">Finalizar Pedido</h2>
+    <div id="modal-checkout" class="fixed inset-0 bg-brand-darker bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 p-8 relative shadow-2xl">
+            <button onclick="cerrarCheckout()" aria-label="Cancelar y cerrar la ventana de pago" class="absolute top-4 right-4 text-slate-400 hover:text-white text-3xl font-bold">×</button>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-6 tracking-tight" data-i18n="tramitar">Finalizar Pedido</h2>
             <form id="form-checkout" onsubmit="confirmarPedido(event)" class="space-y-6">
-                <!-- Seguridad Antispam (Honeypot) -->
                 <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
 
-                <div class="bg-brand-darker p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold text-white mb-4" data-i18n="datosEnv">Datos de Envío</h3>
+                <div class="bg-brand-darker p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-white mb-4 tracking-tight" data-i18n="datosEnv">Datos de Envío</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="envio-nombre" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="nom">
-                        <input type="text" name="envio-apellidos" placeholder="Apellidos" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="ape">
-                        <input type="text" name="envio-dni" placeholder="DNI / NIE / NIF (Opcional)" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="dni">
-                        <input type="email" id="correo-cliente-checkout" placeholder="Email" name="envio-email" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white">
-                        <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="tel">
-                        <input type="text" name="envio-direccion" placeholder="Domicilio completo" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="dir">
-                        <input type="text" name="envio-cp" placeholder="Código Postal" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="cp">
-                        <input type="text" name="envio-localidad" placeholder="Localidad" required class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="loc">
-                        <input type="text" name="envio-provincia" placeholder="Provincia" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="prov">
+                        <input type="text" name="envio-nombre" placeholder="Nombre" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="nom">
+                        <input type="text" name="envio-apellidos" placeholder="Apellidos" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="ape">
+                        <input type="text" name="envio-dni" placeholder="DNI / NIE / NIF (Opcional)" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="dni">
+                        <input type="email" id="correo-cliente-checkout" placeholder="Email" name="envio-email" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none">
+                        <input type="tel" name="envio-telefono" placeholder="Teléfono" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="tel">
+                        <input type="text" name="envio-direccion" placeholder="Domicilio completo" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="dir">
+                        <input type="text" name="envio-cp" placeholder="Código Postal" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="cp">
+                        <input type="text" name="envio-localidad" placeholder="Localidad" required class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="loc">
+                        <input type="text" name="envio-provincia" placeholder="Provincia" required class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="prov">
                     </div>
                 </div>
                 <label class="flex items-center space-x-3 cursor-pointer">
-                    <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded">
-                    <span class="text-gray-300 font-semibold" data-i18n="mismaFact">Mis datos de facturación son los mismos</span>
+                    <input type="checkbox" id="facturacion-igual" checked onchange="toggleFacturacion()" class="w-5 h-5 accent-brand-accent bg-slate-700 border-slate-600 rounded">
+                    <span class="text-slate-300 font-semibold" data-i18n="mismaFact">Mis datos de facturación son los mismos</span>
                 </label>
-                <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-bold text-white mb-4" data-i18n="datosFact">Datos de Facturación</h3>
+                <div id="seccion-facturacion" class="hidden bg-brand-darker p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-white mb-4 tracking-tight" data-i18n="datosFact">Datos de Facturación</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="fact-dni" placeholder="DNI / NIE / NIF (Opcional)" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="dni">
-                        <input type="text" name="fact-empresa" placeholder="Razón Social / Nombre" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="rs">
-                        <input type="text" name="fact-direccion" placeholder="Domicilio Fiscal" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="dir">
-                        <input type="text" name="fact-cp" placeholder="Código Postal" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="cp">
-                        <input type="text" name="fact-localidad" placeholder="Localidad" class="w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="loc">
-                        <input type="text" name="fact-provincia" placeholder="Provincia" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-gray-600 rounded text-white" data-i18n-ph="prov">
+                        <input type="text" name="fact-dni" placeholder="DNI / NIE / NIF (Opcional)" class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="dni">
+                        <input type="text" name="fact-empresa" placeholder="Razón Social / Nombre" class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="rs">
+                        <input type="text" name="fact-direccion" placeholder="Domicilio Fiscal" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="dir">
+                        <input type="text" name="fact-cp" placeholder="Código Postal" class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="cp">
+                        <input type="text" name="fact-localidad" placeholder="Localidad" class="w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="loc">
+                        <input type="text" name="fact-provincia" placeholder="Provincia" class="col-span-1 md:col-span-2 w-full p-3 bg-brand-dark border border-slate-600 rounded text-white transition focus:border-brand-accent outline-none" data-i18n-ph="prov">
                     </div>
                 </div>
                 
                 <div class="pt-4">
                     <label class="flex items-start space-x-3 cursor-pointer mb-6">
-                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
-                        <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                        <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-slate-700 border-slate-600 rounded mt-0.5">
+                        <span class="text-slate-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
                     </label>
 
-                    <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-xl transition shadow flex justify-center items-center gap-2">
+                    <button type="submit" id="btn-submit-pago" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-4 rounded-xl text-xl transition shadow flex justify-center items-center gap-2">
                         <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         <span data-i18n="conf">Confirmar Pedido Seguro</span>
                     </button>
                     <!-- CRO: ICONOS DE CONFIANZA -->
-                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-400 text-sm font-medium">
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-400 text-sm font-medium">
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="pres">Presupuesto sin compromiso</span></span>
                         <span class="flex items-center gap-1"><svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span data-i18n="gest">Gestión rápida 24/48h</span></span>
                     </div>
@@ -401,43 +414,42 @@
     </div>
 
     <!-- Modal Contacto General -->
-    <div id="modal-contacto" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-gray-700">
-            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" aria-label="Cerrar ventana de contacto" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">×</button>
-            <h2 class="text-3xl font-extrabold text-brand-accent mb-2" data-i18n="cont">Contacto</h2>
-            <p class="text-gray-400 text-sm mb-6" data-i18n="contDesc">Nuestro equipo le atenderá a la mayor brevedad posible.</p>
+    <div id="modal-contacto" class="fixed inset-0 bg-brand-darker bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border border-slate-700 shadow-2xl">
+            <button onclick="document.getElementById('modal-contacto').classList.add('hidden')" aria-label="Cerrar ventana de contacto" class="absolute top-4 right-4 text-slate-400 hover:text-white text-3xl font-bold">×</button>
+            <h2 class="text-3xl font-extrabold text-brand-accent mb-2 tracking-tight" data-i18n="cont">Contacto</h2>
+            <p class="text-slate-400 text-sm mb-6 font-medium" data-i18n="contDesc">Nuestro equipo le atenderá a la mayor brevedad posible.</p>
             <form onsubmit="enviarFormularioGoogle(event, 'Contacto General')" class="space-y-4">
-                <!-- Seguridad Antispam (Honeypot) -->
                 <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="display:none;" aria-hidden="true">
 
-                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="nom">
-                <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tel">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none">
-                <textarea name="message" rows="4" placeholder="Tu consulta" required class="w-full p-3 bg-brand-darker border border-gray-600 rounded text-white focus:border-brand-accent outline-none" data-i18n-ph="tuCons"></textarea>
+                <input type="text" name="name" placeholder="Nombre" required class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition" data-i18n-ph="nom">
+                <input type="tel" name="phone" placeholder="Teléfono" required class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition" data-i18n-ph="tel">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition">
+                <textarea name="message" rows="4" placeholder="Tu consulta" required class="w-full p-3 bg-brand-darker border border-slate-600 rounded text-white focus:border-brand-accent outline-none transition" data-i18n-ph="tuCons"></textarea>
                 
                 <label class="flex items-start space-x-3 cursor-pointer mt-2">
-                    <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-gray-700 border-gray-600 rounded mt-0.5">
-                    <span class="text-gray-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
+                    <input type="checkbox" required class="w-5 h-5 accent-brand-accent bg-slate-700 border-slate-600 rounded mt-0.5">
+                    <span class="text-slate-300 text-sm font-semibold" data-i18n="rgpd">He leído y acepto la <a href="politica-privacidad.html" class="text-brand-accent underline" target="_blank">Política de Privacidad</a></span>
                 </label>
 
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico mt-2"><span data-i18n="envMen">Enviar Mensaje</span></button>
+                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-3 rounded-xl transition shadow btn-enviar-generico mt-2"><span data-i18n="envMen">Enviar Mensaje</span></button>
             </form>
         </div>
     </div>
 
     <!-- Modal Éxito Universal -->
-    <div id="modal-exito" class="fixed inset-0 bg-black bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
+    <div id="modal-exito" class="fixed inset-0 bg-brand-darker bg-opacity-90 hidden z-[60] flex items-center justify-center p-4">
         <div class="bg-brand-dark rounded-2xl max-w-md w-full p-8 relative border-t-8 border-green-500 text-center shadow-2xl">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
                 <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
             </div>
-            <h2 class="text-3xl font-extrabold text-white mb-2" id="texto-exito-titulo">¡Completado!</h2>
-            <p class="text-gray-400 mb-6" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
+            <h2 class="text-3xl font-extrabold text-white mb-2 tracking-tight" id="texto-exito-titulo">¡Completado!</h2>
+            <p class="text-slate-400 mb-6 font-medium" id="texto-exito-desc">Tu solicitud ha sido procesada correctamente.</p>
             <div id="div-ref-exito" class="bg-brand-darker p-4 rounded mb-6 hidden">
-                <span class="block text-sm text-gray-500 uppercase tracking-wide">Ref. Pedido</span>
-                <span id="ref-exito" class="text-2xl font-bold text-brand-accent"></span>
+                <span class="block text-sm text-slate-500 uppercase tracking-wide font-bold">Ref. Pedido</span>
+                <span id="ref-exito" class="text-2xl font-extrabold text-brand-accent tracking-tight"></span>
             </div>
-            <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-bold py-3 rounded transition"><span data-i18n="volverT">Volver a la tienda</span></button>
+            <button onclick="cerrarExito()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3 rounded transition"><span data-i18n="volverT">Volver a la tienda</span></button>
         </div>
     </div>
 
@@ -733,11 +745,11 @@
         function dibujarGrid(arrayProductos, gridElement) {
             if (arrayProductos.length === 0) {
                 gridElement.innerHTML = `
-                    <div class="col-span-full flex flex-col items-center justify-center py-16 bg-brand-darker rounded-2xl border border-gray-700 text-center px-4">
-                        <svg class="w-16 h-16 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="col-span-full flex flex-col items-center justify-center py-16 bg-brand-darker rounded-2xl border border-slate-700 text-center px-4">
+                        <svg class="w-16 h-16 text-slate-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <h3 class="text-2xl font-bold text-white mb-2">${t('sinResTit')}</h3>
-                        <p class="text-gray-400 mb-6 max-w-md">${t('sinResDesc')}</p>
-                        <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 px-8 rounded-xl transition shadow">${t('pideMedida')}</button>
+                        <p class="text-slate-400 mb-6 max-w-md">${t('sinResDesc')}</p>
+                        <button onclick="mostrarAmedida()" class="bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-3 px-8 rounded-xl transition shadow">${t('pideMedida')}</button>
                     </div>
                 `;
                 return;
@@ -751,14 +763,14 @@
             arrayProductos.forEach(p => {
                 const precioMinimo = Math.min(...Object.values(p.precios));
                 htmlFinal += `
-                    <div class="bg-brand-darker rounded-2xl border border-gray-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
-                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-gray-600 shadow-inner" onclick="abrirModal(${p.id})">
+                    <div class="bg-brand-darker rounded-2xl border border-slate-700 flex flex-col hover:-translate-y-1 hover:border-brand-accent transition duration-300 overflow-hidden shadow-lg">
+                        <div class="bg-white flex items-center justify-center p-4 cursor-pointer h-56 border-b border-slate-600 shadow-inner" onclick="abrirModal(${p.id})">
                             <img src="${p.img}" alt="${p.nombre[currentLang]}" loading="lazy" class="max-h-full object-contain drop-shadow-md">
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-bold text-white leading-tight">${p.nombre[currentLang]}</h3>
-                            <p class="text-brand-accent text-2xl font-extrabold my-4"><span class="text-sm font-normal text-gray-400">${textDesde} </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-gray-500 font-normal ml-1">${textSinIva}</span></p>
-                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-3 rounded-full transition shadow">${textVerDet}</button>
+                            <p class="text-brand-accent text-2xl font-extrabold my-4 tracking-tight"><span class="text-sm font-medium text-slate-400">${textDesde} </span>${precioMinimo.toFixed(2)}€ <span class="text-xs text-slate-500 font-medium ml-1">${textSinIva}</span></p>
+                            <button onclick="abrirModal(${p.id})" class="mt-auto w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-3 rounded-full transition shadow">${textVerDet}</button>
                         </div>
                     </div>
                 `;
@@ -848,21 +860,21 @@
             list.innerHTML = '';
             carrito.forEach(item => {
                 list.innerHTML += `
-                    <div class="flex gap-4 border-b border-gray-700 pb-4">
+                    <div class="flex gap-4 border-b border-slate-700 pb-4">
                         <div class="bg-white w-16 h-16 flex items-center justify-center rounded"><img src="${item.img}" alt="${item.nombre[currentLang]}" class="max-h-full object-contain"></div>
                         <div class="flex-grow">
                             <h4 class="text-sm font-bold text-white">${item.nombre[currentLang]}</h4>
                             <p class="text-xs text-brand-accent">${item.fabricante} | ${item.espesor.replace('mm',' mm')}</p>
                             <div class="flex justify-between items-center mt-2">
-                                <div class="flex items-center bg-gray-800 rounded border border-gray-600">
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 py-1 text-gray-400 hover:text-white">-</button>
+                                <div class="flex items-center bg-brand-darker rounded border border-slate-600">
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', -1)" class="px-2 py-1 text-slate-400 hover:text-white">-</button>
                                     <span class="px-2 text-sm text-white font-bold">${item.cantidad}</span>
-                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 py-1 text-gray-400 hover:text-white">+</button>
+                                    <button onclick="cambiarCantidad('${item.idCompuesto}', 1)" class="px-2 py-1 text-slate-400 hover:text-white">+</button>
                                 </div>
                                 <span class="font-bold text-white">${(item.precioFinal * item.cantidad).toFixed(2)}€</span>
                             </div>
                         </div>
-                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" aria-label="Eliminar producto" class="text-gray-500 hover:text-red-500 font-bold text-xl">×</button>
+                        <button onclick="eliminarDelCarrito('${item.idCompuesto}')" aria-label="Eliminar producto" class="text-slate-500 hover:text-red-500 font-bold text-xl">×</button>
                     </div>
                 `;
             });
@@ -875,10 +887,10 @@
             const btnTramitar = document.getElementById('btn-tramitar');
             if (carrito.length === 0) {
                 btnTramitar.disabled = true;
-                btnTramitar.className = "w-full bg-gray-600 text-gray-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition";
+                btnTramitar.className = "w-full bg-slate-600 text-slate-400 font-extrabold py-4 rounded-xl text-lg cursor-not-allowed transition";
             } else {
                 btnTramitar.disabled = false;
-                btnTramitar.className = "w-full bg-brand-accent hover:bg-brand-accent-hover text-gray-900 font-extrabold py-4 rounded-xl text-lg transition shadow";
+                btnTramitar.className = "w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-extrabold py-4 rounded-xl text-lg transition shadow";
             }
         }
 
@@ -936,11 +948,11 @@
             const cant = form['cantidad'] ? form['cantidad'].value : '';
 
             let mensajeHtml = `<div style="font-family:Arial; padding:20px; background:#f9f9f9; border:1px solid #ddd; border-radius:8px;">`;
-            mensajeHtml += `<h2 style="color:#2B2B2B;">Nueva solicitud: ${tipo}</h2>`;
+            mensajeHtml += `<h2 style="color:#0F172A;">Nueva solicitud: ${tipo}</h2>`;
             mensajeHtml += `<p><b>Cliente:</b> ${name}</p><p><b>Email:</b> ${email}</p>`;
             if(phone) mensajeHtml += `<p><b>Teléfono:</b> ${phone}</p>`;
             if(cant)  mensajeHtml += `<p><b>Cantidad:</b> ${cant} unidades</p>`;
-            mensajeHtml += `<div style="margin-top:20px; padding:15px; background:white; border-left:4px solid #F6B64E;"><p><b>Detalles/Mensaje:</b><br>${msg.replace(/\n/g, '<br>')}</p></div></div>`;
+            mensajeHtml += `<div style="margin-top:20px; padding:15px; background:white; border-left:4px solid #FF6B00;"><p><b>Detalles/Mensaje:</b><br>${msg.replace(/\n/g, '<br>')}</p></div></div>`;
 
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -967,7 +979,7 @@
             if(form['honeypot'] && form['honeypot'].value !== '') return false;
 
             const btn = document.getElementById('btn-submit-pago');
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 inline mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 inline mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Procesando...`;
             btn.disabled = true;
 
             const referencia = `TR-${Math.floor(Math.random()*10000)}`;
@@ -995,22 +1007,22 @@
             
             const l = i18n[currentLang];
             const pedidoHTML = `
-                <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1A1A; max-width: 800px; margin: 0 auto; background: white;">
-                    <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #F6B64E; padding-bottom: 20px; margin-bottom: 30px;">
-                        <div><h1 style="color: #2B2B2B; font-size: 28px; margin: 0; font-weight: 800;">Remates <span style="color: #F6B64E;">Panel Sandwich</span></h1><p style="color: #666; margin-top: 5px;">Ref: <b>${referencia}</b></p></div>
-                        <div style="text-align: right;"><h3 style="color: #2B2B2B; margin: 0 0 5px 0; font-size: 16px;">${l.datosFact.toUpperCase()}</h3><p style="margin: 0; font-size: 14px; color: #444;">${nombreFactura}<br>DNI/CIF: ${nifFactura}<br>${direccionFactura}</p></div>
+                <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #0F172A; max-width: 800px; margin: 0 auto; background: white;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 4px solid #FF6B00; padding-bottom: 20px; margin-bottom: 30px;">
+                        <div><h1 style="color: #0F172A; font-size: 28px; margin: 0; font-weight: 800;">Remates <span style="color: #FF6B00;">Panel Sandwich</span></h1><p style="color: #64748B; margin-top: 5px;">Ref: <b>${referencia}</b></p></div>
+                        <div style="text-align: right;"><h3 style="color: #0F172A; margin: 0 0 5px 0; font-size: 16px;">${l.datosFact.toUpperCase()}</h3><p style="margin: 0; font-size: 14px; color: #334155;">${nombreFactura}<br>DNI/CIF: ${nifFactura}<br>${direccionFactura}</p></div>
                     </div>
-                    <div style="margin-bottom: 30px;"><h3 style="color: #2B2B2B; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 5px;">${l.datosEnv.toUpperCase()}</h3><p style="margin: 5px 0 0 0; font-size: 14px; color: #444;">${nombreEnvio}<br>${dniEnvio}${direccionEnvio}<br>Tel: ${limpiarTexto(form['envio-telefono'].value)}</p></div>
+                    <div style="margin-bottom: 30px;"><h3 style="color: #0F172A; font-size: 14px; border-bottom: 1px solid #E2E8F0; padding-bottom: 5px;">${l.datosEnv.toUpperCase()}</h3><p style="margin: 5px 0 0 0; font-size: 14px; color: #334155;">${nombreEnvio}<br>${dniEnvio}${direccionEnvio}<br>Tel: ${limpiarTexto(form['envio-telefono'].value)}</p></div>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                        <thead><tr style="background-color: #2B2B2B; color: white;"><th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th><th style="padding: 12px; text-align: center; font-size: 14px;">${l.cant}</th><th style="padding: 12px; text-align: right; font-size: 14px;">Total</th></tr></thead>
+                        <thead><tr style="background-color: #0F172A; color: white;"><th style="padding: 12px; text-align: left; font-size: 14px;">Producto</th><th style="padding: 12px; text-align: center; font-size: 14px;">${l.cant}</th><th style="padding: 12px; text-align: right; font-size: 14px;">Total</th></tr></thead>
                         <tbody>
-                            ${carrito.map(item => `<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 12px; font-size: 14px;"><b>${item.nombre[currentLang]}</b><br><span style="color: #666; font-size: 12px;">${l.fab}: ${item.fabricante} | ${l.esp}: ${item.espesor.replace('mm',' mm')}</span></td><td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td><td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td></tr>`).join('')}
+                            ${carrito.map(item => `<tr style="border-bottom: 1px solid #E2E8F0;"><td style="padding: 12px; font-size: 14px;"><b>${item.nombre[currentLang]}</b><br><span style="color: #64748B; font-size: 12px;">${l.fab}: ${item.fabricante} | ${l.esp}: ${item.espesor.replace('mm',' mm')}</span></td><td style="padding: 12px; text-align: center; font-size: 14px;">${item.cantidad}</td><td style="padding: 12px; text-align: right; font-size: 14px;"><b>${(item.precioFinal * item.cantidad).toFixed(2)}€</b></td></tr>`).join('')}
                         </tbody>
                     </table>
-                    <div style="text-align: right; border-top: 2px solid #eee; padding-top: 20px;">
-                        <p style="margin: 5px 0; color: #666; font-size: 14px;">${l.sub}: ${subtotal.toFixed(2)}€</p>
-                        <p style="margin: 5px 0; color: #666; font-size: 14px;">IVA (21%): ${iva.toFixed(2)}€</p>
-                        <h2 style="color: #2B2B2B; font-size: 24px; margin: 10px 0 0 0;">${l.total.toUpperCase()}: <span style="color: #F6B64E;">${total.toFixed(2)}€</span></h2>
+                    <div style="text-align: right; border-top: 2px solid #E2E8F0; padding-top: 20px;">
+                        <p style="margin: 5px 0; color: #64748B; font-size: 14px;">${l.sub}: ${subtotal.toFixed(2)}€</p>
+                        <p style="margin: 5px 0; color: #64748B; font-size: 14px;">IVA (21%): ${iva.toFixed(2)}€</p>
+                        <h2 style="color: #0F172A; font-size: 24px; margin: 10px 0 0 0;">${l.total.toUpperCase()}: <span style="color: #FF6B00;">${total.toFixed(2)}€</span></h2>
                     </div>
                 </div>
             `;
